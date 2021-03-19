@@ -1,3 +1,5 @@
+// Common Style Setup
+@import "variables";
 @import "reset";
 
 @font-face {
@@ -7,10 +9,77 @@
     font-style: normal;
 }
 
-* {
+html {
     font: {
         family: 'IBMPlexSansKR-Regular';
         weight: normal;
         style: normal;
+        size: $default-font-size;
+    }
+}
+
+.row {
+    margin: 0 auto;
+    &::before {
+        display: table;
+        content: " ";
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.container {
+    min-width: $content-min-width;
+    padding: {
+        left: 0;
+        right: 0;
+    }
+    margin: 0 auto;
+    &::before {
+        display: table;
+        content: " ";
+    }
+    &:after {
+        display: table;
+        content: " ";
+        clear: both;
+    }
+}
+
+.divider {
+    margin: {
+        top: 25px;
+        bottom: 25px;
+    }
+}
+
+main {
+    position: relative;
+    &::before {
+        display: table;
+        content: " ";
+    }
+    &:after {
+        display: table;
+        content: " ";
+        clear: both;
+    }
+    > .content {
+        min-height: $content-min-height;
+        padding: 15px;
+        margin: {
+            left: 25px;
+        }
+        background: {
+            color: #e3e3e3;
+        }
+    }
+}
+
+// Media
+@media (min-width: $content-min-width) {
+    .container {
+        width: $content-min-width;
     }
 }
