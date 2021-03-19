@@ -1,0 +1,45 @@
+// Footer
+footer {
+    color: #fff;
+    background: {
+        color: #3b414d;
+    }
+    & .container {
+        padding: {
+            top: 18px;
+            bottom: 22px;
+        }
+    }
+    & .pull-left {
+        float: left !important;
+        > .symbol {
+            float: left;
+            width: 65px;
+            height: 91px;
+            margin-right: 35px;
+            background: url(https://www.police.go.kr/resources/common/images/footer_symbol.png) no-repeat 0 0;
+            text-indent: -9999px;
+        }
+        & .notice {
+            margin: {
+                top: 50px;
+            }
+        }
+        & #footer__ {
+            &title {
+                font: {
+                    weight: 700;
+                    size: 18px;
+                }
+            }
+            &creator {
+                font: {
+                    size: 12px;
+                }
+            }
+        }
+    }
+    & .pull-right {
+        float: right !important;
+    }
+}
