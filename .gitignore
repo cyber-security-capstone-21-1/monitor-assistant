@@ -1,3 +1,7 @@
+### AWS ###
+aws.yml
+
+### Default ###
 **/node_modules/
 **/.DS_Store
 HELP.md
