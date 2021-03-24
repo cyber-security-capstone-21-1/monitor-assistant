@@ -59,10 +59,7 @@ html {
 
 main {
     position: relative;
-    display: grid;
-    grid-template-areas:
-            "aside main main"
-            "footer footer footer";
+    display: flex;
     &::before {
         display: table;
         content: " ";
@@ -72,8 +69,8 @@ main {
         content: " ";
         clear: both;
     }
-    grid-area: main;
     > .content {
+        width: calc(100vw - 50px);
         min-height: $content-min-height;
         padding: 15px;
         background: {

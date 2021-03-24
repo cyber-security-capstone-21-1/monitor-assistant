@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faSearch, faCog, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faCog, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import "./Aside.scss";
 
 class Aside extends Component {
@@ -8,16 +8,22 @@ class Aside extends Component {
         return (
           <aside>
             <nav>
-              <a className="nav__home" href="/"><FontAwesomeIcon icon={faHome} className="nav__home" /></a>
+              <a className="nav-icon nav__home" href="/" data-tip="처음으로">Home</a>
               <ul>
-                <li>
-                  <a><FontAwesomeIcon icon={faSearch} className="nav__search" /></a>
+                <li data-tip="검색">
+                  <a className="nav-icon nav__search" href="#">
+                    <FontAwesomeIcon icon={faSearch} />
+                  </a>
                 </li>
-                <li>
-                  <a><FontAwesomeIcon icon={faCog} className="nav__preferences" /></a>
+                <li data-tip="설정">
+                  <a className="nav-icon nav__preferences" href="#">
+                    <FontAwesomeIcon icon={faCog} />
+                  </a>
                 </li>
-                <li>
-                  <a><FontAwesomeIcon icon={faSignOutAlt} className="nav__sign_out" /></a>
+                <li data-tip="로그아웃">
+                  <a className="nav-icon nav__sign_out" href="#">
+                    <FontAwesomeIcon icon={faSignOutAlt} />
+                  </a>
                 </li>
               </ul>
             </nav>

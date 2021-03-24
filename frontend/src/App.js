@@ -6,6 +6,8 @@ import Footer from './components/Footer/Footer';
 import PDFViewer from './PDFViewer';
 import Classifier from './Classifier';
 
+import ReactTooltip from 'react-tooltip';
+
 import file from './assets/files/idea-presentation-5.pdf'
 
 import { hot } from 'react-hot-loader';
@@ -15,11 +17,14 @@ class App extends Component {
   render () {
     return (
       <div className="wrapper">
+        <ReactTooltip />
         <main>
           <Aside />
           <div className="content">
             <Classifier />
-            <PDFViewer file={file} />
+            <div className="row">
+              <PDFViewer file={file} />
+            </div>
           </div>
         </main>
         <Footer />

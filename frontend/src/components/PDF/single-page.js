@@ -34,8 +34,12 @@ export default function SinglePage(props) {
         file={pdf}
         options={{ workerSrc: "/pdf.worker.js" }}
         onLoadSuccess={onDocumentLoadSuccess}
+        renderMode="svg"
       >
-        <Page pageNumber={pageNumber} />
+        <Page
+          pageNumber={pageNumber}
+          width="1000"
+        />
       </Document>
       <div className="pdf-document-viewer__navigator">
         <p>
