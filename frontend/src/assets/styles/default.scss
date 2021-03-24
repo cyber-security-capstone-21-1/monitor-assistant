@@ -16,6 +16,9 @@ html {
         style: normal;
         size: $default-font-size;
     }
+    overflow: {
+        x: hidden;
+    }
 }
 
 .row {
@@ -56,6 +59,10 @@ html {
 
 main {
     position: relative;
+    display: grid;
+    grid-template-areas:
+            "aside main main"
+            "footer footer footer";
     &::before {
         display: table;
         content: " ";
@@ -65,12 +72,10 @@ main {
         content: " ";
         clear: both;
     }
+    grid-area: main;
     > .content {
         min-height: $content-min-height;
         padding: 15px;
-        margin: {
-            left: 25px;
-        }
         background: {
             color: #e3e3e3;
         }

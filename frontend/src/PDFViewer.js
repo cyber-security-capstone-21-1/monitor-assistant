@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-import AllPagesPDFViewer from './components/PDF/all-pages';
+import SinglePageViewer from './components/PDF/single-page';
+
+import "./PDFViewer.scss";
 
 class PDFViewer extends Component {
     render () {
         return (
-            <AllPagesPDFViewer pdf={this.props.file} />
-        )
+            <SinglePageViewer pdf={this.props.file} />
+        );
     }
 }
 

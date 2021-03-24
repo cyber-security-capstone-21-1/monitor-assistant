@@ -14,7 +14,7 @@ import "./assets/styles/default.scss";
 class App extends Component {
   render () {
     return (
-      <div>
+      <div className="wrapper">
         <main>
           <Aside />
           <div className="content">

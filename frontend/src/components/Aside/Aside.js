@@ -8,18 +8,16 @@ class Aside extends Component {
         return (
           <aside>
             <nav>
+              <a className="nav__home" href="/"><FontAwesomeIcon icon={faHome} className="nav__home" /></a>
               <ul>
                 <li>
-                  <FontAwesomeIcon icon={faHome} className="nav__home" />
+                  <a><FontAwesomeIcon icon={faSearch} className="nav__search" /></a>
                 </li>
                 <li>
-                  <FontAwesomeIcon icon={faSearch} className="nav__search" />
+                  <a><FontAwesomeIcon icon={faCog} className="nav__preferences" /></a>
                 </li>
                 <li>
-                  <FontAwesomeIcon icon={faCog} className="nav__preferences" />
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faSignOutAlt} className="nav__sign_out" />
+                  <a><FontAwesomeIcon icon={faSignOutAlt} className="nav__sign_out" /></a>
                 </li>
               </ul>
             </nav>

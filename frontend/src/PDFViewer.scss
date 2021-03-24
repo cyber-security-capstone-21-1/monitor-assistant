@@ -1,0 +1,14 @@
+.react-pdf {
+    &__Document {
+        position: relative;
+        width: 100%;
+    }
+    &__Page {
+        box-shadow: 0 25px 50px 0 rgba(62,62,62,.15);
+        &__canvas {
+            margin: 0 auto;
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+}
