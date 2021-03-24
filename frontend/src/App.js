@@ -4,6 +4,7 @@ import Aside from './components/Aside/Aside';
 import Footer from './components/Footer/Footer';
 
 import PDFViewer from './PDFViewer';
+import Classifier from './Classifier';
 
 import file from './assets/files/idea-presentation-5.pdf'
 
@@ -17,6 +18,7 @@ class App extends Component {
         <main>
           <Aside />
           <div className="content">
+            <Classifier />
             <PDFViewer file={file} />
           </div>
         </main>
