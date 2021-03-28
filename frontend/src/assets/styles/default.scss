@@ -16,6 +16,9 @@ html {
         style: normal;
         size: $default-font-size;
     }
+    overflow: {
+        x: hidden;
+    }
 }
 
 .row {
@@ -56,6 +59,7 @@ html {
 
 main {
     position: relative;
+    display: flex;
     &::before {
         display: table;
         content: " ";
@@ -66,11 +70,9 @@ main {
         clear: both;
     }
     > .content {
+        width: calc(100vw - 50px);
         min-height: $content-min-height;
         padding: 15px;
-        margin: {
-            left: 25px;
-        }
         background: {
             color: #e3e3e3;
         }

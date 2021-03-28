@@ -1,6 +1,6 @@
 import React, { useState, useRef, useReducer } from "react";
 import * as mobilenet from "@tensorflow-models/mobilenet";
-import image from './assets/images/dog1.jpg';
+import image from '@/assets/images/dog1.jpg';
 
 const machine = {
     initial: "initial",
@@ -86,26 +86,32 @@ function Classifier () {
     const { showImage, showResults } = machine.states[appState];
   
     return (
-      <div>
-        {<img src={imageURL} ref={imageRef}></img>}
-        <input
-          type="file"
-          accept="image/*"
-          capture="camera"
-          onChange={handleUpload}
-          ref={inputRef}
-        ></input>
-        {showResults && (
-          <ul>
-            {results.map(({ className, probability }) => (
-              <li key={className}>{`${className} is ${probability * 100}%`}</li>
-            ))}
-          </ul>
-        )}
-        <button onClick={actionButton[appState].action || (() => {})}>
-          {actionButton[appState].text}
-        </button>
-      </div>
+      <section>
+        <article>
+          <header>이미지 유형 분류기</header>
+          <div>
+            {<img src={imageURL} ref={imageRef}></img>}
+            <input
+              type="file"
+              accept="image/*"
+              capture="camera"
+              onChange={handleUpload}
+              ref={inputRef}
+            ></input>
+            {showResults && (
+              <ul>
+                {results.map(({ className, probability }) => (
+                  <li key={className}>{`${className} is ${probability * 100}%`}</li>
+                ))}
+              </ul>
+            )}
+            <button onClick={actionButton[appState].action || (() => {})}>
+              {actionButton[appState].text}
+            </button>
+          </div>
+        </article>
+      </section>
+
     );
 }
 

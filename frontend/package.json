@@ -4,10 +4,6 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.12.3",
-    "@tensorflow-models/mobilenet": "^2.1.0",
-    "@tensorflow/tfjs": "^3.3.0",
-    "@tensorflow/tfjs-converter": "^3.3.0",
-    "@tensorflow/tfjs-core": "^3.3.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
@@ -15,6 +11,10 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
     "@svgr/webpack": "5.5.0",
+    "@tensorflow-models/mobilenet": "^2.1.0",
+    "@tensorflow/tfjs": "^3.3.0",
+    "@tensorflow/tfjs-converter": "^3.3.0",
+    "@tensorflow/tfjs-core": "^3.3.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -73,6 +73,7 @@
     "react-pdf": "^5.2.0",
     "react-refresh": "^0.8.3",
     "react-router-dom": "^5.2.0",
+    "react-tooltip": "^4.2.15",
     "redux": "^4.0.5",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",
@@ -167,6 +168,7 @@
     "resetMocks": true
   },
   "devDependencies": {
+    "module-alias": "^2.2.2",
     "react-hot-loader": "^4.13.0"
   },
   "babel": {
@@ -176,5 +178,8 @@
     "plugins": [
       "react-hot-loader/babel"
     ]
+  },
+  "_moduleAliases": {
+    "@": "src"
   }
 }
