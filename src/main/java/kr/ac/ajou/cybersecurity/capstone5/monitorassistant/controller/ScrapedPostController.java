@@ -1,23 +1,34 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.controller;
 
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.adapter.PostAdapter;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.PostResponse;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScraperService;
-import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/monitor")
-@AllArgsConstructor
 public class ScrapedPostController {
+
+    @Autowired
+    private ScraperService scraperService;
+
     @GetMapping("/")
-    public List<PostEntity> load(@RequestParam("keyword") String keyword) throws IOException {
-        ScraperService s = new ScraperService(keyword);
-        return s.getPostEntityList();
+    @ResponseBody
+    public PostResponse scrape(@RequestParam String keyword) {
+        List<String> errors = new ArrayList<>();
+        List<PostEntity> postEntities = null;
+
+        try {
+            postEntities = scraperService.scrape(keyword);
+        } catch (final Exception e) {
+            errors.add(e.getMessage());
+        }
+
+        return PostAdapter.postResponse(postEntities, errors);
     }
 }

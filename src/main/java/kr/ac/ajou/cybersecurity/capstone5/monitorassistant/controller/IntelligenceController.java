@@ -20,5 +20,5 @@ public class IntelligenceController {
     public List<IntelligenceEntity> all() {
         return intelligenceRepository.findAll();
     }
-
+    
 }
