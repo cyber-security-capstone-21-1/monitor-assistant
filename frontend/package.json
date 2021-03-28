@@ -168,6 +168,7 @@
     "resetMocks": true
   },
   "devDependencies": {
+    "module-alias": "^2.2.2",
     "react-hot-loader": "^4.13.0"
   },
   "babel": {
@@ -177,5 +178,8 @@
     "plugins": [
       "react-hot-loader/babel"
     ]
+  },
+  "_moduleAliases": {
+    "@": "src"
   }
 }

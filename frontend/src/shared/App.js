@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-import Aside from './components/Aside/Aside';
-import Footer from './components/Footer/Footer';
+import { Route } from 'react-router-dom';
 
-import PDFViewer from './PDFViewer';
-import Classifier from './Classifier';
-
+import {Dashboard, Classify, Viewer} from "@/pages";
 import ReactTooltip from 'react-tooltip';
 
-import file from './assets/files/idea-presentation-5.pdf'
+import "@/assets/styles/default.scss";
+
+import Aside from '@/components/Aside/Aside';
+import Footer from '@/components/Footer/Footer';
 
 import { hot } from 'react-hot-loader';
-import "./assets/styles/default.scss";
 
 class App extends Component {
   render () {
@@ -21,9 +19,12 @@ class App extends Component {
         <main>
           <Aside />
           <div className="content">
-            <Classifier />
             <div className="row">
-              <PDFViewer file={file} />
+              
+              <Route exact path="/" component={Dashboard} />
+              <Route path="/viewer" component={Viewer} />
+              <Route path="/classify" component={Classify} />
+
             </div>
           </div>
         </main>

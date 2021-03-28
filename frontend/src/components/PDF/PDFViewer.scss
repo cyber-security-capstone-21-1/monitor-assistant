@@ -1,34 +1,15 @@
-.pdf-document-viewer {
-    position: relative;
-    margin: {
-        bottom: 20px;
+.react-pdf {
+    &__Document {
+        position: relative;
+        max-width: 80vw;
+        margin: 0 auto;
     }
-    > .pdf-document-viewer__navigator {
-        position: absolute;
-        left: 50%;
-        bottom: -20px;
-        transform: translateX(-50%);
-        text-align: center;
+    &__Page {
         box-shadow: 0 25px 50px 0 rgba(62,62,62,.15);
-        background: {
-            color: #fff;
-        }
-        padding: 10px 40px;
-        border: {
-            radius: 12px;
-        }
-        > p {
-            font: {
-                size: 16px;
-            }
-            margin: {
-                bottom: 10px;
-            }
-            > span:first-child {
-                font: {
-                    weight: bold;
-                }
-            }
+        &__canvas {
+            margin: 0 auto;
+            width: 100% !important;
+            height: 100% !important;
         }
     }
 }
