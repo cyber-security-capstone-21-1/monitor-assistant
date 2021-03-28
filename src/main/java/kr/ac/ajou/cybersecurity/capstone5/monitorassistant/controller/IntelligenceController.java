@@ -15,7 +15,7 @@ import java.util.List;
 public class IntelligenceController {
 
     private IntelligenceRepository intelligenceRepository;
-
+// hihi
     @GetMapping("/")
     public List<IntelligenceEntity> all() {
         return intelligenceRepository.findAll();
