@@ -6,24 +6,20 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ScraperService {
 
         private static String TEST_CRAWL_DATA_URL = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=";
-
         private Document doc;
+        @Getter private List<PostEntity> postEntityList = new ArrayList<>();
 
-        @Getter
-        private List<PostEntity> postEntityList = new ArrayList<>();
-
-        private String keyword;
-
-        public ScraperService(String keyword) throws IOException {
-            this.keyword = keyword;
+        public List<PostEntity> scrape(String keyword) throws IOException{
             this.doc = Jsoup.connect(TEST_CRAWL_DATA_URL + keyword).get();
             Elements elements = doc.select(".bx._svp_item");
             for (Element el : elements) {
@@ -37,6 +33,7 @@ public class ScraperService {
                         .build();
                 postEntityList.add(postEntity);
             }
+            return postEntityList;
         }
 
 }
