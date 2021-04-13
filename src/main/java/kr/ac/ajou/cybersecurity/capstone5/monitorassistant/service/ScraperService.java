@@ -17,9 +17,10 @@ public class ScraperService {
 
         private static String TEST_CRAWL_DATA_URL = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=";
         private Document doc;
-        @Getter private List<PostEntity> postEntityList = new ArrayList<>();
+        @Getter private List<PostEntity> postEntityList;
 
         public List<PostEntity> scrape(String keyword) throws IOException{
+            postEntityList=new ArrayList<>();
             this.doc = Jsoup.connect(TEST_CRAWL_DATA_URL + keyword).get();
             Elements elements = doc.select(".bx._svp_item");
             for (Element el : elements) {

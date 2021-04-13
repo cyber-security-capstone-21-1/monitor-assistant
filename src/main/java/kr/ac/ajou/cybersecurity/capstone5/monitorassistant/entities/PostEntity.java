@@ -4,9 +4,9 @@ import lombok.*;
 
 @Data
 @Builder
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+// 그냥 게시물 scrapping하기 위한 entity
 public class PostEntity {
     private String site;
     private String title;
