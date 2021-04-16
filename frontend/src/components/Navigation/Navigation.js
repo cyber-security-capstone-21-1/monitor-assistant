@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Navigation extends Component {
-    render () {
-        return (
-            <nav>
-                <Route path="/" exact={true} />
-            </nav>
-        )
-    }
+function Navigation (props) {
+    return (
+        <nav>
+            <Route path="/" exact={true} />
+        </nav>
+    )
 }
 
 export default Navigation;
