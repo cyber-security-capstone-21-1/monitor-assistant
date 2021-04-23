@@ -17,7 +17,7 @@ public class ScrapedPostController {
     @Autowired
     private ScraperService scraperService;
     @GetMapping("/naver")
-    public PostResponse scrape(@RequestParam String keyword) {
+    public PostResponse scrapeNaver(@RequestParam String keyword) {
         List<String> errors = new ArrayList<>();
         List<PostEntity> postEntities = null;
         try {
