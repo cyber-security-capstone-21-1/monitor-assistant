@@ -2,8 +2,9 @@ import React from 'react';
 import PageHeader from '@/components/PageHeader/PageHeader';
 
 import Swal from 'sweetalert2';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 
 function Monitor (props) {
     
@@ -22,21 +23,21 @@ function Monitor (props) {
                     timer: 3000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      toast.addEventListener('mouseenter', Swal.stopTimer);
+                      toast.addEventListener('mouseleave', Swal.resumeTimer);
                     }
-                  })
+                  });
                   
                   Toast.fire({
                     icon: 'success',
                     title: '100개가 검색되었습니다.'
-                  })
+                  });
             }
         }).then((result) => {
             
             /* Read more about handling dismissals below */
             if (result.dismiss === Swal.DismissReason.timer) {
-                console.log('I was closed by the timer')
+                console.log('I was closed by the timer');
             }
         });
     };
@@ -49,24 +50,48 @@ function Monitor (props) {
         }
     };
 
-    const openDialog = () => {
+    const openDialog = (item) => {
         Swal.fire({
-            title: '<strong>HTML <u>example</u></strong>',
-            icon: 'info',
+            title: `<header>게시물 제목</header>`,
             html:
-              'You can use <b>bold text</b>, ' +
-              '<a href="//sweetalert2.github.io">links</a> ' +
-              'and other HTML tags',
-            showCloseButton: true,
+              `게시물 body 영역`,
+            showCloseButton: false,
             showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonText:
-              '<i class="fa fa-thumbs-up"></i> Great!',
-            confirmButtonAriaLabel: 'Thumbs up, great!',
-            cancelButtonText:
-              '<i class="fa fa-thumbs-down"></i>',
-            cancelButtonAriaLabel: 'Thumbs down'
-          })
+            focusConfirm: true,
+            confirmButtonText: '저장',
+            confirmButtonAriaLabel: '저장',
+            cancelButtonText: '닫기',
+            cancelButtonColor: "red",
+            cancelButtonAriaLabel: '닫기',
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                return axios.all([
+                    axios.post('/api/archiver/v1/archive', { "url": "http://naver.com" }, { headers: { "Access-Control-Allow-Origin": "*" } }),
+                    axios.post('/api/archiver/v1/screenshot', { "url": "http://naver.com" }, { headers: { "Access-Control-Allow-Origin": "*" } }),
+                ]);
+            }
+          }).then((result) => {
+              if (result.isConfirmed) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer);
+                      toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    }
+                  });
+                  
+                  Toast.fire({
+                    icon: 'success',
+                    title: '저장되었습니다.'
+                  });
+              }
+          }).catch((err) => {
+              console.error(err);
+          });
     };
 
     return (

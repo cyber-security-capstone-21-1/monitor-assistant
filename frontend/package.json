@@ -95,7 +95,6 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
-  "proxy": "http://localhost:8080",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -167,6 +166,7 @@
     "resetMocks": true
   },
   "devDependencies": {
+    "http-proxy-middleware": "^0.19.1",
     "module-alias": "^2.2.2",
     "node-sass": "^5.0.0",
     "react-hot-loader": "^4.13.0"
