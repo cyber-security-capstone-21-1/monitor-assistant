@@ -10,6 +10,7 @@ import lombok.*;
 public class PostEntity {
     private String site;
     private String title;
+    private String view;
     private String created_at;
     private String author;
     private String content;
