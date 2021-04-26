@@ -42,6 +42,9 @@ public class ScraperService {
             }
             return postEntityList;
         }
+        /*
+        검색할때 최신순 아닌 정확도순
+        * */
     public List<PostEntity> scrapeNate(String keyword) throws IOException{
         postEntityList=new ArrayList<>();
          Document []doc= new Document[3];
