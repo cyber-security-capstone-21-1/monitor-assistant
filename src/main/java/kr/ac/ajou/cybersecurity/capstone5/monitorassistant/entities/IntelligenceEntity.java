@@ -42,6 +42,9 @@ public class IntelligenceEntity implements Serializable {
     @Column(name = "archived_UID" ,nullable= false)
     private String archived_UID;
 
+    @Column(name = "user_id")
+    private int user_id;
+
     //@lob --> 대용량 데이터 저장에 용이  content 할때 써도될듯
 
 }
