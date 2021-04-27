@@ -1,6 +1,9 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +12,9 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "intelligence")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 // 첩보물 (즉, 진짜 위험성 여부가 있다고 생각하는 게시글들을 DB에 저장하기 위한 Entity)
 public class IntelligenceEntity implements Serializable {
 
