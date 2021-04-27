@@ -7,7 +7,6 @@ import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScrapeNate;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScraperService;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScraperServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -18,6 +17,10 @@ import java.util.List;
 @RequestMapping("/test/monitor")
 public class ScrapedPostController {
 
+    /*
+    * service 주입 하는거 interface이용해서 list or map 으로 주입하는 방법 찾아보기(SpringBoot)
+    *  좀 더 깔끔하게,,
+    * */
     @Autowired
     private ScrapeNate scrapeNate;
     @Autowired
