@@ -1,6 +1,5 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response;
 
-import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public abstract class ApiResponse<T> {
     @NonNull
-    private List<PostEntity> data;
+    private T data;
     private List<String> errors;
 }
