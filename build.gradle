@@ -42,30 +42,30 @@ test {
 	useJUnitPlatform()
 }
 
-//def webappDir = "$projectDir/frontend"
-//
-//node {
-//	version = '10.15.0'
-//	download=true
-//	workDir = file("${project.buildDir}/nodejs")
-//	npmWorkDir=file("${project.buildDir}/npm")
-//}
-//
-//task appNpmInstall(type: NpmTask) {
-//	workingDir = file("${project.projectDir}/frontend")
-//	args = ["install"]
-//}
-//
-//task appNpmBuild(type: NpmTask) {
-//	workingDir = file("${project.projectDir}/frontend")
-//	args = ['run', 'build']
-//}
-//
-//task copyWebApp(type: Copy) {
-//	from "frontend/build"
-//	into 'build/resources/main/static/.'
-//}
-//
-//appNpmBuild.dependsOn appNpmInstall
-//copyWebApp.dependsOn appNpmBuild
-//compileJava.dependsOn copyWebApp
+def webappDir = "$projectDir/frontend"
+
+node {
+	version = '10.15.0'
+	download=true
+	workDir = file("${project.buildDir}/nodejs")
+	npmWorkDir=file("${project.buildDir}/npm")
+}
+
+task appNpmInstall(type: NpmTask) {
+	workingDir = file("${project.projectDir}/frontend")
+	args = ["install"]
+}
+
+task appNpmBuild(type: NpmTask) {
+	workingDir = file("${project.projectDir}/frontend")
+	args = ['run', 'build']
+}
+
+task copyWebApp(type: Copy) {
+	from "frontend/build"
+	into 'build/resources/main/static/.'
+}
+
+appNpmBuild.dependsOn appNpmInstall
+copyWebApp.dependsOn appNpmBuild
+compileJava.dependsOn copyWebApp
