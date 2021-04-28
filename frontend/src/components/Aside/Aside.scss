@@ -20,15 +20,27 @@ aside {
         }
         > ul {
             > li {
+                position: relative;
                 display: inline-block;
                 width: 50px;
                 height: 50px;
                 line-height: 50px;
                 text-align: center;
+                > a {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 50px;
+                    height: 50px;
+                }
                 &:hover {
+                    cursor: pointer;
                     background: {
-                        color: rgba(0, 0, 0, .12);
-                        transition: .5s all ease-out;
+                        color: #3b414d;
+                    }
+                    transition: .2s all ease-out;
+                    > a {
+                        color: #fff;
                     }
                 }
             }
