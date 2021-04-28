@@ -36,14 +36,12 @@ export default function SinglePage(props) {
         onLoadSuccess={onDocumentLoadSuccess}
         renderMode="svg"
       >
-        <Page
-          pageNumber={pageNumber}
-          width="1000"
-        />
+        <Page pageNumber={pageNumber} width="1000" />
       </Document>
       <div className="pdf-document-viewer__navigator">
         <p>
-          <span>{pageNumber || (numPages ? 1 : "--")}</span> / <span>{numPages || "--"}</span>
+          <span>{pageNumber || (numPages ? 1 : "--")}</span> /{" "}
+          <span>{numPages || "--"}</span>
         </p>
         <button type="button" disabled={pageNumber <= 1} onClick={previousPage}>
           Previous
