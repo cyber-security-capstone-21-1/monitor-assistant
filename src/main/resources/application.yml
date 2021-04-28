@@ -10,3 +10,5 @@ springdoc:
     path: /api
     display-request-duration: true
     groups-order: DESC
+jwt:
+  secret: monitorAssistant
