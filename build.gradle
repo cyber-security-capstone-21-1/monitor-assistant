@@ -44,7 +44,7 @@ test {
 def webappDir = "$projectDir/frontend"
 
 node {
-	version = '10.15.0'
+	version = '15.13.0'
 	download=true
 	workDir = file("${project.buildDir}/nodejs")
 	npmWorkDir=file("${project.buildDir}/npm")

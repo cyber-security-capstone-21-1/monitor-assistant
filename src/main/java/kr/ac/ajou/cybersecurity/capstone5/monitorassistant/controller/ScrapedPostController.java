@@ -2,10 +2,7 @@ package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.controller;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.adapter.PostAdapter;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.PostResponse;
-import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScrapeHumor;
-import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScrapeNate;
-import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScraperService;
-import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScraperServiceInterface;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +25,9 @@ public class ScrapedPostController {
     @Autowired
     private ScraperServiceInterface scrapeClien;
     @Autowired
-    private ScraperService scrapeNaver;
+    private ScrapeFmkorea scrapeFmkorea;
+    @Autowired
+    private ScrapeNaver scrapeNaver;
 
     @GetMapping("/naver")
     public PostResponse scrapeNaver(@RequestParam String keyword) {
@@ -72,6 +71,18 @@ public class ScrapedPostController {
         List<String> errors = new ArrayList<>();
         try {
             postEntities = scrapeClien.scrape(keyword);
+        } catch (final Exception e) {
+            errors.add(e.getMessage());
+        }
+        return PostAdapter.postResponse(postEntities, errors);
+    }
+    @GetMapping("/fmkorea")
+    public PostResponse scrapeFmkorea(@RequestParam String keyword) throws IOException {
+
+        List<PostEntity> postEntities = null;
+        List<String> errors = new ArrayList<>();
+        try {
+            postEntities = scrapeFmkorea.scrape(keyword);
         } catch (final Exception e) {
             errors.add(e.getMessage());
         }

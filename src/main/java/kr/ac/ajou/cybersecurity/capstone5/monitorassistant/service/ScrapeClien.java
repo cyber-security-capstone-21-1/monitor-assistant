@@ -24,6 +24,7 @@ public class ScrapeClien implements ScraperServiceInterface {
     public List<PostEntity> scrape(String keyword) throws IOException {
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
+
         for (int i = 0; i < 3; i++) {
             doc[i] = Jsoup.connect(Clien_CRAWL_DATA_URL + keyword + "&p=" + (i)).get();//3page까지 긁어오기
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
