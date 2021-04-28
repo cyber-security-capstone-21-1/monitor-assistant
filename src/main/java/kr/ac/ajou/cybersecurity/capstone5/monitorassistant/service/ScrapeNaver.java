@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ScraperService implements ScraperServiceInterface {
+public class ScrapeNaver implements ScraperServiceInterface {
 
     private static String TEST_CRAWL_DATA_URL = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=";
+
 
     @Getter
     private List<PostEntity> postEntityList;
@@ -39,4 +40,5 @@ public class ScraperService implements ScraperServiceInterface {
         }
         return postEntityList;
     }
+
 }

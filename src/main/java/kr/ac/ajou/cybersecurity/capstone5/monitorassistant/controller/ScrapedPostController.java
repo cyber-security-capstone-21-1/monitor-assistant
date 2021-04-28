@@ -4,7 +4,7 @@ import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.PostResponse;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScrapeHumor;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScrapeNate;
-import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScraperService;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScrapeNaver;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ScraperServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class ScrapedPostController {
     @Autowired
     private ScraperServiceInterface scrapeClien;
     @Autowired
-    private ScraperService scrapeNaver;
+    private ScrapeNaver scrapeNaver;
 
     @GetMapping("/naver")
     public PostResponse scrapeNaver(@RequestParam String keyword) {
