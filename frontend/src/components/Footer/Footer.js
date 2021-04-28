@@ -10,7 +10,10 @@ function Footer (props) {
             <div className="symbol"></div>
           </div>
           <div className="pull-left">
-            <span id="footer__title">사이버수사관 모니터링업무보조시스템</span>
+            <p id="footer__title">
+              <span>사이버수사관 모니터링업무보조시스템</span><br/>
+              <span><small>CYBER CRIME MONITORING ASSISTANCE PROGRAM</small></span>
+            </p>
             <div className="divider"></div>
             <div className="notice">
               <span>&copy; 경찰청. 시스템의 외부 유출을 금합니다.</span>
