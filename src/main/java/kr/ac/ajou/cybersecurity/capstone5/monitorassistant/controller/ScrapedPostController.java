@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/test/monitor")
+@RequestMapping("/api/monitor")
 public class ScrapedPostController {
 
     /*
