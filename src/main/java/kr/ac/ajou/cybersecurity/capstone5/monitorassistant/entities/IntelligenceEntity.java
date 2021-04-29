@@ -50,7 +50,7 @@ public class IntelligenceEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = true)
-    private User user;
+    private UserEntity userEntity;
     //@lob --> 대용량 데이터 저장에 용이  content 할때 써도될듯
 
 }
