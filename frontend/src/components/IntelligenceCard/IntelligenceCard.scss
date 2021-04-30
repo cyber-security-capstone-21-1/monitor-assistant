@@ -1,0 +1,52 @@
+article.card {
+    border-radius: 10px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    background: #fff;
+    padding: 10px 0 0 0;
+    overflow: hidden;
+    box-shadow: 0 2px 2px -1px rgba(152, 162, 179, 0.3), 0 1px 5px -2px rgba(152, 162, 179, 0.3);
+    > .content {
+        padding: 0 10px 0 10px;
+        > header {
+            font: {
+                size: 160%;
+            }
+        }
+        > p {
+            min-height: 100px;
+        }
+    }
+    > footer {
+        > p {
+            text-align: center;
+        }
+        > .footer__prefs {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            > .button {
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+                align-items: center;
+                color: #fff;
+                padding: 5px 0;
+                font: {
+                    weight: 700;
+                }
+                text-decoration: none;
+                &__warning {
+                    background: red;
+                }
+                &__info {
+                    background: blueviolet;
+                }
+                &__cursor__pointer {
+                    cursor: pointer;
+                }
+            }
+        }
+        border-radius: 0 0 10px 10px;
+    }
+}

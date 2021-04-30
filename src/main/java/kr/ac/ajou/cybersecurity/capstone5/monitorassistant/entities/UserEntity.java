@@ -1,5 +1,6 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Entity
@@ -43,9 +45,9 @@ public class UserEntity implements Serializable, UserDetails {
     @Column(name = "role")
     private int role;
 
-    @OneToMany
-    @JoinColumn(name = "id")
-    private Set<IntelligenceEntity> intelligences;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity")
+    @JsonIgnore
+    private List<IntelligenceEntity> intelligences = new ArrayList<>();
 
     // Overrides from UserDetails
     @Override
