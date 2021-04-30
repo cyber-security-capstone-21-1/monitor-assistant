@@ -13,37 +13,64 @@ function Monitor(props) {
   const [siteList, setSiteList] = useState([]);
   const useinput = useRef();
 
-  const search = () => {
+  const search = async () => {
     let resLength = 0;
+    const word = useinput.current.value;
+
     Swal.fire({
       title: "검색 중입니다...",
-      html: "검색이 완료되면 창이 자동으로 사라집니다.",
+      html: "검색이 완료되는 순서대로 화면에 표시됩니다.",
       allowOutsideClick: false,
+      preConfirm: async () => {
+        const word = useinput.current.value;
+        const setAxios = axios.create({
+          baseURL: `http://localhost:8080/api/monitor`,
+          params: {},
+        });
+        setPostList([]);
+        setSiteList([]);
+        for (let i = 0; i < crawlSiteList.length; i++) {
+          setAxios
+            .get(
+              `http://localhost:8080/api/monitor/${crawlSiteList[i]}?keyword=${word}`
+            )
+            .then((response) => {
+              const siteName = response.data.data[0].site;
+              console.log(siteName, " 완료");
+              console.log(response.data.data);
+              setPostList((state) => [...state, ...response.data.data]);
+              setSiteList((site) => [...site, siteName]);
+              resLength += response.data.data.length;
+            });
+        }
+      },
+
       didOpen: async () => {
+        console.log("실행앋뇜");
         Swal.showLoading();
         const word = useinput.current.value;
         const setAxios = axios.create({
           baseURL: `http://localhost:8080/test/monitor`,
           params: {},
         });
-
         setPostList([]);
         setSiteList([]);
-
-        
         //==================응답 순서대로 렌더링============================//
         for (let i = 0; i < crawlSiteList.length; i++) {
-          setAxios.get(`http://localhost:8080/test/monitor/${crawlSiteList[i]}?keyword=${word}`).then(response => {
-            const siteName = response.data.data[0].site;
-            console.log(siteName, " 완료");
-            console.log(response.data.data);
-            setPostList((state) => [...state, ...response.data.data]);
-            setSiteList((site) => [...site, siteName]);
-            resLength += response.data.data.length;
-          })
+          setAxios
+            .get(
+              `http://localhost:8080/test/monitor/${crawlSiteList[i]}?keyword=${word}`
+            )
+            .then((response) => {
+              const siteName = response.data.data[0].site;
+              console.log(siteName, " 완료");
+              console.log(response.data.data);
+              setPostList((state) => [...state, ...response.data.data]);
+              setSiteList((site) => [...site, siteName]);
+              resLength += response.data.data.length;
+            });
         }
         //==================응답 순서대로 렌더링============================//
-
 
         //===================한번에 가져오는 코드==========================//
         // const siteAxios = new Array();
