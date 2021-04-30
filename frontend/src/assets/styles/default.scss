@@ -201,3 +201,9 @@ table {
         width: $content-min-width;
     }
 }
+
+@media (max-width: 720px) {
+    main {
+        display: block;
+    }
+}
