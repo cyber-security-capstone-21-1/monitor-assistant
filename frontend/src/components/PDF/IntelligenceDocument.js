@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Page,
   Text,
@@ -9,11 +9,10 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 
-import TestImage from "@/assets/images/dog1.jpg";
 import Logo from "@/assets/images/logo.png";
 import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/assets/fonts/IBMPlexSansKR";
 
-export default function IntelligenceCreator(props) {
+export default function IntelligenceDocument(props) {
 
   Font.register({
     family: "IBMPlexSansKR",
@@ -80,16 +79,7 @@ export default function IntelligenceCreator(props) {
       width: "calc(100% - 100)",
       fontSize: 10,
       verticalAlign: "middle"
-    },
-    pageNumber: {
-      position: "absolute",
-      fontSize: 12,
-      bottom: 30,
-      left: 0,
-      right: 0,
-      textAlign: "center",
-      color: "grey",
-    },
+    }
   });
   return (
     // PDF Document Starts

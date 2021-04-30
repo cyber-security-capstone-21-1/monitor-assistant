@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-import IntelligenceCreator from "./types/Intelligence-creator";
-
-import "./PDFViewer.scss";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import IntelligenceDocument from "./IntelligenceDocument";
 
 function Viewer(props) {
   const [PDFBinary, setPDFBinary] = useState("");
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <section>
       <article>
         <PDFDownloadLink
-          document={<IntelligenceCreator />}
+          document={<IntelligenceDocument />}
           fileName="intelligence.pdf"
         >
           {
