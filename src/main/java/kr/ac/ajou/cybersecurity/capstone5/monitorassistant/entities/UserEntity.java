@@ -22,6 +22,7 @@ public class UserEntity implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
+    // 사용자 역할 분리 (일반 사용자 / 관리자)
     public enum Role { USER, ADMIN };
 
     @Id
@@ -32,6 +33,7 @@ public class UserEntity implements Serializable, UserDetails {
     @Column(name = "name", length = 500)
     private String name;
 
+    // Encrypted with Bcrypt
     @Column(name = "password_encrypted", length = 500)
     private String password_encrypted;
 
