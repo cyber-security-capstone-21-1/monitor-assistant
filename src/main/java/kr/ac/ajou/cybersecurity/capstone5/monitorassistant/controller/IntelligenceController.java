@@ -30,6 +30,7 @@ public class IntelligenceController {
 
     @GetMapping("/")
     public List<IntelligenceEntity> all() {
+        // 전체 User에 대한 List 반환 중 --> 향후 JWT Token 사용해 User에 따른 List 반환
         return intelligenceRepository.findAll();
     }
 

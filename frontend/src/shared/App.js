@@ -21,7 +21,7 @@ function App (props) {
           <div className="row">
             
             <Route exact path="/" component={Dashboard} />
-            <Route path="/viewer" component={Viewer} />
+            <Route path="/intelligence/:uid" component={Viewer} />
             <Route path="/list" component={IntList} />
             <Route path="/monitor" component={Monitor} />
 
