@@ -1,5 +1,6 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-// 첩보물 (즉, 진짜 위험성 여부가 있다고 생각하는 게시글들을 DB에 저장하기 위한 Entity)
 public class IntelligenceEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,12 +45,12 @@ public class IntelligenceEntity implements Serializable {
     @Column(name = "action_plan", length = 500)
     private String action_plan;
 
-    @Column(name = "archived_UID" ,nullable= false)
+    @Column(name = "archived_UID", nullable= false)
     private String archived_UID;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = true)
+    @JsonIgnore
+    @JoinColumn(name = "user_id")
     private UserEntity userEntity;
-    //@lob --> 대용량 데이터 저장에 용이  content 할때 써도될듯
 
 }

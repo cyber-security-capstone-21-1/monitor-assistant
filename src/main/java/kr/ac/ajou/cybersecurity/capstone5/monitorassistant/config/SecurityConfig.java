@@ -51,13 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/favicon.ico").permitAll()
-                .antMatchers("/public/**").permitAll()
-                .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/v3/**").permitAll()
+                .antMatchers("/**/**").permitAll() // 임시
+//                .antMatchers("/favicon.ico").permitAll()
+//                .antMatchers("/public/**").permitAll()
+//                .antMatchers("/swagger-ui/**").permitAll()
+//                .antMatchers("/authenticate").permitAll()
+//                .antMatchers("/api/auth/**").permitAll()
+//                .antMatchers("/auth/**").permitAll()
+//                .antMatchers("/v3/**").permitAll()
                 .anyRequest().authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
