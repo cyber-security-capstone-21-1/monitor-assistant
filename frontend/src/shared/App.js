@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import {Dashboard, Viewer, IntList, Monitor} from "@/pages";
+import { Dashboard, Viewer, IntList, Monitor } from "@/pages";
 import ReactTooltip from 'react-tooltip';
 
 import "@/assets/styles/default.scss";
@@ -11,7 +11,9 @@ import Footer from '@/components/Footer/Footer';
 
 import { hot } from 'react-hot-loader';
 
-function App (props) {
+function App ({ match }) {
+  console.log(match);
+
   return (
     <div className="wrapper">
       <ReactTooltip />
@@ -19,12 +21,12 @@ function App (props) {
         <Aside />
         <div className="content">
           <div className="row">
-            
-            <Route exact path="/" component={Dashboard} />
-            <Route path="/intelligence/:uid" component={Viewer} />
-            <Route path="/list" component={IntList} />
-            <Route path="/monitor" component={Monitor} />
-
+            <Switch>
+              <Route path="/" component={Dashboard} />
+              <Route exact path={`/intelligence/:id`} component={Viewer} />
+              <Route exact path={`/list`} component={IntList} />
+              <Route exact path={`/monitor`} component={Monitor} />
+            </Switch>
           </div>
         </div>
       </main>
