@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './shared/App';
-import PageNotFound from './shared/PageNotFound';
-import AuthRouter from './pages/auth';
 
 import axios from 'axios';
 
@@ -15,11 +13,7 @@ axios.defaults.withCredentials = true;
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Switch>
-        <Route path="/auth" component={AuthRouter} />
-        <Route path="/:service" component={App} />
-        <Route path="*" component={PageNotFound} />
-      </Switch>
+      <App />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
