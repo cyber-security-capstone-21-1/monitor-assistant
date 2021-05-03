@@ -20,7 +20,6 @@ public class ScrapeMlbpark implements ScraperServiceInterface {
     @Getter
     private List<PostEntity> postEntityList;
 
-    //작가 없음
     @Override
     public List<PostEntity> scrape(String keyword) throws IOException {
         postEntityList = new ArrayList<>();
@@ -43,12 +42,6 @@ public class ScrapeMlbpark implements ScraperServiceInterface {
                    postEntity.setContent(doc2.select("div.view_context").html());
                     postEntityList.add(postEntity);
                 }
-              //  Document doc2= Jsoup.connect(postEntity.getUrl()).get();
-//                postEntity.setContent();
-//                postEntity.setCreated_at();
-
-
-
             }
         return postEntityList;
     }

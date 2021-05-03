@@ -21,6 +21,8 @@ public class ScrapedPostController {
     @Autowired
     private ScrapeNate scrapeNate;
     @Autowired
+    private ScrapeYgosu scrapeYgosu;
+    @Autowired
     private ScrapeMlbpark scrapeMlbpark;
     @Autowired
     private ScrapeHumor scrapeHumor;
@@ -125,6 +127,18 @@ public class ScrapedPostController {
         List<String> errors = new ArrayList<>();
         try {
             postEntities = scrapeMlbpark.scrape(keyword);
+        } catch (final Exception e) {
+            errors.add(e.getMessage());
+        }
+        return PostAdapter.postResponse(postEntities, errors);
+    }
+    @GetMapping("/ygosu")
+    public PostResponse scrapeYgosu(@RequestParam String keyword) throws IOException {
+
+        List<PostEntity> postEntities = null;
+        List<String> errors = new ArrayList<>();
+        try {
+            postEntities = scrapeYgosu.scrape(keyword);
         } catch (final Exception e) {
             errors.add(e.getMessage());
         }
