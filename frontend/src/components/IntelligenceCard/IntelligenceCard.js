@@ -35,7 +35,7 @@ export default function IntelligenceCard (props) {
             <div className="content">
                 <header>{props.title}</header>
                 <p>
-                    Content Here
+                    {props.content}
                 </p>
             </div>
             <footer>
