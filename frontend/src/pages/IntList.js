@@ -18,7 +18,7 @@ function IntList () {
         <>
             <PageHeader title="첩보 목록" desc="첩보 목록" />
             <section style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
-                {intList.map(({ title, site, author, created_at, archived_UID, id}, index) => {
+                {intList.map(({ title, site, author, created_at, archived_UID, id, content }, index) => {
                     return (
                         <IntelligenceCard
                             title={title}
@@ -26,6 +26,7 @@ function IntList () {
                             author={author}
                             created_at={created_at}
                             uid={archived_UID}
+                            content={content}
                         />
                     )
                 })}

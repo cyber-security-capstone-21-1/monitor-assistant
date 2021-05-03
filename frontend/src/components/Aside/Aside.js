@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faCog, faSignOutAlt, faListAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faCog, faSignInAlt, faSignOutAlt, faListAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 import './Aside.scss';
 
 function Aside (props) {
+
+    const authenticated = false; // 수정 필요
     
     const signOut = () => {
         const MySwal = withReactContent(Swal);
@@ -48,11 +50,20 @@ function Aside (props) {
                             <FontAwesomeIcon icon={faCog} />
                         </Link>
                     </li>
-                    <li data-tip="로그아웃" onClick={signOut}>
-                        <Link className="nav-icon nav__sign_out" to="#">
-                            <FontAwesomeIcon icon={faSignOutAlt} />
-                        </Link>
-                    </li>
+                    { authenticated ?
+                        (<li data-tip="로그아웃" onClick={signOut}>
+                            <Link className="nav-icon nav__sign_out" to="#">
+                                <FontAwesomeIcon icon={faSignOutAlt} />
+                            </Link>
+                        </li>)
+                        :
+                        (<li data-tip="로그인">
+                            <Link className="nav-icon nav__sign_in" to="/auth/login">
+                                <FontAwesomeIcon icon={faSignInAlt} />
+                            </Link>
+                        </li>)
+                    }
+                    
                 </ul>
             </nav>
         </aside>
