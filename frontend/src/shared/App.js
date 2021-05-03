@@ -14,7 +14,8 @@ import PageNotFound from './PageNotFound';
 import { hot } from 'react-hot-loader';
 
 function App (props) {
-  const loggedIn = false;
+  //임시ㅣ 처리
+  const loggedIn = true;
 
   return (
     <Switch>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PageHeader from "@/components/PageHeader/PageHeader";
 
 import Swal from "sweetalert2";
@@ -21,42 +21,14 @@ function Monitor(props) {
       title: "검색 중입니다...",
       html: "검색이 완료되는 순서대로 화면에 표시됩니다.",
       allowOutsideClick: false,
-      //      preConfirm: async () => {
-      //        const word = useinput.current.value;
-      //        const setAxios = axios.create({
-      //          baseURL: `http://localhost:8080/api/monitor`,
-      //          params: {},
-      //        });
-      //        setPostList([]);
-      //        setSiteList([]);
-      //        for (let i = 0; i < crawlSiteList.length; i++) {
-      //          setAxios
-      //            .get(
-      //              `http://localhost:8080/api/monitor/${crawlSiteList[i]}?keyword=${word}`
-      //            )
-      //            .then((response) => {
-      //              const siteName = response.data.data[0].site;
-      //              console.log(siteName, " 완료");
-      //              console.log(response.data.data);
-      //              setPostList((state) => [...state, ...response.data.data]);
-      //              setSiteList((site) => [...site, siteName]);
-      //              resLength += response.data.data.length;
-      //            });
-      //        }
-      //      },
-
       didOpen: async () => {
         Swal.showLoading();
         const word = useinput.current.value;
-        const setAxios = axios.create({
-          baseURL: `http://localhost:8080/api/monitor`,
-          params: {},
-        });
         setPostList([]);
         setSiteList([]);
         //==================응답 순서대로 렌더링============================//
         for (let i = 0; i < crawlSiteList.length; i++) {
-          setAxios
+          axios
             .get(
               `http://localhost:8080/api/monitor/${crawlSiteList[i]}?keyword=${word}`
             )
@@ -74,8 +46,8 @@ function Monitor(props) {
         //===================한번에 가져오는 코드==========================//
         // const siteAxios = new Array();
         // for (let i = 0; i < crawlSiteList.length; i++) {
-        //   siteAxios.push(
-        //     setAxios.get(
+        //   axios.push(
+        //     axios.get(
         //       `http://localhost:8080/test/monitor/${crawlSiteList[i]}?keyword=${word}`
         //     )
         //   );
@@ -173,39 +145,27 @@ function Monitor(props) {
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
-
-              // axios ===========================================================
-              console.log("memo : ", memo);
-              
-              await axios.all([
+              axios.all([
                 axios
                   .post(
-                    "https://sc4q7x54gh.execute-api.ap-northeast-2.amazonaws.com/v1/archive",
-                    { url: item.url },
+                    "/v1/archive",
+                    { url: "http://naver.com" },
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
                   .then(console.log)
                   .catch(console.log),
                 axios
                   .post(
-                    "https://sc4q7x54gh.execute-api.ap-northeast-2.amazonaws.com/v1/screenshot",
-                    { url: item.url },
+                    "/v1/screenshot", //
+                    { url: "http://www.naver.com" },
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
                   .then(console.log)
-                  .catch(console.log),
+                  .catch(console.log), //
               ]);
 
-            //   axios.all([
-            //     axios.post('/api/archiver/v1/archive/', { "url": "http://naver.com" }, { headers: { "Access-Control-Allow-Origin": "*" } }).then(console.log).catch(console.log),
-            //     axios.post('/api/archiver/v1/screenshot/', { "url": "http://naver.com" }, { headers: { "Access-Control-Allow-Origin": "*" } }).then(console.log).catch(console.log),
-            // ]);
-
-              //js에서 날짜를 다듬어서 형식 맞춰서 보낼지 -> axios 배열형태로 못함. 다시 짜야함
-              //const d = new Date(Date.UTC(2019, 11, 13));
               item.created_at = "";
-              axios.post(`http://localhost:8080/api/intelligences/`, item)
-              // axios ===========================================================
+              axios.post(`http://localhost:8080/api/intelligences/`, item);
 
               Swal.close();
             },
@@ -237,6 +197,29 @@ function Monitor(props) {
         }
       });
   };
+
+  useEffect(() => {
+    axios.all([
+      axios
+        .post(
+          "/v1/archive",
+          { url: "http://naver.com" },
+          { headers: { "Access-Control-Allow-Origin": "*" } }
+        )
+        .then((res) => {
+          console.log(res.data.body);
+        })
+        .catch(console.log),
+      axios
+        .post(
+          "/v1/screenshot",
+          { url: "http://naver.com" },
+          { headers: { "Access-Control-Allow-Origin": "*" } }
+        )
+        .then(console.log)
+        .catch(console.log),
+    ]);
+  }, []);
 
   return (
     <>
