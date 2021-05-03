@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { faTrash, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -43,11 +44,11 @@ export default function IntelligenceCard (props) {
                     <span>{props.site}</span>&nbsp;|&nbsp;<span>{props.author}</span>&nbsp;|&nbsp;<span>{new Date(props.created_at).toLocaleString()}</span>
                 </p>
                 <div className="footer__prefs">
-                    <a class="button button__info" href={`/intelligence/${props.uid}`}>
+                    <Link className="button button__info" to={`/intelligence/${props.uid}`}>
                         <FontAwesomeIcon icon={faFileAlt} />&nbsp;
                         <span>문서 보기</span>
-                    </a>
-                    <a class="button button__warning button__cursor__pointer" onClick={onDelete} value={props.id}>
+                    </Link>
+                    <a className="button button__warning button__cursor__pointer" onClick={onDelete} value={props.id}>
                         <FontAwesomeIcon icon={faTrash} />&nbsp;
                         <span>삭제</span>
                     </a>
