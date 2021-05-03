@@ -27,6 +27,8 @@ public class ScrapedPostController {
     @Autowired
     private ScrapeFmkorea scrapeFmkorea;
     @Autowired
+    private ScrapeDcinside scrapeDcinside;
+    @Autowired
     private ScrapePpomppu scrapePpomppu;
     @Autowired
     private ScrapeNaver scrapeNaver;
@@ -97,6 +99,18 @@ public class ScrapedPostController {
         List<String> errors = new ArrayList<>();
         try {
             postEntities = scrapePpomppu.scrape(keyword);
+        } catch (final Exception e) {
+            errors.add(e.getMessage());
+        }
+        return PostAdapter.postResponse(postEntities, errors);
+    }
+    @GetMapping("/dcinside")
+    public PostResponse scrapeDcinside(@RequestParam String keyword) throws IOException {
+
+        List<PostEntity> postEntities = null;
+        List<String> errors = new ArrayList<>();
+        try {
+            postEntities = scrapeDcinside.scrape(keyword);
         } catch (final Exception e) {
             errors.add(e.getMessage());
         }
