@@ -29,16 +29,16 @@ public class ScrapeNate implements ScraperServiceInterface {
             Elements elements = doc[i].select(".s_list li");
             for (Element el : elements) {
                 Document doc_detail = Jsoup.connect("https://pann.nate.com" + el.select(".subject").attr("href")).get();
-                Elements content_element = doc_detail.select("#contentArea");
-                String content_all = content_element.text();
+                String content_all = doc_detail.select("#contentArea").text();
+                String view=doc_detail.select("div.info > span.count").text();
 
                 PostEntity postEntity = PostEntity.builder().author(el.select(".writer").text())
                         .site("nate")
                         .title(el.select(".subject").text())
-                        .created_at(el.select(".date").text())
+                        .created_at(doc_detail.select("span.date").text())
                         .url("https://pann.nate.com" + el.select(".subject").attr("href"))
                         .content(content_all)
-//                        .content(el.select(".txt").text())
+                        .view(view.replaceAll("[^0-9]", ""))
                         .type(el.select(".t_talk").text())
                         .build();
                 postEntityList.add(postEntity);
