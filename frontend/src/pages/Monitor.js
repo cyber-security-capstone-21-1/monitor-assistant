@@ -13,6 +13,7 @@ function Monitor(props) {
   const [siteList, setSiteList] = useState([]);
   const useinput = useRef();
 
+  console.log('dddd')
   const search = async () => {
     let resLength = 0;
     const word = useinput.current.value;
@@ -28,10 +29,16 @@ function Monitor(props) {
         setSiteList([]);
         //==================응답 순서대로 렌더링============================//
         for (let i = 0; i < crawlSiteList.length; i++) {
+          console.log('header 포함')
           axios
             .get(
-              `http://localhost:8080/api/monitor/${crawlSiteList[i]}?keyword=${word}`
+              `http://localhost:8080/api/monitor/${crawlSiteList[i]}?keyword=${word}`,
+              { headers: { "Access-Control-Allow-Origin": "*" } }
             )
+          // axios
+          //   .get(
+          //     `/api/monitor/${crawlSiteList[i]}?keyword=${word}`
+          //   )
             .then((response) => {
               const siteName = response.data.data[0].site;
               console.log(siteName, " 완료");
@@ -145,24 +152,24 @@ function Monitor(props) {
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
-              axios.all([
-                axios
-                  .post(
-                    "/v1/archive",
-                    { url: "http://naver.com" },
-                    { headers: { "Access-Control-Allow-Origin": "*" } }
-                  )
-                  .then(console.log)
-                  .catch(console.log),
-                axios
-                  .post(
-                    "/v1/screenshot", //
-                    { url: "http://www.naver.com" },
-                    { headers: { "Access-Control-Allow-Origin": "*" } }
-                  )
-                  .then(console.log)
-                  .catch(console.log), //
-              ]);
+              // axios.all([
+              //   axios
+              //     .post(
+              //       "/v1/archive",
+              //       { url: "http://naver.com" },
+              //       { headers: { "Access-Control-Allow-Origin": "*" } }
+              //     )
+              //     .then(console.log)
+              //     .catch(console.log),
+              //   axios
+              //     .post(
+              //       "/v1/screenshot", //
+              //       { url: "http://www.naver.com" },
+              //       { headers: { "Access-Control-Allow-Origin": "*" } }
+              //     )
+              //     .then(console.log)
+              //     .catch(console.log), //
+              // ]);
 
               item.created_at = "";
               axios.post(`http://localhost:8080/api/intelligences/`, item);
@@ -198,28 +205,28 @@ function Monitor(props) {
       });
   };
 
-  useEffect(() => {
-    axios.all([
-      axios
-        .post(
-          "/v1/archive",
-          { url: "http://naver.com" },
-          { headers: { "Access-Control-Allow-Origin": "*" } }
-        )
-        .then((res) => {
-          console.log(res.data.body);
-        })
-        .catch(console.log),
-      axios
-        .post(
-          "/v1/screenshot",
-          { url: "http://naver.com" },
-          { headers: { "Access-Control-Allow-Origin": "*" } }
-        )
-        .then(console.log)
-        .catch(console.log),
-    ]);
-  }, []);
+  // useEffect(() => {
+  //   axios.all([
+  //     axios
+  //       .post(
+  //         "/v1/archive",
+  //         { url: "http://naver.com" },
+  //         { headers: { "Access-Control-Allow-Origin": "*" } }
+  //       )
+  //       .then((res) => {
+  //         console.log(res.data.body);
+  //       })
+  //       .catch(console.log),
+  //     axios
+  //       .post(
+  //         "/v1/screenshot",
+  //         { url: "http://naver.com" },
+  //         { headers: { "Access-Control-Allow-Origin": "*" } }
+  //       )
+  //       .then(console.log)
+  //       .catch(console.log),
+  //   ]);
+  // }, []);
 
   return (
     <>
