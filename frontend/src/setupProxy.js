@@ -12,7 +12,7 @@ module.exports = (app) => {
     createProxyMiddleware("/api/monitor", {
       target: "http://127.0.0.1:8080",
       changeOrigin: true,
-      // pathRewrite: { "^/api/monitor": "/" },
+      pathRewrite: { "^/api/monitor": "/" },
     })
   );
 };

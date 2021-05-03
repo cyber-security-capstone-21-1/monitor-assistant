@@ -13,7 +13,6 @@ function Monitor(props) {
   const [siteList, setSiteList] = useState([]);
   const useinput = useRef();
 
-  console.log('dddd')
   const search = async () => {
     let resLength = 0;
     const word = useinput.current.value;
@@ -27,18 +26,15 @@ function Monitor(props) {
         const word = useinput.current.value;
         setPostList([]);
         setSiteList([]);
-        //==================응답 순서대로 렌더링============================//
+
         for (let i = 0; i < crawlSiteList.length; i++) {
-          console.log('header 포함')
+          console.log("header 포함");
           axios
             .get(
-              `http://localhost:8080/api/monitor/${crawlSiteList[i]}?keyword=${word}`,
+              // `http://localhost:8080/api/monitor/${crawlSiteList[i]}?keyword=${word}`,
+              `/api/monitor/${crawlSiteList[i]}?keyword=${word}`,
               { headers: { "Access-Control-Allow-Origin": "*" } }
             )
-          // axios
-          //   .get(
-          //     `/api/monitor/${crawlSiteList[i]}?keyword=${word}`
-          //   )
             .then((response) => {
               const siteName = response.data.data[0].site;
               console.log(siteName, " 완료");
@@ -48,33 +44,6 @@ function Monitor(props) {
               resLength += response.data.data.length;
             });
         }
-        //==================응답 순서대로 렌더링============================//
-
-        //===================한번에 가져오는 코드==========================//
-        // const siteAxios = new Array();
-        // for (let i = 0; i < crawlSiteList.length; i++) {
-        //   axios.push(
-        //     axios.get(
-        //       `http://localhost:8080/test/monitor/${crawlSiteList[i]}?keyword=${word}`
-        //     )
-        //   );
-        // }
-        // await axios.all([...siteAxios]).then(
-        //   axios.spread((...response) => {
-        //     for (let i = 0; i < response.length; i++) {
-        //       if (response[i]) {
-        //         const Resp = response[i];
-        //         console.log(Resp);
-        //         const siteName = Resp.data.data[0].site;
-        //         console.log(siteName, " 완료");
-        //         setPostList((state) => [...state, ...Resp.data.data]);
-        //         setSiteList((site) => [...site, siteName]);
-        //         resLength += Resp.data.data.length;
-        //       }
-        //     }
-        //   })
-        // );
-        //==================================코드==========================//
 
         Swal.close();
       },
@@ -93,7 +62,6 @@ function Monitor(props) {
 
         Toast.fire({
           icon: "success",
-          //title: `${resLength}개가 검색되었습니다.`,
           title: `검색을 시작합니다.`,
         });
       },
@@ -152,25 +120,26 @@ function Monitor(props) {
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
-              // axios.all([
-              //   axios
-              //     .post(
-              //       "/v1/archive",
-              //       { url: "http://naver.com" },
-              //       { headers: { "Access-Control-Allow-Origin": "*" } }
-              //     )
-              //     .then(console.log)
-              //     .catch(console.log),
-              //   axios
-              //     .post(
-              //       "/v1/screenshot", //
-              //       { url: "http://www.naver.com" },
-              //       { headers: { "Access-Control-Allow-Origin": "*" } }
-              //     )
-              //     .then(console.log)
-              //     .catch(console.log), //
-              // ]);
-
+              axios.all([
+                axios
+                  .post(
+                    "/v1/archive",
+                    { url: "http://naver.com" },
+                    { headers: { "Access-Control-Allow-Origin": "*" } }
+                  )
+                  .then((res) => {
+                    console.log(res.data.body);
+                  })
+                  .catch(console.log),
+                axios
+                  .post(
+                    "/v1/screenshot",
+                    { url: "http://naver.com" },
+                    { headers: { "Access-Control-Allow-Origin": "*" } }
+                  )
+                  .then(console.log)
+                  .catch(console.log),
+              ]);
               item.created_at = "";
               axios.post(`http://localhost:8080/api/intelligences/`, item);
 
@@ -204,29 +173,6 @@ function Monitor(props) {
         }
       });
   };
-
-  // useEffect(() => {
-  //   axios.all([
-  //     axios
-  //       .post(
-  //         "/v1/archive",
-  //         { url: "http://naver.com" },
-  //         { headers: { "Access-Control-Allow-Origin": "*" } }
-  //       )
-  //       .then((res) => {
-  //         console.log(res.data.body);
-  //       })
-  //       .catch(console.log),
-  //     axios
-  //       .post(
-  //         "/v1/screenshot",
-  //         { url: "http://naver.com" },
-  //         { headers: { "Access-Control-Allow-Origin": "*" } }
-  //       )
-  //       .then(console.log)
-  //       .catch(console.log),
-  //   ]);
-  // }, []);
 
   return (
     <>
