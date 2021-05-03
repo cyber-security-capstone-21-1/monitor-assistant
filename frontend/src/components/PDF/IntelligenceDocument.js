@@ -136,47 +136,47 @@ export default function IntelligenceDocument(props) {
             {/* Header */}
             <Text style={styles.tableCellHead}>게시물명</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>과거 학폭으로 인한 트라우마, 나쁜 선택을 하려는 나</Text>
+            <Text style={styles.tableCellBody}>{props.data.title}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>사이트</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>네이트 판</Text>
+            <Text style={styles.tableCellBody}>{props.data.site}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>작성자</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>ㅇㅇ (닉네임)</Text>
+            <Text style={styles.tableCellBody}>{props.data.author}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>작성일</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>2021. 04. 09 09:08 (UTC +09:00, Seoul)</Text>
+            <Text style={styles.tableCellBody}>{props.data.created_at}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>URL</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>https://pann.nate.com/talk/358871562</Text>
+            <Text style={styles.tableCellBody}>{props.data.url}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>첩보 내용</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>최근 연쇄적으로 발생되고 있는 학교 폭력 (줄임말 '학폭') 폭로 사건과 관련하여 새롭게 추가된 피해 호소 주장글로, 과거에 받았던 피해와 그 고통에 대해서 호소하는 내용으로 이루어져 있음.</Text>
+            <Text style={styles.tableCellBody}>{props.data.content}</Text>
           </View>
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷</Text>
-            <Image style={styles.tableCellBody} src="https://cscapstone-21-1-5-s3.s3.ap-northeast-2.amazonaws.com/SS1.jpg" />
+            <Image style={styles.tableCellBody} src={`https://cscapstone-21-1-5-s3.s3.ap-northeast-2.amazonaws.com/${props.data.archived_UID}/screenshot.png`} />
           </View>
           {/* End of Table */}
         </View>

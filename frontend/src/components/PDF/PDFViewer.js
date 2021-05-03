@@ -1,16 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import IntelligenceDocument from "./IntelligenceDocument";
 
-function Viewer(props) {
+import axios from 'axios';
+
+function Viewer({ match: { params }}) {
   const [PDFBinary, setPDFBinary] = useState("");
+  const [Intelligence, setIntelligence] = useState({});
+
+  useEffect(() => {
+    async function getIntelligence() {
+      const data = await axios.get(`/api/monitor/api/intelligences/${params.uid}`);
+      setIntelligence(data);
+    }
+    getIntelligence();
+  }, {});
 
   return (
     <section>
       <article>
         <PDFDownloadLink
-          document={<IntelligenceDocument />}
+          document={<IntelligenceDocument data={Intelligence} />}
           fileName="intelligence.pdf"
         >
           {

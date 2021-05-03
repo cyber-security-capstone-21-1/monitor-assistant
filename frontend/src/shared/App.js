@@ -13,7 +13,7 @@ import PageNotFound from './PageNotFound';
 
 import { hot } from 'react-hot-loader';
 
-function App () {
+function App (props) {
   const loggedIn = false;
 
   return (
@@ -30,7 +30,7 @@ function App () {
                 <div className="content">
                   <div className="row">
                       <Route exact path="/" component={Dashboard} />
-                      <Route exact path={`/intelligence/:id`} component={Viewer} />
+                      <Route path="/intelligence/:uid" render={(props) => <Viewer {...props} />} />
                       <Route exact path={`/list`} component={IntList} />
                       <Route exact path={`/monitor`} component={Monitor} />
                   </div>
