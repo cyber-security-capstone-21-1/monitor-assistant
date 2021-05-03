@@ -28,12 +28,17 @@ public class ScrapeNate implements ScraperServiceInterface {
             doc[i] = Jsoup.connect(NATE_CRAWL_DATA_URL + keyword + "&page=" + (i + 1)).get();//3page까지 긁어오기
             Elements elements = doc[i].select(".s_list li");
             for (Element el : elements) {
+                Document doc_detail = Jsoup.connect("https://pann.nate.com" + el.select(".subject").attr("href")).get();
+                Elements content_element = doc_detail.select("#contentArea");
+                String content_all = content_element.text();
+
                 PostEntity postEntity = PostEntity.builder().author(el.select(".writer").text())
                         .site("nate")
                         .title(el.select(".subject").text())
                         .created_at(el.select(".date").text())
                         .url("https://pann.nate.com" + el.select(".subject").attr("href"))
-                        .content(el.select(".txt").text())
+                        .content(content_all)
+//                        .content(el.select(".txt").text())
                         .type(el.select(".t_talk").text())
                         .build();
                 postEntityList.add(postEntity);
