@@ -9,6 +9,12 @@ aside {
         color: #fff;
     }
     > nav {
+        & .nav-icon.active {
+            color: #fff;
+            background: {
+                color: #3b414d;
+            }
+        }
         > .nav__home {
             display: inline-block;
             width: 50px;

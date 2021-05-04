@@ -124,7 +124,11 @@ function Monitor(props) {
                 axios
                   .post(
                     "/v1/archive",
+<<<<<<< HEAD
                     { url: "http://naver.com" },
+=======
+                    { url: item.url },
+>>>>>>> 84eb006b9587d2c73b1a5f6f3b6610c387216f10
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
                   .then((res) => {
@@ -134,7 +138,11 @@ function Monitor(props) {
                 axios
                   .post(
                     "/v1/screenshot",
+<<<<<<< HEAD
                     { url: "http://naver.com" },
+=======
+                    { url: item.url },
+>>>>>>> 84eb006b9587d2c73b1a5f6f3b6610c387216f10
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
                   .then(console.log)

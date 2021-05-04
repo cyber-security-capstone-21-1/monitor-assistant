@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+
+import AuthenticationService from '@/shared/AuthenticationService';
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
-import './auth.scss';
 
 export default function Login () {
 
@@ -14,8 +14,8 @@ export default function Login () {
         setAuthInfo({
             ...AuthInfo,
             [e.target.name]: e.target.value
-        })
-    }
+        });
+    };
 
     const onLogin = (e) => {
         e.preventDefault();
@@ -32,11 +32,15 @@ export default function Login () {
                 });
                 console.error(error);
             });
-    }
+    };
+
+    const loggedIn = AuthenticationService.isUserLoggedIn();
 
     return (
-        <section class="form-wrapper">
-            <form class="form form__auth">
+        <>
+            { !loggedIn ?
+                (
+                <>
                 <header>로그인</header>
                 <div className="form__item_wrapper">
                     <div className="form__item">
@@ -55,7 +59,11 @@ export default function Login () {
                     <hr />
                     <p>아직 서비스에 가입하지 않으셨다면 <Link to="/auth/signup">이곳</Link>을 눌러 가입하세요.</p>
                 </div>
-            </form>
-        </section>
+                </>
+            )
+            :
+            (<Redirect to="/" />)
+            }
+        </>
     );
 };
