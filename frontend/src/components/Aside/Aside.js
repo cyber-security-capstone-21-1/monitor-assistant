@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCog, faSignInAlt, faSignOutAlt, faListAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 import './Aside.scss';
+import AuthenticationService from '@/shared/AuthenticationService';
 
 function Aside (props) {
 
-    const authenticated = false; // 수정 필요
-    
+    const authenticated = AuthenticationService.isUserLoggedIn();
+
     const signOut = () => {
         const MySwal = withReactContent(Swal);
 
@@ -24,6 +25,7 @@ function Aside (props) {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 // 로그아웃
+                AuthenticationService.logout();
             } else if (result.isDenied) {
                 // 실패
             }
@@ -33,34 +35,35 @@ function Aside (props) {
     return (
         <aside>
             <nav>
-                <Link className="nav-icon nav__home" to="/" data-tip="처음으로">Home</Link >
+                <Link className="nav-icon nav__home" to="/" data-tip="처음으로">Home</Link>
                 <ul>
                     <li data-tip="첩보 목록">
-                        <Link className="nav-icon nav__list" to="/list">
+                        <NavLink activeClassName="active" className="nav-icon nav__list" to="/service/list">
                             <FontAwesomeIcon icon={faListAlt} />
-                        </Link>
+                        </NavLink>
                     </li>
                     <li data-tip="검색">
-                        <Link className="nav-icon nav__search" to="/monitor">
+                        <NavLink activeClassName="active" className="nav-icon nav__search" to="/service/monitor">
                             <FontAwesomeIcon icon={faSearch} />
-                        </Link>
+                        </NavLink>
                     </li>
-                    <li data-tip="설정">
-                        <Link className="nav-icon nav__preferences" to="/viewer">
+                    {/* 추후 추가 */}
+                    {/* <li data-tip="설정">
+                        <NavLink activeClassName="active" className="nav-icon nav__preferences" to="/viewer">
                             <FontAwesomeIcon icon={faCog} />
-                        </Link>
-                    </li>
+                        </NavLink>
+                    </li> */}
                     { authenticated ?
                         (<li data-tip="로그아웃" onClick={signOut}>
-                            <Link className="nav-icon nav__sign_out" to="#">
+                            <NavLink className="nav-icon nav__sign_out" to="#">
                                 <FontAwesomeIcon icon={faSignOutAlt} />
-                            </Link>
+                            </NavLink>
                         </li>)
                         :
                         (<li data-tip="로그인">
-                            <Link className="nav-icon nav__sign_in" to="/auth/login">
+                            <NavLink className="nav-icon nav__sign_in" to="/auth/login">
                                 <FontAwesomeIcon icon={faSignInAlt} />
-                            </Link>
+                            </NavLink>
                         </li>)
                     }
                     
