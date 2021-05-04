@@ -39,6 +39,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                             .data("startDate", "")
                             .data("keyword", keyword)
                             .followRedirects(true)
+                            .maxBodySize(0)
                             .execute();
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
