@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
+import { HashRouter, Redirect, Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 
 import "@/assets/styles/default.scss";
@@ -12,7 +12,7 @@ import MovePage from '../pages/auth/movePage'
 function App () {
   const loggedIn = !AuthticationService.isUserLoggedIn();
   return (
-    <BrowserRouter>
+    <HashRouter>
       <MovePage>
         <Switch>
           <RouteWithLayout layout={AuthLayout} path="/auth/signup" component={SignUp}/>   
@@ -25,7 +25,7 @@ function App () {
           <RouteWithLayout layout={ErrorLayout} component={PageNotFound}/>   
         </Switch>
       </MovePage>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
