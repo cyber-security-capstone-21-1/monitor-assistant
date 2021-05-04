@@ -26,7 +26,7 @@ public class ScrapeFmkorea implements ScraperServiceInterface {
         Document[] doc = new Document[3];
 
         for (int i = 0; i < 3; i++) {
-            doc[i] = Jsoup.connect(FMKOREA_CRAWL_DATA_URL + keyword + "&page=" + (i+1)).get();//3page까지 긁어오기
+            doc[i] = Jsoup.connect(FMKOREA_CRAWL_DATA_URL + keyword + "&page=" + (i+1)).get();
             Elements elements = doc[i].select(".searchResult li");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
@@ -36,10 +36,13 @@ public class ScrapeFmkorea implements ScraperServiceInterface {
                         .created_at(el.select(".time").text())
                         .url("https://www.fmkorea.com" + el.select("dt a").attr("href"))
                         .content(el.select("dd").text())
-                        //.type(el.select("dt a").text().)
                         .build();
-                String str=postEntity.getTitle();
-                postEntity.setType(str.substring(1,str.indexOf("]")));
+                Document doc2= Jsoup.connect(postEntity.getUrl()).get();
+                String str=doc2.select(".side.fr").text();
+                String str2=postEntity.getTitle();
+                postEntity.setView(str.substring(5,str.indexOf("추천")-1));
+                postEntity.setContent(doc2.select("div.rd_body.clear").html());
+                postEntity.setType(str2.substring(1,str2.indexOf("]")));
                 postEntityList.add(postEntity);
             }
         }
