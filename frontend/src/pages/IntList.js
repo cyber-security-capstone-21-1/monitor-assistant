@@ -5,10 +5,9 @@ import IntelligenceCard from '@/components/IntelligenceCard/IntelligenceCard';
 
 function IntList () {
     const [intList, setIntList] = useState([]);
-
     useEffect(() => {
         async function loadIntelligences() {
-            const intelligences = await axios.get("/api/monitor/api/intelligences/");
+            const intelligences = await axios.get("http://3.36.186.72/api/intelligences/");
             setIntList([...intelligences.data]);
         }
         loadIntelligences();
@@ -30,7 +29,6 @@ function IntList () {
                         />
                     )
                 })}
-                
             </section>
         </>
     );

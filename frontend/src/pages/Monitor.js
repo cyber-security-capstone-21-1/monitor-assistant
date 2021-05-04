@@ -28,11 +28,9 @@ function Monitor(props) {
         setSiteList([]);
 
         for (let i = 0; i < crawlSiteList.length; i++) {
-          console.log("header 포함");
           axios
             .get(
-              // `http://localhost:8080/api/monitor/${crawlSiteList[i]}?keyword=${word}`,
-              `/api/monitor/${crawlSiteList[i]}?keyword=${word}`,
+              `http://3.36.186.72/api/monitor/${crawlSiteList[i]}?keyword=${word}`,
               { headers: { "Access-Control-Allow-Origin": "*" } }
             )
             .then((response) => {
@@ -124,11 +122,7 @@ function Monitor(props) {
                 axios
                   .post(
                     "/v1/archive",
-<<<<<<< HEAD
                     { url: "http://naver.com" },
-=======
-                    { url: item.url },
->>>>>>> 84eb006b9587d2c73b1a5f6f3b6610c387216f10
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
                   .then((res) => {
@@ -138,18 +132,14 @@ function Monitor(props) {
                 axios
                   .post(
                     "/v1/screenshot",
-<<<<<<< HEAD
                     { url: "http://naver.com" },
-=======
-                    { url: item.url },
->>>>>>> 84eb006b9587d2c73b1a5f6f3b6610c387216f10
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
                   .then(console.log)
                   .catch(console.log),
               ]);
               item.created_at = "";
-              axios.post(`http://localhost:8080/api/intelligences/`, item);
+              axios.post(`http://3.36.186.72/api/intelligences/`, item);
 
               Swal.close();
             },
