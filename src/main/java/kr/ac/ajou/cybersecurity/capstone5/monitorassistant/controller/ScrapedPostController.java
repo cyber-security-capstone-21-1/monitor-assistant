@@ -20,10 +20,15 @@ public class ScrapedPostController {
     * */
     @Autowired
     private ScrapeNate scrapeNate;
+    // 일베는 조회수가 없어서 추천수로 뽑음
+    @Autowired
+    private ScrapeIlbe scrapeIlbe;
     @Autowired
     private ScrapeRuliweb scrapeRuliweb;
+    // 개드립은  유저드립 게시판에서만 뽑음
     @Autowired
     private ScrapeDogdrip scrapeDogdrip;
+    // 가끔씩 안될수도 있는데 추후 수정
     @Autowired
     private ScrapeBobaedream scrapeBobaedream;
     @Autowired
@@ -36,6 +41,7 @@ public class ScrapedPostController {
     private ScraperServiceInterface scrapeClien;
     @Autowired
     private ScrapeFmkorea scrapeFmkorea;
+
     @Autowired
     private ScrapeDcinside scrapeDcinside;
     @Autowired
@@ -181,6 +187,18 @@ public class ScrapedPostController {
         List<String> errors = new ArrayList<>();
         try {
             postEntities = scrapeRuliweb.scrape(keyword);
+        } catch (final Exception e) {
+            errors.add(e.getMessage());
+        }
+        return PostAdapter.postResponse(postEntities, errors);
+    }
+    @GetMapping("/ilbe")
+    public PostResponse scrapeIlbe(@RequestParam String keyword) throws IOException {
+
+        List<PostEntity> postEntities = null;
+        List<String> errors = new ArrayList<>();
+        try {
+            postEntities = scrapeIlbe.scrape(keyword);
         } catch (final Exception e) {
             errors.add(e.getMessage());
         }
