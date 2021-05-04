@@ -1,8 +1,9 @@
 import axios from 'axios';
+import Constants from './constants';
 
 class AuthenticationService {
     executeJwtAuthenticationService(email, password) {
-        return axios.post('/api/monitor/authenticate', { email, password })
+        return axios.post(`${Constants.SPRING_BACKEND.ENDPOINT}/api/monitor/authenticate`, { email, password });
     }
 
     registerSuccessfulLoginForJwt(email, token) {

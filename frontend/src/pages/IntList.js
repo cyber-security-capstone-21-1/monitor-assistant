@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import PageHeader from '@/components/PageHeader/PageHeader';
 import IntelligenceCard from '@/components/IntelligenceCard/IntelligenceCard';
+
+import Constants from '@/shared/constants';
 
 function IntList () {
     const [intList, setIntList] = useState([]);
     useEffect(() => {
         async function loadIntelligences() {
-            const intelligences = await axios.get("http://3.36.186.72/api/intelligences/");
+            const intelligences = await axios.get(`${Constants.SPRING_BACKEND.ENDPOINT}/api/intelligences`);
             setIntList([...intelligences.data]);
         }
         loadIntelligences();

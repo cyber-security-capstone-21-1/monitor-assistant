@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import PageHeader from "@/components/PageHeader/PageHeader";
 
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+
+import Constants from "@/shared/constants";
+import PageHeader from "@/components/PageHeader/PageHeader";
 
 const crawlSiteList = ["nate", "humor", "clien", "fmkorea"];
 
@@ -30,7 +32,7 @@ function Monitor(props) {
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
             .get(
-              `http://3.36.186.72/api/monitor/${crawlSiteList[i]}?keyword=${word}`,
+              `${Constants.SPRING_BACKEND.ENDPONT}${SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`,
               { headers: { "Access-Control-Allow-Origin": "*" } }
             )
             .then((response) => {
@@ -121,7 +123,7 @@ function Monitor(props) {
               axios.all([
                 axios
                   .post(
-                    "/v1/archive",
+                    `${Constants.AWS.ENDPONT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
                     { url: "http://naver.com" },
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
@@ -131,7 +133,7 @@ function Monitor(props) {
                   .catch(console.log),
                 axios
                   .post(
-                    "/v1/screenshot",
+                    `${Constants.AWS.ENDPONT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
                     { url: "http://naver.com" },
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
@@ -139,7 +141,7 @@ function Monitor(props) {
                   .catch(console.log),
               ]);
               item.created_at = "";
-              axios.post(`http://3.36.186.72/api/intelligences/`, item);
+              axios.post(`${Constants.SPRING_BACKEND.ENDPONT}${SPRING_BACKEND.APIs.INTLIST}`, item);
 
               Swal.close();
             },
