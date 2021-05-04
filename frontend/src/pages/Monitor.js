@@ -6,6 +6,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 import Constants from "@/shared/constants";
+
 import PageHeader from "@/components/PageHeader/PageHeader";
 
 const crawlSiteList = ["nate", "humor", "clien", "fmkorea"];
@@ -32,7 +33,7 @@ function Monitor(props) {
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
             .get(
-              `${Constants.SPRING_BACKEND.ENDPONT}${SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`,
+              `${Constants.SPRING_BACKEND.ENDPONT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`,
               { headers: { "Access-Control-Allow-Origin": "*" } }
             )
             .then((response) => {
@@ -141,7 +142,7 @@ function Monitor(props) {
                   .catch(console.log),
               ]);
               item.created_at = "";
-              axios.post(`${Constants.SPRING_BACKEND.ENDPONT}${SPRING_BACKEND.APIs.INTLIST}`, item);
+              axios.post(`${Constants.SPRING_BACKEND.ENDPONT}${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
 
               Swal.close();
             },
