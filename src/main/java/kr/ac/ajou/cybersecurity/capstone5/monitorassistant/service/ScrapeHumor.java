@@ -26,9 +26,7 @@ public class ScrapeHumor implements ScraperServiceInterface {
     @Override
     public List<PostEntity> scrape(String keyword) throws IOException {
         postEntityList = new ArrayList<>();
-        Document doc;
-        // for(int i=0;i<3;i++) {
-        doc = Jsoup.connect(TodayHumor_CRAWL_DATA_URL + keyword).get();
+        Document doc= Jsoup.connect(TodayHumor_CRAWL_DATA_URL + keyword).get();
         Elements elements = doc.select(".table_list tbody tr");
         for (Element el : elements) {
             if (!el.select(".name").text().equals("")) {
@@ -45,7 +43,7 @@ public class ScrapeHumor implements ScraperServiceInterface {
                 postEntityList.add(postEntity);
             }
         }
-        //}
+
         return postEntityList;
     }
 }

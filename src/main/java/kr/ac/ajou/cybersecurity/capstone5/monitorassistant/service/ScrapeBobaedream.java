@@ -30,7 +30,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
             Connection.Response response =
                     Jsoup.connect("https://www.bobaedream.co.kr/search")
                             .userAgent("Mozilla/5.0")
-                            .timeout(10000)
+                            .timeout(15000)
                             .method(Connection.Method.POST)
                             .data("colle", "community")
                             .data("searchField", "ALL")

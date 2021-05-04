@@ -21,6 +21,8 @@ public class ScrapedPostController {
     @Autowired
     private ScrapeNate scrapeNate;
     @Autowired
+    private ScrapeRuliweb scrapeRuliweb;
+    @Autowired
     private ScrapeDogdrip scrapeDogdrip;
     @Autowired
     private ScrapeBobaedream scrapeBobaedream;
@@ -167,6 +169,18 @@ public class ScrapedPostController {
         List<String> errors = new ArrayList<>();
         try {
             postEntities = scrapeDogdrip.scrape(keyword);
+        } catch (final Exception e) {
+            errors.add(e.getMessage());
+        }
+        return PostAdapter.postResponse(postEntities, errors);
+    }
+    @GetMapping("/ruliweb")
+    public PostResponse scrapeRuriweb(@RequestParam String keyword) throws IOException {
+
+        List<PostEntity> postEntities = null;
+        List<String> errors = new ArrayList<>();
+        try {
+            postEntities = scrapeRuliweb.scrape(keyword);
         } catch (final Exception e) {
             errors.add(e.getMessage());
         }
