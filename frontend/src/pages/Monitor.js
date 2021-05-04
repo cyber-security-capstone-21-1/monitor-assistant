@@ -180,7 +180,7 @@ function Monitor(props) {
               await axios.all([
                 axios
                   .post(
-                    "https://sc4q7x54gh.execute-api.ap-northeast-2.amazonaws.com/v1/archive",
+                    "/v1/archive",
                     { url: item.url },
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
@@ -188,7 +188,7 @@ function Monitor(props) {
                   .catch(console.log),
                 axios
                   .post(
-                    "https://sc4q7x54gh.execute-api.ap-northeast-2.amazonaws.com/v1/screenshot",
+                    "/v1/screenshot",
                     { url: item.url },
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )

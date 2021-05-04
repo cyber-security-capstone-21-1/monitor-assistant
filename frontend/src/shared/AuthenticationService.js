@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 class AuthenticationService {
     executeJwtAuthenticationService(email, password) {
@@ -7,7 +7,7 @@ class AuthenticationService {
 
     registerSuccessfulLoginForJwt(email, token) {
         localStorage.setItem('token', token);
-        localStorage.setItem('authenticatedUser', username);
+        localStorage.setItem('authenticatedUser', email);
         this.setupAxiosInterceptors();
     }
 
@@ -41,7 +41,7 @@ class AuthenticationService {
         return false;
     }
 
-    getLoggedInUsername () {
+    getLoggedInEmail () {
         let user = localStorage.getItem('authenticatedUser');
         if (user === null) return '';
         return user;
