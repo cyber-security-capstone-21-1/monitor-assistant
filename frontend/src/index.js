@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import App from './shared/App';
 
 import axios from 'axios';
-
+import App from './shared/App';
 import reportWebVitals from './reportWebVitals';
+import MovePage from './pages/auth/movePage'
 
 axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <MovePage>
+        <App />
+      </MovePage>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
