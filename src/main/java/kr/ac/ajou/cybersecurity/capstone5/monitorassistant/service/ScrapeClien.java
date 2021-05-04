@@ -29,7 +29,8 @@ public class ScrapeClien implements ScraperServiceInterface {
             doc[i] = Jsoup.connect(Clien_CRAWL_DATA_URL + keyword + "&p=" + (i)).get();//3page까지 긁어오기
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
             for (Element el : elements) {
-                PostEntity postEntity = PostEntity.builder().author(el.select(".nickname").text())
+                PostEntity postEntity = PostEntity.builder()
+                        .author(el.select(".nickname").text())
                         .site("clien")
                         .title(el.select(".subject_fixed").text())
                         .created_at(el.select(".timestamp").text())
@@ -38,6 +39,12 @@ public class ScrapeClien implements ScraperServiceInterface {
                         .type(el.select(".shortname.fixed").text())
                         .view(el.select(".hit").text())
                         .build();
+                if(postEntity.getAuthor().equals("")) {
+                    System.out.println(postEntity.getTitle());
+                    postEntity.setAuthor(el.select(".nickname img").attr("alt"));
+                }
+                Document doc2= Jsoup.connect(postEntity.getUrl()).get();
+                postEntity.setContent(doc2.select("div.post_article").html());
                 postEntityList.add(postEntity);
             }
         }

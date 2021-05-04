@@ -29,7 +29,7 @@ public class ScrapeNate implements ScraperServiceInterface {
             Elements elements = doc[i].select(".s_list li");
             for (Element el : elements) {
                 Document doc_detail = Jsoup.connect("https://pann.nate.com" + el.select(".subject").attr("href")).get();
-                String content_all = doc_detail.select("#contentArea").text();
+                String content_all = doc_detail.select("#contentArea").html();
                 String view=doc_detail.select("div.info > span.count").text();
 
                 PostEntity postEntity = PostEntity.builder().author(el.select(".writer").text())

@@ -23,9 +23,9 @@ public class ScrapeDcinside implements ScraperServiceInterface {
     @Override
     public List<PostEntity> scrape(String keyword) throws IOException {
         postEntityList = new ArrayList<>();
-       // Document[] doc = new Document[3];
+
         Document doc;
-            doc = Jsoup.connect(DC_CRAWL_DATA_URL + keyword).get();//3page까지 긁어오기
+            doc = Jsoup.connect(DC_CRAWL_DATA_URL + keyword).get();
             Elements elements = doc.select(".sch_result_list li");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
