@@ -30,4 +30,4 @@ JAR_NAME=$(ls -tr $REPOSITORY/ | grep *.jar | tail -n 1) # (8)
 
 echo "> JAR Name: $JAR_NAME"
 
-nohup java -jar $REPOSITORY/$JAR_NAME -Dspring.config.location=classpath:application.properties,$REPOSITORY/secret/aws.yml 2>1 &
+nohup java -jar $REPOSITORY/$JAR_NAME -Dspring.config.location=classpath:$REPOSITORY/$PROJ_NAME/src/main/resources/application.yml,classpath:$REPOSITORY/secret/aws.yml 2>1 &
