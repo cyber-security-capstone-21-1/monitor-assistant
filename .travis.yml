@@ -16,6 +16,7 @@ script: "./gradlew clean build"
 before_deploy:
   - mkdir -p before-deploy
   - mkdir -p deploy
+  - chmod u+x deploy.sh
   - cp src/main/resources/application.yml before-deploy
   - cp deploy.sh before-deploy/
   - cp appspec.yml before-deploy/
