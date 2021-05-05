@@ -3,7 +3,7 @@
 REPOSITORY=/home/ec2-user
 PROJ_NAME=monitor-assistant
 
-cd $REPOSITORY/PROJ_NAME/
+cd $REPOSITORY/$PROJ_NAME/
 
 echo "> PULL"
 git pull
