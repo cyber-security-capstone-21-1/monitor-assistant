@@ -4,7 +4,7 @@ jdk:
 
 branches:
   only:
-    - main
+    - master
 
 cache:
   directories:
@@ -32,8 +32,6 @@ deploy:
     acl: private
     local_dir: deploy
     wait-until-deployed: true
-    on:
-      all_branches: true
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
@@ -44,8 +42,6 @@ deploy:
     deployment_group: BEDeploymentGroup
     region: ap-northeast-2
     wait-until-deployed: true
-    on:
-      all_branches: true
 
 notifications:
   email:
