@@ -39,7 +39,7 @@ deploy:
     key: monitor-assistant.zip
     bundle_type: zip
     application: BEDeployment
-    deployment_group: BEDeploymentGroup
+    deployment_group: BEDeployGroup
     region: ap-northeast-2
     wait-until-deployed: true
 
