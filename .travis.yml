@@ -15,10 +15,14 @@ script: "./gradlew clean build"
 
 before_deploy:
   - mkdir -p before-deploy
+  - mkdir -p deploy
+  - chmod u+x deploy.sh
+  - cp src/main/resources/application.yml before-deploy
+  - cp deploy.sh before-deploy/
   - cp appspec.yml before-deploy/
   - cp build/libs/*.jar before-deploy/
   - cd before-deploy/ && zip -r before-deploy *
-  - cd ../ mkdir -p deploy
+  - cd ..
   - mv before-deploy/before-deploy.zip deploy/monitor-assistant.zip
 
 deploy:
@@ -38,7 +42,7 @@ deploy:
     key: monitor-assistant.zip
     bundle_type: zip
     application: BEDeployment
-    deployment_group: BEDeploymentGroup
+    deployment_group: BEDeployGroup
     region: ap-northeast-2
     wait-until-deployed: true
 
@@ -49,3 +53,4 @@ notifications:
       - ju2173@ajou.ac.kr
       - hehesi2007@ajou.ac.kr
       - ghdwn0120@ajou.ac.kr
+
