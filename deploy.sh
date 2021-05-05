@@ -31,10 +31,8 @@ fi
 echo "> 새 애플리케이션 배포"
 
 JAR_NAME=$(ls -tr $REPOSITORY | grep *.jar | tail -n 1)
-
-echo "> JAR: $JAR_NAME"
-
 chmod +x $JAR_NAME
 
+echo "Starting $JAR_NAME..."
 sudo nohup java -jar $REPOSITORY/$JAR_NAME \
---spring.config.location="file://$REPOSITORY/application.yml,file://$REPOSITORY/secret/aws.yml" 2>1 &
+--spring.config.location="file://$REPOSITORY/application.yml,file://$REPOSITORY/secret/aws.yml" 2>&1 &
