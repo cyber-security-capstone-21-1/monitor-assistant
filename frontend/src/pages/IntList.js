@@ -10,7 +10,7 @@ function IntList () {
     const [intList, setIntList] = useState([]);
     useEffect(() => {
         async function loadIntelligences() {
-            const intelligences = await axios.get(`${Constants.ENDPOINT}/api/intelligences/`);
+            const intelligences = await axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`);
             setIntList([...intelligences.data]);
         }
         loadIntelligences();

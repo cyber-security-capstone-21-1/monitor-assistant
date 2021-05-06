@@ -10,7 +10,7 @@ export default {
     SPRING_BACKEND: {
         APIs: {
             MONITOR: "/api/monitor",
-            INTLIST: "/api/intelligences"
+            INTLIST: "/api/intelligences/"
         }
     } 
 };
