@@ -20,6 +20,12 @@ const MovePage = ({ location, children }) => {
   console.log(history, "에서", location.pathname, "으로");
   if (location.pathname !== history && location.pathname !== "/") {
     console.log("페이지 이동");
+    console.log(history, "에서", location.pathname, "으로");
+    // const user = {
+    //   "email" : "jwurbane97@ajou.ac.kr",
+    //   "password" : "test",
+    // }
+    // axios.post(`${Constants.ENDPOINT}/authenticate`, user).then(console.log).catch(console.log);
     setHistory(location.pathname);
     clearTimeout(timeId.current);
     sessionManage();
