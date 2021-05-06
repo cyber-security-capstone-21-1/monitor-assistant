@@ -1,5 +1,5 @@
 export default {
-    ENDPOINT: "https://d3gms0jqgo9bfj.cloudfront.net/",
+    ENDPOINT: "https://d3gms0jqgo9bfj.cloudfront.net",
     AWS: {
         STAGE: "/api",
         APIs: {

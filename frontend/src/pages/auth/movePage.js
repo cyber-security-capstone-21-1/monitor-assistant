@@ -14,7 +14,7 @@ const MovePage = ({ location, children }) => {
     //   "email" : "jwurbane97@ajou.ac.kr",
     //   "password" : "test",
     // }
-    // axios.post(`${Constants.SPRING_BACKEND.ENDPOINT}/authenticate`, user).then(console.log).catch(console.log);
+    // axios.post(`${Constants.ENDPOINT}/authenticate`, user).then(console.log).catch(console.log);
     setHistory(location.pathname);
     clearTimeout(timeId.current);
 
