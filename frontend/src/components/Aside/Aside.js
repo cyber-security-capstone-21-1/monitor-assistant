@@ -10,7 +10,7 @@ import AuthenticationService from '@/shared/AuthenticationService';
 
 function Aside (props) {
 
-    const authenticated = AuthenticationService.isUserLoggedIn();
+    const authenticated = !AuthenticationService.isUserLoggedIn();
 
     const signOut = () => {
         const MySwal = withReactContent(Swal);

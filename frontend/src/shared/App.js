@@ -10,7 +10,8 @@ import AuthticationService from './AuthenticationService';
 import MovePage from '../pages/auth/movePage'
 
 function App () {
-  const loggedIn = !AuthticationService.isUserLoggedIn();
+  AuthticationService.logout();
+  const loggedIn = AuthticationService.isUserLoggedIn();
   return (
     <HashRouter>
       <MovePage>

@@ -3,31 +3,31 @@ import axios from "axios";
 import { withRouter } from "react-router";
 
 import Constants from '@/shared/constants';
+import AuthenticationService from '@/shared/AuthenticationService';
 
 const MovePage = ({ location, children }) => {
+  console.log('move page')
   const [history, setHistory] = useState("");
   const timeId = useRef();
+
+  const sessionManage = () => {
+    timeId.current = setTimeout(() => {
+      console.log("로그인 세션 만료!");
+      // AuthenticationService.logout();
+    }, 3000);
+  }
+
+  console.log(history, "에서", location.pathname, "으로");
   if (location.pathname !== history && location.pathname != "/") {
     console.log("페이지 이동");
-    console.log(history, "에서", location.pathname, "으로");
-    // const user = {
-    //   "email" : "jwurbane97@ajou.ac.kr",
-    //   "password" : "test",
-    // }
-    // axios.post(`${Constants.SPRING_BACKEND.ENDPOINT}/authenticate`, user).then(console.log).catch(console.log);
     setHistory(location.pathname);
     clearTimeout(timeId.current);
-
-    timeId.current = setTimeout(() => {
-      console.log("로그인 세션 만료");
-    }, 3000);
+    sessionManage();
   }
 
   useEffect(() => {
     setHistory(location.pathname);
-    timeId.current = setTimeout(() => {
-      console.log("로그인 세션 만료!");
-    }, 3000);
+    sessionManage();
   }, []);
 
   return children;

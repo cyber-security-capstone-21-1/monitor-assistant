@@ -6,16 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import App from './shared/App';
 import reportWebVitals from './reportWebVitals';
-import MovePage from './pages/auth/movePage'
 
 axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <MovePage>
         <App />
-      </MovePage>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
