@@ -1,5 +1,5 @@
 export default {
-    ENDPOINT: "https://sc4q7x54gh.execute-api.ap-northeast-2.amazonaws.com",
+    ENDPOINT: "https://d3gms0jqgo9bfj.cloudfront.net/",
     AWS: {
         STAGE: "/api",
         APIs: {
