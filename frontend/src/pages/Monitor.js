@@ -33,7 +33,7 @@ function Monitor(props) {
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
             .get(
-              `${Constants.SPRING_BACKEND.ENDPONT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`,
+              `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`,
               { headers: { "Access-Control-Allow-Origin": "*" } }
             )
             .then((response) => {
@@ -124,7 +124,7 @@ function Monitor(props) {
               axios.all([
                 axios
                   .post(
-                    `${Constants.AWS.ENDPONT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
                     { url: "http://naver.com" },
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
@@ -134,7 +134,7 @@ function Monitor(props) {
                   .catch(console.log),
                 axios
                   .post(
-                    `${Constants.AWS.ENDPONT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
                     { url: "http://naver.com" },
                     { headers: { "Access-Control-Allow-Origin": "*" } }
                   )
@@ -142,7 +142,7 @@ function Monitor(props) {
                   .catch(console.log),
               ]);
               item.created_at = "";
-              axios.post(`${Constants.SPRING_BACKEND.ENDPONT}${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
+              axios.post(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
 
               Swal.close();
             },
