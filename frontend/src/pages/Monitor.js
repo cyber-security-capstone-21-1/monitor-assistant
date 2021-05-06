@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,13 +33,10 @@ function Monitor(props) {
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
             .get(
-              `${Constants.SPRING_BACKEND.ENDPONT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`,
-              { headers: { "Access-Control-Allow-Origin": "*" } }
+              `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
             )
             .then((response) => {
               const siteName = response.data.data[0].site;
-              console.log(siteName, " 완료");
-              console.log(response.data.data);
               setPostList((state) => [...state, ...response.data.data]);
               setSiteList((site) => [...site, siteName]);
               resLength += response.data.data.length;
@@ -124,9 +121,8 @@ function Monitor(props) {
               axios.all([
                 axios
                   .post(
-                    `${Constants.AWS.ENDPONT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
-                    { url: "http://naver.com" },
-                    { headers: { "Access-Control-Allow-Origin": "*" } }
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
+                    { url: "http://naver.com" }
                   )
                   .then((res) => {
                     console.log(res.data.body);
@@ -134,15 +130,14 @@ function Monitor(props) {
                   .catch(console.log),
                 axios
                   .post(
-                    `${Constants.AWS.ENDPONT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
-                    { url: "http://naver.com" },
-                    { headers: { "Access-Control-Allow-Origin": "*" } }
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
+                    { url: "http://naver.com" }
                   )
                   .then(console.log)
                   .catch(console.log),
               ]);
               item.created_at = "";
-              axios.post(`${Constants.SPRING_BACKEND.ENDPONT}${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
+              axios.post(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
 
               Swal.close();
             },

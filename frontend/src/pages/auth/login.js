@@ -7,11 +7,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Constants from '@/shared/constants';
 
-export default function Login () {
+export default function Login (context) {
     console.log('로그인 렌더링');
+    console.log(AuthenticationService.isUserLoggedIn());
 
     const [AuthInfo, setAuthInfo] = useState({ email: "", password: "" });
-
     const handleAuthInfo = (e) => {
         setAuthInfo({
             ...AuthInfo,
@@ -22,9 +22,8 @@ export default function Login () {
     const onLogin = useCallback((e) => {
         e.preventDefault();
         AuthenticationService.registerSuccessfulLoginForJwt('asdf','token exam');
-        setAuthInfo('d','d');
-//window location 리다이렉트
-
+        console.log('onlogin 내부 ',AuthenticationService.isUserLoggedIn());
+        setAuthInfo('sd','pwd')
         // const data = AuthInfo;
         // axios.post(`${Constants.SPRING_BACKEND.ENDPOINT}/api/auth/login`, { headers : {"Access-Control-Allow-Origin": "*"}}
         // ).then(response => {
@@ -41,7 +40,6 @@ export default function Login () {
     }, []);
 
     const loggedIn = AuthenticationService.isUserLoggedIn();
-    console.log(loggedIn);
 
     return (
         <>
