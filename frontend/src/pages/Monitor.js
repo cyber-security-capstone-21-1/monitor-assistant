@@ -33,8 +33,7 @@ function Monitor(props) {
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
             .get(
-              `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`,
-              { headers: { "Access-Control-Allow-Origin": "*" } }
+              `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
             )
             .then((response) => {
               const siteName = response.data.data[0].site;
@@ -125,8 +124,7 @@ function Monitor(props) {
                 axios
                   .post(
                     `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
-                    { url: "http://naver.com" },
-                    { headers: { "Access-Control-Allow-Origin": "*" } }
+                    { url: "http://naver.com" }
                   )
                   .then((res) => {
                     console.log(res.data.body);
@@ -135,8 +133,7 @@ function Monitor(props) {
                 axios
                   .post(
                     `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
-                    { url: "http://naver.com" },
-                    { headers: { "Access-Control-Allow-Origin": "*" } }
+                    { url: "http://naver.com" }
                   )
                   .then(console.log)
                   .catch(console.log),
