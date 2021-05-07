@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,8 +37,6 @@ function Monitor(props) {
             )
             .then((response) => {
               const siteName = response.data.data[0].site;
-              console.log(siteName, " 완료");
-              console.log(response.data.data);
               setPostList((state) => [...state, ...response.data.data]);
               setSiteList((site) => [...site, siteName]);
               resLength += response.data.data.length;

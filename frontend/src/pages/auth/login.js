@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import AuthenticationService from '@/shared/AuthenticationService';
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Constants from '@/shared/constants';
 
-export default function Login () {
+export default function Login (context) {
+    console.log('로그인 렌더링');
+    console.log(AuthenticationService.isUserLoggedIn());
 
     const [AuthInfo, setAuthInfo] = useState({ email: "", password: "" });
-
     const handleAuthInfo = (e) => {
         setAuthInfo({
             ...AuthInfo,
@@ -17,22 +19,25 @@ export default function Login () {
         });
     };
 
-    const onLogin = (e) => {
+    const onLogin = useCallback((e) => {
         e.preventDefault();
-        const data = AuthInfo;
-        axios.post('/api/monitor/api/auth/login', data)
-            .then(response => {
-                const { accessToken } = response.data;
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            })
-            .catch(error => {
-                Swal.fire({
-                    title: "로그인 실패",
-                    icon: "error"
-                });
-                console.error(error);
-            });
-    };
+        AuthenticationService.registerSuccessfulLoginForJwt('asdf','token exam');
+        console.log('onlogin 내부 ',AuthenticationService.isUserLoggedIn());
+        setAuthInfo('sd','pwd')
+        // const data = AuthInfo;
+        // axios.post(`${Constants.SPRING_BACKEND.ENDPOINT}/api/auth/login`, { headers : {"Access-Control-Allow-Origin": "*"}}
+        // ).then(response => {
+        //         const { accessToken } = response.data;
+        //         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        //     })
+        //     .catch(error => {
+        //         Swal.fire({
+        //             title: "로그인 실패",
+        //             icon: "error"
+        //         });
+        //         console.error(error);
+        //     });
+    }, []);
 
     const loggedIn = AuthenticationService.isUserLoggedIn();
 
@@ -62,7 +67,7 @@ export default function Login () {
                 </>
             )
             :
-            (<Redirect to="/" />)
+            (<Redirect to="/service" />)
             }
         </>
     );

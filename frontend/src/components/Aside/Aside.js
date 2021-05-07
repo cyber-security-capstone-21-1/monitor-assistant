@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCog, faSignInAlt, faSignOutAlt, faListAlt } from "@fortawesome/free-solid-svg-icons";
@@ -8,10 +8,8 @@ import withReactContent from 'sweetalert2-react-content';
 import './Aside.scss';
 import AuthenticationService from '@/shared/AuthenticationService';
 
-function Aside (props) {
-
+const Aside = memo((props) => {
     const authenticated = AuthenticationService.isUserLoggedIn();
-
     const signOut = () => {
         const MySwal = withReactContent(Swal);
 
@@ -21,15 +19,15 @@ function Aside (props) {
             showCancelButton: false,
             confirmButtonText: `예`,
             denyButtonText: `아니오`,
-          }).then((result) => {
+        }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                // 로그아웃
+                //로그아웃 진행
                 AuthenticationService.logout();
-            } else if (result.isDenied) {
-                // 실패
+                //다른 방법 고려
+                window.location.href = '/';
             }
-          });
+        });
     };
     
     return (
@@ -54,13 +52,13 @@ function Aside (props) {
                         </NavLink>
                     </li> */}
                     { authenticated ?
-                        (<li data-tip="로그아웃" onClick={signOut}>
+                        (<li activeClassName="" data-tip="로그아웃" onClick={signOut}>
                             <NavLink className="nav-icon nav__sign_out" to="#">
                                 <FontAwesomeIcon icon={faSignOutAlt} />
                             </NavLink>
                         </li>)
                         :
-                        (<li data-tip="로그인">
+                        (<li activeClassName="" data-tip="로그인">
                             <NavLink className="nav-icon nav__sign_in" to="/auth/login">
                                 <FontAwesomeIcon icon={faSignInAlt} />
                             </NavLink>
@@ -71,6 +69,6 @@ function Aside (props) {
             </nav>
         </aside>
     )
-}
+});
 
 export default Aside;

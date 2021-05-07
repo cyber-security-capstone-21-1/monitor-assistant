@@ -1,36 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { withRouter } from "react-router";
-
-import Constants from '@/shared/constants';
+import { Redirect } from "react-router-dom";
+import { Login } from "@/pages";
+import { RouteWithLayout, AuthLayout} from '../../shared/layouts';
+import AuthenticationService from '@/shared/AuthenticationService';
 
 const MovePage = ({ location, children }) => {
+  console.log('move page')
   const [history, setHistory] = useState("");
   const timeId = useRef();
-  if (location.pathname !== history && location.pathname != "/") {
+
+  const sessionManage = () => {
+    timeId.current = setTimeout(() => {
+      console.log("로그인 세션 만료!");
+      AuthenticationService.logout();
+    }, 30000);
+  }
+
+  console.log(history, "에서", location.pathname, "으로");
+  if (location.pathname !== history && location.pathname !== "/") {
     console.log("페이지 이동");
     console.log(history, "에서", location.pathname, "으로");
-    // const user = {
-    //   "email" : "jwurbane97@ajou.ac.kr",
-    //   "password" : "test",
-    // }
-    // axios.post(`${Constants.ENDPOINT}/authenticate`, user).then(console.log).catch(console.log);
     setHistory(location.pathname);
     clearTimeout(timeId.current);
-
-    timeId.current = setTimeout(() => {
-      console.log("로그인 세션 만료");
-    }, 3000);
+    sessionManage();
   }
 
   useEffect(() => {
     setHistory(location.pathname);
-    timeId.current = setTimeout(() => {
-      console.log("로그인 세션 만료!");
-    }, 3000);
+    // sessionManage();
   }, []);
 
-  return children;
+  return (
+    <>
+      <RouteWithLayout layout={AuthLayout} path="/auth/login" component={Login}/>   
+      {!AuthenticationService.isUserLoggedIn() ? (
+        <Redirect to="/auth/login" />
+      ) : (
+        children
+      )}
+    </>);
 };
 
 export default withRouter(MovePage);
