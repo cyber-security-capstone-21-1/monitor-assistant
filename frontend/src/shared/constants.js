@@ -1,5 +1,5 @@
 export default {
-    ENDPOINT: "https://3.36.186.72",
+    ENDPOINT: "http://3.36.186.72",
     AWS: {
         STAGE: "/api",
         APIs: {
