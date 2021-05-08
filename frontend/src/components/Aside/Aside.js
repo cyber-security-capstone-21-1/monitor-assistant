@@ -20,7 +20,6 @@ const Aside = memo((props) => {
             confirmButtonText: `예`,
             denyButtonText: `아니오`,
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 //로그아웃 진행
                 AuthenticationService.logout();

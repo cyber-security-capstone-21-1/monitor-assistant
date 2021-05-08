@@ -9,8 +9,7 @@ import Constants from "@/shared/constants";
 
 import PageHeader from "@/components/PageHeader/PageHeader";
 
-const crawlSiteList = ["nate", "humor", "clien", "fmkorea"];
-
+const crawlSiteList = ["nate", "ygosu","fmkorea", "mlbpark", "humor", "clien", "ilbe", "dogdrip", "bobaedream", "ppomppu", "ruliweb", 'dcinside', 'naver'];
 function Monitor(props) {
   const [postList, setPostList] = useState([]);
   const [siteList, setSiteList] = useState([]);

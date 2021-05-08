@@ -6,7 +6,6 @@ import { RouteWithLayout, AuthLayout} from '../../shared/layouts';
 import AuthenticationService from '@/shared/AuthenticationService';
 
 const MovePage = ({ location, children }) => {
-  console.log('move page')
   const [history, setHistory] = useState("");
   const timeId = useRef();
 
@@ -14,10 +13,9 @@ const MovePage = ({ location, children }) => {
     timeId.current = setTimeout(() => {
       console.log("로그인 세션 만료!");
       AuthenticationService.logout();
-    }, 30000);
+    },  30*60*1000);
   }
-
-  console.log(history, "에서", location.pathname, "으로");
+  
   if (location.pathname !== history && location.pathname !== "/") {
     console.log("페이지 이동");
     console.log(history, "에서", location.pathname, "으로");
@@ -28,7 +26,6 @@ const MovePage = ({ location, children }) => {
 
   useEffect(() => {
     setHistory(location.pathname);
-    // sessionManage();
   }, []);
 
   return (

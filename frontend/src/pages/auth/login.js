@@ -21,26 +21,26 @@ export default function Login (context) {
 
     const onLogin = useCallback((e) => {
         e.preventDefault();
-        AuthenticationService.registerSuccessfulLoginForJwt('asdf','token exam');
-        console.log('onlogin 내부 ',AuthenticationService.isUserLoggedIn());
-        setAuthInfo('sd','pwd')
-        // const data = AuthInfo;
-        // axios.post(`${Constants.SPRING_BACKEND.ENDPOINT}/api/auth/login`, { headers : {"Access-Control-Allow-Origin": "*"}}
-        // ).then(response => {
-        //         const { accessToken } = response.data;
-        //         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        //     })
-        //     .catch(error => {
-        //         Swal.fire({
-        //             title: "로그인 실패",
-        //             icon: "error"
-        //         });
-        //         console.error(error);
-        //     });
+        const data = AuthInfo;
+        // AuthenticationService.executeJwtAuthenticationService(data.email, data.password);
+        
+        axios.post(`${Constants.ENDPOINT}/api/auth/login`, data).then(response => {
+                const { accessToken } = response.data;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                AuthenticationService.registerSuccessfulLoginForJwt(data.email, accessToken);
+                setAuthInfo('','');
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "로그인 실패",
+                    icon: "error"
+                });
+                console.error(error);
+            });
+            
     }, []);
 
     const loggedIn = AuthenticationService.isUserLoggedIn();
-
     return (
         <>
             { !loggedIn ?
