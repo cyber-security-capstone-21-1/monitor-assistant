@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router";
 import { Redirect } from "react-router-dom";
-import { Login } from "@/pages";
+import { Login, SignUp } from "@/pages";
 import { RouteWithLayout, AuthLayout} from '../../shared/layouts';
 import AuthenticationService from '@/shared/AuthenticationService';
 
@@ -31,6 +31,7 @@ const MovePage = ({ location, children }) => {
   return (
     <>
       <RouteWithLayout layout={AuthLayout} path="/auth/login" component={Login}/>   
+      <RouteWithLayout layout={AuthLayout} path="/auth/signup" component={SignUp}/>   
       {!AuthenticationService.isUserLoggedIn() ? (
         <Redirect to="/auth/login" />
       ) : (

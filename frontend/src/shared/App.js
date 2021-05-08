@@ -11,13 +11,13 @@ function App () {
     <BrowserRouter>
       <MovePage>
         <Switch>
-          <RouteWithLayout layout={AuthLayout} path="/auth/signup" component={SignUp} exact={true}/>   
-          <RouteWithLayout layout={AuthLayout} path="/auth/login" component={Login} exact={true}/>
-          <RouteWithLayout layout={ServiceLayout} path="/service/intelligence/:uid" component={Viewer} exact={true}/>   
-          <RouteWithLayout layout={ServiceLayout} path="/service/monitor" component={Monitor} exact={true}/>   
-          <RouteWithLayout layout={ServiceLayout} path="/service/list" component={IntList} exact={true}/>   
-          <RouteWithLayout layout={ServiceLayout} path="/" component={Dashboard} exact={true}/>   
-          <RouteWithLayout layout={ErrorLayout} component={PageNotFound} exact={true}/>   
+          <RouteWithLayout layout={AuthLayout} path="/auth/signup" component={SignUp} />   
+          <RouteWithLayout layout={AuthLayout} path="/auth/login" component={Login} />
+          <RouteWithLayout layout={ServiceLayout} path="/service/intelligence/:uid" component={Viewer} />   
+          <RouteWithLayout layout={ServiceLayout} path="/service/monitor" component={Monitor} />   
+          <RouteWithLayout layout={ServiceLayout} path="/service/list" component={IntList} />   
+          <RouteWithLayout layout={ServiceLayout} path="/" component={Dashboard} />   
+          <RouteWithLayout layout={ErrorLayout} component={PageNotFound}/>   
         </Switch>
       </MovePage>
     </BrowserRouter>
