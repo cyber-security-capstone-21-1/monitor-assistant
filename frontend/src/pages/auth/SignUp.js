@@ -25,8 +25,16 @@ export default function SignUp () {
         }
 
         //회원가입 성공 과 동시에 로그인 처리.
-        axios.post(`${Constants.ENDPOINT}/api/auth/signup`, data).then(console.log);
-        
+        axios.post(`${Constants.ENDPOINT}/api/auth/emailvalidity`, data).then(res => {
+            if(res) { // 회원가입 가능
+                axios.post(`${Constants.ENDPOINT}/api/auth/signup`, data).then(response => {
+                    console.log('회원가입 가능 signup 응답값 : ',response)
+                }).catch(console.log);
+
+            } else { // 중복임.
+                setEmailMsg('중복 이메일입니다. 다른 이메일로 시도하세요.');
+            }
+        });
     }
 
     return (

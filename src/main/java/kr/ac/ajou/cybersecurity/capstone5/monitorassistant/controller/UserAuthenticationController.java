@@ -55,4 +55,11 @@ public class UserAuthenticationController {
         }
         return jwtTokenUtil.generateToken(member);
     }
+
+    @PostMapping("/emailvalidity")
+    public Boolean emailValidity(@RequestBody Map<String, String> user) {
+        UserEntity member = userRepository.findByEmail(user.get("email")).get();
+        if(member == null) return true;
+        return false;
+    }
 }
