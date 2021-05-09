@@ -22,7 +22,6 @@ export default function Login (context) {
         e.preventDefault();
         const data = AuthInfo;
         // AuthenticationService.executeJwtAuthenticationService(data.email, data.password);
-        
         axios.post(`${Constants.ENDPOINT}/api/auth/login`, data).then(response => {
                 const { accessToken } = response.data;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
@@ -36,37 +35,34 @@ export default function Login (context) {
                 });
                 console.error(error);
             });
-            
     }, []);
 
     const loggedIn = AuthenticationService.isUserLoggedIn();
     return (
         <>
-            { !loggedIn ?
-                (
-                <>
-                <header>로그인</header>
-                <div className="form__item_wrapper">
-                    <div className="form__item">
-                        <legend>이메일</legend>
-                        <input type="email" onChange={handleAuthInfo} name="email" required placeholder="이메일을 입력하세요" />
-                        <span className="error">이메일을 입력해주세요.</span>
+            { 
+                !loggedIn ? (
+                    <>
+                    <header>로그인</header>
+                    <div className="form__item_wrapper">
+                        <div className="form__item">
+                            <legend>이메일</legend>
+                            <input type="email" onChange={handleAuthInfo} name="email" required placeholder="이메일을 입력하세요" />
+                            <span className="error">이메일을 입력해주세요.</span>
+                        </div>
+                        <div className="form__item">
+                            <legend>패스워드</legend>
+                            <input type="password" onChange={handleAuthInfo} name="password" required placeholder="패스워드를 입력하세요"/>
+                            <span className="error">패스워드를 입력해주세요.</span>
+                        </div>
+                        <div className="form__item">
+                            <input type="submit" value="로그인" onClick={onLogin}/>
+                        </div>
+                        <hr />
+                        <p>아직 서비스에 가입하지 않으셨다면 <Link to="/auth/signup">이곳</Link>을 눌러 가입하세요.</p>
                     </div>
-                    <div className="form__item">
-                        <legend>패스워드</legend>
-                        <input type="password" onChange={handleAuthInfo} name="password" required placeholder="패스워드를 입력하세요"/>
-                        <span className="error">패스워드를 입력해주세요.</span>
-                    </div>
-                    <div className="form__item">
-                        <input type="submit" value="로그인" onClick={onLogin}/>
-                    </div>
-                    <hr />
-                    <p>아직 서비스에 가입하지 않으셨다면 <Link to="/auth/signup">이곳</Link>을 눌러 가입하세요.</p>
-                </div>
-                </>
-            )
-            :
-            (<Redirect to="/service" />)
+                    </>
+                ) : (<Redirect to="/service" />)
             }
         </>
     );
