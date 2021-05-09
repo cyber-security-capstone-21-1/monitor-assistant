@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOSITORY=/home/ec2-user
+REPOSITORY=/home/ubuntu
 PROJ_NAME=monitor-assistant
 
 cd $REPOSITORY/$PROJ_NAME/
@@ -36,5 +36,5 @@ chmod +x $JAR_NAME
 echo "Starting $JAR_NAME..."
 
 sudo nohup java -jar $REPOSITORY/$JAR_NAME \
---spring.config.location="file://$REPOSITORY/application.yml,file://$REPOSITORY/secret/aws.yml" \
+--spring.config.location="classpath:application.yml,file://$REPOSITORY/deployment/aws.yml" \
 > /dev/null 2> /dev/null < /dev/null &

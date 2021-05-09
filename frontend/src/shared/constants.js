@@ -1,5 +1,5 @@
 export default {
-    ENDPOINT: "https://d3gms0jqgo9bfj.cloudfront.net",
+    ENDPOINT: "https://www.monitor-assistant.com",
     AWS: {
         STAGE: "/api",
         APIs: {

@@ -6,16 +6,29 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: url("https://monitor-assistant.com/images/auth_background.jpg")
+    no-repeat center center/cover;
+  > .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+  }
 }
 
 .form {
   &__auth {
+    position: relative;
     width: 500px;
-    height: 550px;
+    height: 500px;
     text-align: center;
     background: #fff;
     border-radius: 20px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
+    z-index: 2;
     > header {
       text-align: center;
       font: {
@@ -23,67 +36,56 @@
         weight: 700;
       }
       margin: {
-        top: 30px;
-        bottom: 20px;
+        bottom: 10px;
+        left: 10px;
+      }
+      [type="email"],
+      [type="password"] {
+        display: block;
+        width: 91%;
+        font: {
+          size: 140%;
+        }
+        padding: 10px;
+        border: 1px soild rgba(189, 104, 104, 0.87);
+        border-radius: 3px;
+        margin: {
+          bottom: 10px;
+        }
+      }
+      [type="submit"] {
+        display: block;
+        font: {
+          size: 140%;
+          weight: 700;
+        }
+        color: #fff;
+        background: blueviolet;
+        border: none;
+        border-radius: 3px;
+        width: 91%;
+        padding: 10px 0;
+        text-align: center;
+        margin: {
+          top: 10px;
+          left: 13px;
+          bottom: 10px;
+        }
+        transition: 0.2s all ease;
+        &:hover {
+          cursor: pointer;
+          background: rgba(137, 43, 226, 0.767);
+        }
       }
     }
 
-    > .form__item_wrapper {
-      > .form__item {
-        text-align: left;
-        width: 100%;
-        margin: {
-          bottom: 10px;
-          left: 10px;
-        }
-        [type="email"],
-        [type="password"] {
-          display: block;
-          width: 91%;
-          font: {
-            size: 140%;
-          }
-          padding: 10px;
-          border: 1px soild rgba(189, 104, 104, 0.87);
-          border-radius: 3px;
-          margin: {
-            bottom: 10px;
-          }
-        }
-        [type="submit"] {
-          display: block;
-          font: {
-            size: 140%;
-            weight: 700;
-          }
-          color: #fff;
-          background: blueviolet;
-          border: none;
-          border-radius: 3px;
-          width: 91%;
-          padding: 10px 0;
-          text-align: center;
-          margin: {
-            top: 10px;
-            left: 13px;
-            bottom: 10px;
-          }
-          transition: 0.2s all ease;
-          &:hover {
-            cursor: pointer;
-            background: rgba(137, 43, 226, 0.767);
-          }
-        }
-      }
-
-      > .info {
-        > .btn {
-          color : rgb(202, 26, 179);
-          font-weight: bold;
-          text-decoration: none;
-          font-size: 15px;
-          margin-right: 3px;
-        }
+    > .info {
+      > .btn {
+        color: rgb(202, 26, 179);
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 15px;
+        margin-right: 3px;
       }
     }
   }

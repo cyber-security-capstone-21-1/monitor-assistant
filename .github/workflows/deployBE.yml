@@ -1,0 +1,40 @@
+name: gradle CD
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: JDK 11 Installation
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11.0.8
+
+      - name: ./gradlew Permission Setup
+        run: chmod +x ./gradlew
+
+      - name: Build Gradle
+        run: ./gradlew build
+
+      - name: aws Configuration
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEPLOYMENT }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEPLOYMENT }}
+          aws-region: us-east-1
+
+      - name: Upload To S3
+        run: aws deploy push --application-name BEDeployment --s3-location s3://cscapstone-21-1-5-s3/monitor-assistant.zip --source .
+
+      - name: code deploy
+        run: aws deploy create-deployment --application-name BEDeployment --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name BEDeployment --s3-location bucket=cscapstone-21-1-5-s3,bundleType=zip,key=monitor-assistant.zip
