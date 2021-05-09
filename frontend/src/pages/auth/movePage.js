@@ -6,7 +6,7 @@ import { RouteWithLayout, AuthLayout } from "../../shared/layouts";
 import AuthenticationService from "@/shared/AuthenticationService";
 
 const MovePage = ({ location, children }) => {
-  console.log("0509 11:16 테스트");
+  console.log("0509 11:48 테스트");
   const [history, setHistory] = useState("");
   const timeId = useRef();
 
