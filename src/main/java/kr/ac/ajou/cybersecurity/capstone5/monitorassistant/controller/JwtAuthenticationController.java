@@ -4,7 +4,6 @@ import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.config.JwtTokenUtil;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.model.JwtRequest;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.model.JwtResponse;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.JwtUserDetailsService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,9 +11,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
+@RequestMapping("/api")
 @RestController
 public class JwtAuthenticationController {
 

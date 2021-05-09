@@ -13,26 +13,25 @@ import java.util.List;
 
 @Tag(name = "intelligences", description = "첩보 API")
 @RestController
-@RequestMapping("/api/intelligences")
+@RequestMapping("/api")
 @AllArgsConstructor
 public class IntelligenceController {
 
-    // DI 주입
     @Autowired
     private IntelligenceRepository intelligenceRepository;
 
-    @PostMapping("/")
+    @GetMapping("/intelligences")
+    public List<IntelligenceEntity> all() {
+        // 전체 User에 대한 List 반환 중 --> 향후 JWT Token 사용해 User에 따른 List 반환
+        return intelligenceRepository.findAll();
+    }
+
+    @PostMapping("/intelligences")
     public IntelligenceResponse save(@RequestBody IntelligenceEntity entity) {
 //        intelligenceRepository.save(entity);
         System.out.println(entity.getContent());
 
         return IntelligenceAdapter.intelligenceResponse(entity, null);
-    }
-
-    @GetMapping("/")
-    public List<IntelligenceEntity> all() {
-        // 전체 User에 대한 List 반환 중 --> 향후 JWT Token 사용해 User에 따른 List 반환
-        return intelligenceRepository.findAll();
     }
 
 }
