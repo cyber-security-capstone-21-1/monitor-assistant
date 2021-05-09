@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Constants from "@/shared/constants";
+import { Link, Redirect } from 'react-router-dom';
 
 export default function SignUp () {
 
@@ -59,6 +60,8 @@ export default function SignUp () {
                 <div className="form__item">
                     <input type="submit" value="로그인" onClick={onSignUp}/>
                 </div>
+                <hr />
+                <p className="info"><Link to="/auth/login" className="btn">로그인 화면으로 돌아가기</Link></p>
             </div>
         </>
     );

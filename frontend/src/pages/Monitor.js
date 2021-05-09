@@ -6,10 +6,25 @@ import axios from "axios";
 import Constants from "@/shared/constants";
 import PageHeader from "@/components/PageHeader/PageHeader";
 
-const crawlSiteList = ["nate", "ygosu","fmkorea", "mlbpark", "humor", "clien", "ilbe", "dogdrip", "bobaedream", "ppomppu", "ruliweb", 'dcinside', 'naver'];
+const crawlSiteList = [
+  "nate",
+  "ygosu",
+  "fmkorea",
+  "mlbpark",
+  "humor",
+  "clien",
+  "ilbe",
+  "dogdrip",
+  "bobaedream",
+  "ppomppu",
+  "ruliweb",
+  "dcinside",
+  "naver",
+];
 function Monitor(props) {
   const [postList, setPostList] = useState([]);
   const [siteList, setSiteList] = useState([]);
+  const [result, setResult] = useState([]);
   const useinput = useRef();
 
   const search = async () => {
@@ -23,8 +38,9 @@ function Monitor(props) {
       didOpen: async () => {
         Swal.showLoading();
         const word = useinput.current.value;
+        setResult([]);
         setPostList([]);
-        setSiteList([]);
+        setSiteList(["전체"]);
 
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
@@ -34,6 +50,7 @@ function Monitor(props) {
             .then((response) => {
               const siteName = response.data.data[0].site;
               setPostList((state) => [...state, ...response.data.data]);
+              setResult((state) => [...state, ...response.data.data]);
               setSiteList((site) => [...site, siteName]);
               resLength += response.data.data.length;
             });
@@ -70,6 +87,18 @@ function Monitor(props) {
     if (e.key === "Enter") {
       e.preventDefault();
       search();
+    }
+  };
+
+  const getSiteData = (site) => {
+    if (site === "전체") {
+      setPostList([...result]);
+    } else {
+      let filteredPost = result.filter((post) => {
+        if (post.site === site) return true;
+        else return false;
+      });
+      setPostList([...filteredPost]);
     }
   };
 
@@ -133,7 +162,10 @@ function Monitor(props) {
                   .catch(console.log),
               ]);
               item.created_at = "";
-              axios.post(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
+              axios.post(
+                `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`,
+                item
+              );
 
               Swal.close();
             },
@@ -187,7 +219,7 @@ function Monitor(props) {
               siteList.map((site) => {
                 return (
                   <li>
-                    <a>{site}</a>
+                    <a onClick={() => getSiteData(site)}>{site}</a>
                   </li>
                 );
               })}
@@ -222,6 +254,7 @@ function Monitor(props) {
                   </tr>
                 );
               })}
+              
           </tbody>
         </table>
       </section>

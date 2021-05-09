@@ -17,11 +17,10 @@ export default function Login (context) {
             [e.target.name]: e.target.value
         });
     };
-
     const onLogin = useCallback((e) => {
         e.preventDefault();
+        console.log(AuthInfo)
         const data = AuthInfo;
-        console.log(data);
         // AuthenticationService.executeJwtAuthenticationService(data.email, data.password);
         axios.post(`${Constants.ENDPOINT}/api/auth/login`, data).then(response => {
                 const { accessToken } = response.data;
@@ -36,7 +35,7 @@ export default function Login (context) {
                 });
                 console.error(error);
             });
-    }, []);
+    }, [AuthInfo]);
 
     const loggedIn = AuthenticationService.isUserLoggedIn();
     return (
@@ -60,7 +59,7 @@ export default function Login (context) {
                             <input type="submit" value="로그인" onClick={onLogin}/>
                         </div>
                         <hr />
-                        <p>아직 서비스에 가입하지 않으셨다면 <Link to="/auth/signup">이곳</Link>을 눌러 가입하세요.</p>
+                        <p className="info">아직 서비스에 가입하지 않으셨다면 <Link to="/auth/signup" className="btn">이곳</Link>을 눌러 가입하세요.</p>
                     </div>
                     </>
                 ) : (<Redirect to="/service" />)
