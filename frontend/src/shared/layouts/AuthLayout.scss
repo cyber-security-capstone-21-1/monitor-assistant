@@ -48,6 +48,9 @@
           bottom: 10px;
           left: 10px;
         }
+        > .error {
+          color : red;
+        }
         [type="email"],
         [type="password"] {
           display: block;
@@ -56,7 +59,7 @@
             size: 140%;
           }
           padding: 10px;
-          border: 1px soild rgba(189, 104, 104, 0.87);
+          border: 2px soild black;
           border-radius: 3px;
           margin: {
             bottom: 10px;
@@ -83,7 +86,7 @@
           transition: 0.2s all ease;
           &:hover {
             cursor: pointer;
-            background: dimgray;
+            background: rgba(137, 43, 226, 0.74);
           }
         }
       }

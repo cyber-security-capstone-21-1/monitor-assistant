@@ -7,8 +7,9 @@ import { Link, Redirect } from 'react-router-dom';
 export default function SignUp () {
 
     const [AuthInfo, setAuthInfo] = useState({ email: "", password: "", passwordConfirm: "" });
-    const [passwdMsg, setPasswdMsg] = useState('패스워드 재입력을 입력해주세요.');
-    const [emailMsg, setEmailMsg] = useState('이메일을 입력해주세요.');
+    const [passwdMsg, setPasswdMsg] = useState('');
+    const [emailMsg, setEmailMsg] = useState('');
+    const [passMsg, setPassMsg] = useState('');
 
     const handleAuthInfo = (e) => {
         setAuthInfo({
@@ -20,6 +21,14 @@ export default function SignUp () {
     const onSignUp = (e) => {
         e.preventDefault();
         const data = AuthInfo;
+        if(data.email === '') {
+            setEmailMsg('이메일을 입력해주세요.');
+            return;
+        } else if (data.password === '') {
+            setPassMsg('비밀번호를 입력해주세요');
+            return;
+        }
+
         if(data.password !== data.passwordConfirm) {
             setPasswdMsg('비밀번호가 일치하지 않습니다.');
             return;
@@ -50,15 +59,15 @@ export default function SignUp () {
                 <div className="form__item">
                     <legend>패스워드</legend>
                     <input type="password" onChange={handleAuthInfo} name="password" required placeholder="패스워드를 입력하세요"/>
-                    <span className="error">패스워드를 입력해주세요.</span>
+                    <span className="error">{passMsg}</span>
                 </div>
                 <div className="form__item">
-                    <legend>패스워드</legend>
-                    <input type="password" onChange={handleAuthInfo} name="passwordConfirm" required placeholder="패스워드를 입력하세요"/>
+                    <legend>패스워드 확인</legend>
+                    <input type="password" onChange={handleAuthInfo} name="passwordConfirm" required placeholder="다시 한번 입력하세요"/>
                     <span className="error">{passwdMsg}</span>
                 </div>
                 <div className="form__item">
-                    <input type="submit" value="로그인" onClick={onSignUp}/>
+                    <input type="submit" value="회원가입" onClick={onSignUp}/>
                 </div>
                 <hr />
                 <p className="info"><Link to="/auth/login" className="btn">로그인 화면으로 돌아가기</Link></p>
