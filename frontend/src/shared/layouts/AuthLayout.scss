@@ -6,17 +6,28 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: url('https://monitor-assistant.com/images/auth_background.jpg');
+    background: url('https://monitor-assistant.com/images/auth_background.jpg') no-repeat center center/cover;
+    > .cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, .6);
+      z-index: 1;
+    }
   }
   
   .form {
     &__auth {
+      position: relative;
       width: 500px;
       height: 500px;
       text-align: center;
       background: #fff;
       border-radius: 20px;
       box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
+      z-index: 2;
       > header {
         text-align: center;
         font: {
