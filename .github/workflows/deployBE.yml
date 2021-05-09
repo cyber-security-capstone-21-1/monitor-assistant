@@ -10,7 +10,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /home/ubuntu
+        working-directory: /
 
     steps:
       - uses: actions/checkout@v2
