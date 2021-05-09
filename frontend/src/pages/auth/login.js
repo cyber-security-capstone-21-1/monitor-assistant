@@ -21,6 +21,7 @@ export default function Login (context) {
     const onLogin = useCallback((e) => {
         e.preventDefault();
         const data = AuthInfo;
+        console.log(data);
         // AuthenticationService.executeJwtAuthenticationService(data.email, data.password);
         axios.post(`${Constants.ENDPOINT}/api/auth/login`, data).then(response => {
                 const { accessToken } = response.data;
