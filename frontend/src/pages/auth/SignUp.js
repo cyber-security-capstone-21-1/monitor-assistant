@@ -24,7 +24,7 @@ export default function SignUp () {
             return;
         }
 
-        //회원가입 성공 과 동시에 로그인 처리.
+        //회원가입 성공과 동시에 로그인
         axios.post(`${Constants.ENDPOINT}/api/auth/emailvalidity`, data).then(res => {
             if(res) { // 회원가입 가능
                 axios.post(`${Constants.ENDPOINT}/api/auth/signup`, data).then(response => {

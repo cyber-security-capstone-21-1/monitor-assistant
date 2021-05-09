@@ -29,6 +29,7 @@ const MovePage = ({ location, children }) => {
     setHistory(location.pathname);
   }, []);
 
+  
   return (
     <>
       <RouteWithLayout

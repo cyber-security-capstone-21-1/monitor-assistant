@@ -1,12 +1,9 @@
 import React, { useState, useRef } from "react";
-
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
 import Constants from "@/shared/constants";
-
 import PageHeader from "@/components/PageHeader/PageHeader";
 
 const crawlSiteList = ["nate", "ygosu","fmkorea", "mlbpark", "humor", "clien", "ilbe", "dogdrip", "bobaedream", "ppomppu", "ruliweb", 'dcinside', 'naver'];

@@ -1,13 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-
 import AuthenticationService from '@/shared/AuthenticationService';
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Constants from '@/shared/constants';
-import { RouteWithLayout, AuthLayout} from '@/shared/layouts';
-import { SignUp } from "@/pages";
 
 export default function Login (context) {
     console.log('로그인 렌더링');
@@ -45,7 +42,6 @@ export default function Login (context) {
     const loggedIn = AuthenticationService.isUserLoggedIn();
     return (
         <>
-            {/* <RouteWithLayout layout={AuthLayout} path="/auth/signup" component={SignUp}/>    */}
             { !loggedIn ?
                 (
                 <>
