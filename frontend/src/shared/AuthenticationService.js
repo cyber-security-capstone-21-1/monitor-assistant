@@ -2,13 +2,16 @@ import axios from 'axios';
 import Constants from './constants';
 
 class AuthenticationService {
-    executeJwtAuthenticationService(email, password) {
+    executeJwtAuthenticationService() {
+        let email = localStorage.getItem('authenticatedUser');
+        let password = localStorage.getItem('password');
         return axios.post(`${Constants.ENDPOINT}/api/authenticate`, { email, password });
     }
 
-    registerSuccessfulLoginForJwt(email, token) {
+    registerSuccessfulLoginForJwt(email, token, password) {
         localStorage.setItem('token', token);
         localStorage.setItem('authenticatedUser', email);
+        localStorage.setItem('password', password);
         this.setupAxiosInterceptors();
     }
 
