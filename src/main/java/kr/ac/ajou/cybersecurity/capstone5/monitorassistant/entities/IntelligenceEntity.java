@@ -24,7 +24,7 @@ public class IntelligenceEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "title",nullable = false, length = 500)
+    @Column(name = "title", nullable = false, length = 500)
     private String title;
 
     @Column(name = "url", length = 500)
