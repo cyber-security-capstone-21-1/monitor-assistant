@@ -35,7 +35,7 @@ public class IntelligenceController {
     }
 
     @GetMapping("/intelligences/{uid}")
-    public IntelligenceEntity findOne(@PathVariable String uid) {
+    public IntelligenceEntity findOne(@PathVariable long uid) {
         System.out.println(uid);
         System.out.println(intelligenceRepository.findByUid(uid));
         return intelligenceRepository.findByUid(uid)
