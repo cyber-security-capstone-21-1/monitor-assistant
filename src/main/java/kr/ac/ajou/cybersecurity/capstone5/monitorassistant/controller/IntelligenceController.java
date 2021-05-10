@@ -42,7 +42,7 @@ public class IntelligenceController {
         return intelligenceRepository.findByUid(uid)
                 .orElseThrow(() -> new IllegalArgumentException("No data"));
     }
-    
+
     @DeleteMapping("/intelligences/{uid}")
     @Transactional
     public IntelligenceEntity deleteOne(@PathVariable String uid) {

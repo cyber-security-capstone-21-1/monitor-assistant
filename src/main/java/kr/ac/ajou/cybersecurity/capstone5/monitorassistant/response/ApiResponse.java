@@ -13,5 +13,6 @@ import java.util.List;
 public abstract class ApiResponse<T> {
     @NonNull
     private T data;
+    private String status;
     private List<String> errors;
 }
