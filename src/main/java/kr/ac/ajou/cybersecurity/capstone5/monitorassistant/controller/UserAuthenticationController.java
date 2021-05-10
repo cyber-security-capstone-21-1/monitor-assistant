@@ -47,20 +47,12 @@ public class UserAuthenticationController {
             ).getId();
 
         } catch (Exception e) {
-
             errors.add(e.getMessage());
             return UserAdapter.userResponse(
-                    UserAdapter.userResponseEntity(null, null),
-                    "failed",
-                    errors
-            );
-
+                    UserAdapter.userResponseEntity(null, null), "failed", errors);
         }
         return UserAdapter.userResponse(
-                UserAdapter.userResponseEntity(id, user.get("email")),
-                "created",
-                errors
-        );
+                UserAdapter.userResponseEntity(id, user.get("email")), "created", errors);
     }
 
     @PostMapping("/login")

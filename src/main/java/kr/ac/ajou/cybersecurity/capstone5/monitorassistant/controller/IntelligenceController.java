@@ -26,13 +26,11 @@ public class IntelligenceController {
     @GetMapping("/intelligences")
     @Transactional
     public List<IntelligenceEntity> all() {
-        // 전체 User에 대한 List 반환 중 --> 향후 JWT Token 사용해 User에 따른 List 반환
         return intelligenceRepository.findAll();
     }
 
     @PostMapping("/intelligences")
     public IntelligenceResponse save(@RequestBody IntelligenceEntity entity) {
-
         intelligenceRepository.save(entity);
         System.out.println(entity.getContent());
         return IntelligenceAdapter.intelligenceResponse(entity, null);
