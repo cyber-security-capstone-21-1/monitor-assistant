@@ -12,8 +12,8 @@ echo "> Gradle Build"
 ./gradlew build
 
 echo "> Copy JAR"
-cp $REPOSITORY/$PROJ_NAME/build/libs/*.jar $REPOSITORY/
-cd ..
+cp $REPOSITORY/$PROJ_NAME/build/libs/*.jar $REPOSITORY/deployment/
+cd ../deployment/
 
 echo "> 현재 실행중인 애플리케이션 pid 확인"
 CURRENT_PID=$(pgrep -f ${PROJ_NAME}.*.jar)
@@ -30,11 +30,11 @@ fi
 
 echo "> 새 애플리케이션 배포"
 
-JAR_NAME=$(ls -tr $REPOSITORY | grep *.jar | tail -n 1)
+JAR_NAME=$(ls -tr $REPOSITORY/deployment/ | grep *.jar | tail -n 1)
 chmod +x $JAR_NAME
 
 echo "Starting $JAR_NAME..."
 
-sudo nohup java -jar $REPOSITORY/$JAR_NAME \
+sudo nohup java -jar $REPOSITORY/deployment/$JAR_NAME \
 --spring.config.location="classpath:application.yml,file://$REPOSITORY/deployment/aws.yml" \
 > /dev/null 2> /dev/null < /dev/null &
