@@ -10,6 +10,8 @@ const MovePage = ({ location, children }) => {
   const timeId = useRef();
 
   const sessionManage = () => {
+    // AuthenticationService.executeJwtAuthenticationService(data.email, data.password);
+    
     timeId.current = setTimeout(() => {
       console.log("로그인 세션 만료!");
       AuthenticationService.logout();
