@@ -37,7 +37,7 @@ public class UserAuthenticationController {
                             .email(user.get("email"))
                             .password_encrypted(passwordEncoder.encode(user.get("password")))
                             .role(UserEntity.Role.USER.ordinal())
-                            .name(user.get("name"))
+                            // .name(user.get("name"))
                             .build()
             ).getId();
         } catch (Exception e) {
