@@ -1,19 +1,30 @@
-import React, { useState, useRef, useEffect } from "react";
-
+import React, { useState, useRef } from "react";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
 import Constants from "@/shared/constants";
-
 import PageHeader from "@/components/PageHeader/PageHeader";
 
-const crawlSiteList = ["nate", "humor", "clien", "fmkorea"];
-
+const crawlSiteList = [
+  "nate",
+  "ygosu",
+  "fmkorea",
+  "mlbpark",
+  "humor",
+  "clien",
+  "ilbe",
+  "dogdrip",
+  "bobaedream",
+  "ppomppu",
+  "ruliweb",
+  "dcinside",
+  "naver",
+];
 function Monitor(props) {
   const [postList, setPostList] = useState([]);
   const [siteList, setSiteList] = useState([]);
+  const [result, setResult] = useState([]);
   const useinput = useRef();
 
   const search = async () => {
@@ -27,20 +38,19 @@ function Monitor(props) {
       didOpen: async () => {
         Swal.showLoading();
         const word = useinput.current.value;
+        setResult([]);
         setPostList([]);
-        setSiteList([]);
+        setSiteList(["전체"]);
 
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
             .get(
-              `${Constants.SPRING_BACKEND.ENDPONT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`,
-              { headers: { "Access-Control-Allow-Origin": "*" } }
+              `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
             )
             .then((response) => {
               const siteName = response.data.data[0].site;
-              console.log(siteName, " 완료");
-              console.log(response.data.data);
               setPostList((state) => [...state, ...response.data.data]);
+              setResult((state) => [...state, ...response.data.data]);
               setSiteList((site) => [...site, siteName]);
               resLength += response.data.data.length;
             });
@@ -77,6 +87,18 @@ function Monitor(props) {
     if (e.key === "Enter") {
       e.preventDefault();
       search();
+    }
+  };
+
+  const getSiteData = (site) => {
+    if (site === "전체") {
+      setPostList([...result]);
+    } else {
+      let filteredPost = result.filter((post) => {
+        if (post.site === site) return true;
+        else return false;
+      });
+      setPostList([...filteredPost]);
     }
   };
 
@@ -124,9 +146,8 @@ function Monitor(props) {
               axios.all([
                 axios
                   .post(
-                    `${Constants.AWS.ENDPONT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
-                    { url: "http://naver.com" },
-                    { headers: { "Access-Control-Allow-Origin": "*" } }
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
+                    { url: "http://naver.com" }
                   )
                   .then((res) => {
                     console.log(res.data.body);
@@ -134,15 +155,17 @@ function Monitor(props) {
                   .catch(console.log),
                 axios
                   .post(
-                    `${Constants.AWS.ENDPONT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
-                    { url: "http://naver.com" },
-                    { headers: { "Access-Control-Allow-Origin": "*" } }
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
+                    { url: "http://naver.com" }
                   )
                   .then(console.log)
                   .catch(console.log),
               ]);
               item.created_at = "";
-              axios.post(`${Constants.SPRING_BACKEND.ENDPONT}${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
+              axios.post(
+                `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`,
+                item
+              );
 
               Swal.close();
             },
@@ -196,7 +219,7 @@ function Monitor(props) {
               siteList.map((site) => {
                 return (
                   <li>
-                    <a>{site}</a>
+                    <a onClick={() => getSiteData(site)}>{site}</a>
                   </li>
                 );
               })}
@@ -231,6 +254,7 @@ function Monitor(props) {
                   </tr>
                 );
               })}
+              
           </tbody>
         </table>
       </section>
