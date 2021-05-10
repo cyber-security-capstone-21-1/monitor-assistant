@@ -6,7 +6,6 @@ import { RouteWithLayout, AuthLayout } from "../../shared/layouts";
 import AuthenticationService from "@/shared/AuthenticationService";
 
 const MovePage = ({ location, children }) => {
-  console.log("0509 11:48 테스트");
   const [history, setHistory] = useState("");
   const timeId = useRef();
 
@@ -18,8 +17,7 @@ const MovePage = ({ location, children }) => {
   };
 
   if (location.pathname !== history && location.pathname !== "/") {
-    console.log("페이지 이동");
-    console.log(history, "에서", location.pathname, "으로");
+    console.log(history, "에서", location.pathname, "으로 이동");
     setHistory(location.pathname);
     clearTimeout(timeId.current);
     sessionManage();

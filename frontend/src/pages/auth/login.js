@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import Constants from "@/shared/constants";
 
 export default function Login(context) {
-  console.log("로그인 렌더링");
   console.log(AuthenticationService.isUserLoggedIn());
 
   const [passwdMsg, setPasswdMsg] = useState("");
