@@ -47,6 +47,7 @@ export default function SignUp() {
             axios.post(`${Constants.ENDPOINT}/api/auth/signup`, data)
             .then((res) => {
               axios.post(`${Constants.ENDPOINT}/api/auth/login`, data)
+
                 .then((response) => {
                   const { accessToken } = response.data;
                   axios.defaults.headers.common[
@@ -88,6 +89,7 @@ export default function SignUp() {
         <>
           <header className="title">회원가입</header>
           <div className="form__item_wrapper">
+<<<<<<< HEAD
             <div className="form__item">
 
               {/* <legend>닉네임</legend>
@@ -101,6 +103,9 @@ export default function SignUp() {
             <span className="error">{emailMsg}</span> */}
 
             <div className="form__item">
+=======
+            
+            <div className="form__item">
               <legend>이메일</legend>
               <input
                 type="email"
@@ -111,6 +116,23 @@ export default function SignUp() {
               />
               <span className="error">{emailMsg}</span>
             </div>
+            {/* <div className="form__item">
+>>>>>>> 0d7e5ce4dfc0f3aacda9da9f026709d0d103eec3
+              <legend>이메일</legend>
+              <input
+                type="email"
+                onChange={handleAuthInfo}
+                name="email"
+                required
+                placeholder="이메일을 입력하세요"
+              />
+              <span className="error">{emailMsg}</span>
+<<<<<<< HEAD
+            </div>
+=======
+            </div> */}
+            
+>>>>>>> 0d7e5ce4dfc0f3aacda9da9f026709d0d103eec3
             <div className="form__item">
               <legend>패스워드</legend>
               <input
