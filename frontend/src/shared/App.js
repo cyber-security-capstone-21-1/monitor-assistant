@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, HashRouter } from 'react-router-dom';
+import { Switch, HashRouter } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import "@/assets/styles/default.scss";
 import { Dashboard, Viewer, IntList, Monitor, Login, SignUp, PageNotFound } from "@/pages";

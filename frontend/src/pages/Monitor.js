@@ -137,6 +137,8 @@ function Monitor(props) {
       .then(async (result) => {
         if (result.value && result.value[0]) {
           const memo = JSON.stringify(result.value);
+
+          console.log(item, '저장');
           Swal.fire({
             title: "아카이빙 및 저장 중입니다.",
             html: "완료되면 창은 자동으로 닫힙니다.",
@@ -146,19 +148,15 @@ function Monitor(props) {
               axios.all([
                 axios
                   .post(
-                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
-                    { url: "http://naver.com" }
-                  )
-                  .then((res) => {
-                    console.log(res.data.body);
-                  })
-                  .catch(console.log),
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: "http://naver.com" }
+                  ).then((res) => {
+                    console.log('아카이버 반환 : ',res.data.body);
+                  }).catch(console.log),
                 axios
                   .post(
-                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
-                    { url: "http://naver.com" }
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,{ url: "http://naver.com" }
                   )
-                  .then(console.log)
+                  .then((res) => console.log('스크린샷', res))
                   .catch(console.log),
               ]);
               item.created_at = "";

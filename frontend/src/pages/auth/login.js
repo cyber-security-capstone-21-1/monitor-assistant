@@ -7,8 +7,6 @@ import Swal from "sweetalert2";
 import Constants from "@/shared/constants";
 
 export default function Login(context) {
-  console.log(AuthenticationService.isUserLoggedIn());
-
   const [passwdMsg, setPasswdMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [AuthInfo, setAuthInfo] = useState({ email: "", password: "" });
@@ -27,9 +25,8 @@ export default function Login(context) {
             if(data.password === '') setPasswdMsg('비밀번호를 입력해주세요');
             return;
         }
-      // AuthenticationService.executeJwtAuthenticationService(data.email, data.password);
-      axios
-        .post(`${Constants.ENDPOINT}/api/auth/login`, data)
+      
+      axios.post(`${Constants.ENDPOINT}/api/auth/login`, data)
         .then((response) => {
           const { accessToken } = response.data;
           axios.defaults.headers.common[
