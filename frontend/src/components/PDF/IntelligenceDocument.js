@@ -12,9 +12,9 @@ import {
 import Logo from "@/assets/images/logo.png";
 import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/assets/fonts/IBMPlexSansKR";
 
-export default function IntelligenceDocument({ content }) {
+export default function IntelligenceDocument({ content: { data } }) {
 
-  console.log(content);
+  console.log(data);
 
   Font.register({
     family: "IBMPlexSansKR",
@@ -138,47 +138,47 @@ export default function IntelligenceDocument({ content }) {
             {/* Header */}
             <Text style={styles.tableCellHead}>게시물명</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.title}</Text>
+            <Text style={styles.tableCellBody}>{data.title}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>사이트</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.site}</Text>
+            <Text style={styles.tableCellBody}>{data.site}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>작성자</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.author}</Text>
+            <Text style={styles.tableCellBody}>{data.author}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>작성일</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.created_at}</Text>
+            <Text style={styles.tableCellBody}>{data.created_at}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>URL</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.url}</Text>
+            <Text style={styles.tableCellBody}>{data.url}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>첩보 내용</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.content}</Text>
+            <Text style={styles.tableCellBody}>{data.content}</Text>
           </View>
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷</Text>
-            <Image style={styles.tableCellBody} src={`/${content.uid}/screenshot.png`} />
+            <Image style={styles.tableCellBody} src={`/${data.uid}/screenshot.png`} />
           </View>
           {/* End of Table */}
         </View>
