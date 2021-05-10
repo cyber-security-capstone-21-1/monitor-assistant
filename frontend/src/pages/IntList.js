@@ -9,18 +9,17 @@ import Constants from '@/shared/constants';
 function IntList () {
     const [intList, setIntList] = useState([]);
     useEffect(() => {
-        async function loadIntelligences() {
-            Swal.fire({
-                title: '목록 로딩 중',
-                html: '데이터를 불러오고 있습니다.',
-                didOpen: () => {
-                    Swal.showLoading();
-                    const result = await axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`);
-                    setIntList([...result.data]);
-                },
-            });
-        }
-        loadIntelligences();
+        Swal.fire({
+            title: '목록 로딩 중',
+            html: '데이터를 불러오고 있습니다.',
+            didOpen: () => {
+                Swal.showLoading();
+                axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`)
+                .then(({ data }) => {
+                    setIntList([...data]);
+                });
+            },
+        });
     }, []);
 
     return (
