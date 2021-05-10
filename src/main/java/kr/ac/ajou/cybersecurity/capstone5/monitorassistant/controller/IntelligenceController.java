@@ -38,7 +38,7 @@ public class IntelligenceController {
 
     @GetMapping("/intelligences/{uid}")
     @Transactional
-    public IntelligenceEntity findOne(@PathVariable String iid) {
+    public IntelligenceEntity findOne(@PathVariable String uid) {
         return intelligenceRepository.findByUid(uid)
                 .orElseThrow(() -> new IllegalArgumentException("No data"));
     }
