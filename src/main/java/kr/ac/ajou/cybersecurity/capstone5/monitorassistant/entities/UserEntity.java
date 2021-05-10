@@ -47,7 +47,7 @@ public class UserEntity implements Serializable, UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity")
     @JsonIgnore
-    private List<IntelligenceEntity> intelligences = new ArrayList<>();
+    private final List<IntelligenceEntity> intelligences = new ArrayList<>();
 
     // Overrides from UserDetails
     @Override
