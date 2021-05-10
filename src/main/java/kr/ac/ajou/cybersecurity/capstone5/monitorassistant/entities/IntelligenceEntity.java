@@ -45,7 +45,7 @@ public class IntelligenceEntity implements Serializable {
     @Column(name = "action_plan", length = 500)
     private String action_plan;
 
-    @Column(name = "uid", nullable= false)
+    @Column(name = "uid", nullable = false, unique = true)
     private String uid;
 
     @ManyToOne

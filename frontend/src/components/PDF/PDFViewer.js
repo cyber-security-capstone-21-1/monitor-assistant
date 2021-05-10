@@ -3,15 +3,17 @@ import React, { useState, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import IntelligenceDocument from "./IntelligenceDocument";
 
+import Constants from '@/shared/constants';
+
 import axios from 'axios';
 
-function Viewer({ match: { params }}) {
+function Viewer({ match: { params: { uid } }}) {
   const [PDFBinary, setPDFBinary] = useState("");
   const [Intelligence, setIntelligence] = useState({});
 
   useEffect(() => {
     async function getIntelligence() {
-      const data = await axios.get(`/api/monitor/api/intelligences/${params.uid}`);
+      const data = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`);
       setIntelligence(data);
     }
     getIntelligence();

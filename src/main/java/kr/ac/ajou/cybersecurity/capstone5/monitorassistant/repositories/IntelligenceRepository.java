@@ -2,9 +2,10 @@ package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.repositories;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.IntelligenceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 public interface IntelligenceRepository extends JpaRepository<IntelligenceEntity, Long> {
-    Optional<IntelligenceEntity> findByUid(String uid);
+    Optional<IntelligenceEntity> findByUid(@Param("uid") String uid);
 }

@@ -12,16 +12,7 @@ import {
 import Logo from "@/assets/images/logo.png";
 import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/assets/fonts/IBMPlexSansKR";
 
-import Constants from "@/shared/constants";
-
 export default function IntelligenceDocument(props) {
-
-  const [intelligence, setIntelligence] = useState({});
-
-  useEffect(() => {
-    console.log(props.location);
-    // axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${}`)
-  }, {});
 
   Font.register({
     family: "IBMPlexSansKR",

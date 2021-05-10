@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Tag(name = "intelligences", description = "첩보 API")
 @RestController
@@ -35,9 +34,12 @@ public class IntelligenceController {
         return IntelligenceAdapter.intelligenceResponse(entity, null);
     }
 
-    @GetMapping("/intelligences/{id}")
-    public @ResponseBody Optional<IntelligenceEntity> findOne(@PathVariable String uid) {
-        return intelligenceRepository.findByUid(uid);
+    @GetMapping("/intelligences/{uid}")
+    public IntelligenceEntity findOne(@PathVariable String uid) {
+        System.out.println(uid);
+        System.out.println(intelligenceRepository.findByUid(uid));
+        return intelligenceRepository.findByUid(uid)
+                .orElseThrow(() -> new IllegalArgumentException("No data"));
     }
 
 }
