@@ -150,13 +150,13 @@ function Monitor(props) {
                   .post(
                     `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: "http://naver.com" }
                   ).then((res) => {
-                    console.log(res.data.body);
+                    console.log('아카이버 반환 : ',res.data.body);
                   }).catch(console.log),
                 axios
                   .post(
                     `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,{ url: "http://naver.com" }
                   )
-                  .then(console.log)
+                  .then((res) => console.log('스크린샷', res))
                   .catch(console.log),
               ]);
               item.created_at = "";

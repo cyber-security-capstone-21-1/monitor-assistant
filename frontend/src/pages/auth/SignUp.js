@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Constants from "@/shared/constants";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import AuthenticationService from "@/shared/AuthenticationService";
 
 export default function SignUp() {
   const [AuthInfo, setAuthInfo] = useState({
@@ -45,8 +46,27 @@ export default function SignUp() {
           // 회원가입 가능
           axios
             .post(`${Constants.ENDPOINT}/api/auth/signup`, data)
-            .then((response) => {
-              console.log("회원가입 가능 signup 응답값 : ", response);
+            .then((res) => {
+                console.log("회원가입 가능 signup 응답값 : ", res);
+                axios.post(`${Constants.ENDPOINT}/api/auth/login`, data).then((response) => {
+                    const { accessToken } = response.data;
+                    axios.defaults.headers.common[
+                    "Authorization"
+                    ] = `Bearer ${accessToken}`;
+                    AuthenticationService.registerSuccessfulLoginForJwt(
+                    data.email,
+                    accessToken
+                    );
+                    setAuthInfo("", "");
+                }).catch((error) => {
+                    Swal.fire({
+                    title: "로그인 실패",
+                    icon: "error",
+                    });
+                    console.error(error);
+                });
+
+
             })
             .catch(console.log);
         } else {
@@ -63,8 +83,11 @@ export default function SignUp() {
       });
   };
 
+  const loggedIn = AuthenticationService.isUserLoggedIn();
   return (
     <>
+    {!loggedIn ? (
+        <>
       <header className="title">회원가입</header>
       <div className="form__item_wrapper">
         <div className="form__item">
@@ -110,6 +133,10 @@ export default function SignUp() {
           </Link>
         </p>
       </div>
+      </>
+      ) : (
+        <Redirect to="/service" />
+      )}
     </>
   );
 }
