@@ -41,7 +41,7 @@ public class ScrapeDogdrip implements ScraperServiceInterface {
                 Document doc2=Jsoup.connect(postEntity.getUrl()).get();
                 String str=doc2.select("span.ed.margin-right-small > span.ed.text-xsmall.text-muted").text();
                 postEntity.setCreated_at(str.substring(0,str.indexOf("  ")));
-               // postEntity.setContent(doc2.select("div#article_1").html());
+                postEntity.setContent(doc2.select("div#article_1").html());
                 postEntity.setView(str.substring(str.indexOf("  ")+2));
                 postEntityList.add(postEntity);
             }
