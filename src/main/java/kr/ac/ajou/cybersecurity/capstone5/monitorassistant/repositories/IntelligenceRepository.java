@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface IntelligenceRepository extends JpaRepository<IntelligenceEntity, Long> {
-    Optional<IntelligenceEntity> findByUid(@Param("uid") Long uid);
+    Optional<IntelligenceEntity> findByUid(@Param("uid") String uid);
 }

@@ -28,14 +28,16 @@ public class IntelligenceController {
 
     @PostMapping("/intelligences")
     public IntelligenceResponse save(@RequestBody IntelligenceEntity entity) {
-//        intelligenceRepository.save(entity);
-        System.out.println(entity.getContent());
 
+
+         intelligenceRepository.save(entity);
+        System.out.println(entity.getContent());
+        System.out.println("hi");
         return IntelligenceAdapter.intelligenceResponse(entity, null);
     }
 
     @GetMapping("/intelligences/{uid}")
-    public IntelligenceEntity findOne(@PathVariable long uid) {
+    public IntelligenceEntity findOne(@PathVariable String uid) {
         System.out.println(uid);
         System.out.println(intelligenceRepository.findByUid(uid));
         return intelligenceRepository.findByUid(uid)
