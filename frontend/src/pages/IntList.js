@@ -10,8 +10,15 @@ function IntList () {
     const [intList, setIntList] = useState([]);
     useEffect(() => {
         async function loadIntelligences() {
-            const intelligences = await axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`);
-            setIntList([...intelligences.data]);
+            Swal.fire({
+                title: '목록 로딩 중',
+                html: '데이터를 불러오고 있습니다.',
+                didOpen: () => {
+                    Swal.showLoading();
+                    const result = await axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`);
+                    setIntList([...result.data]);
+                },
+            });
         }
         loadIntelligences();
     }, []);
