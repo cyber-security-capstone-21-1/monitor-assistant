@@ -25,5 +25,5 @@ chmod +x $JAR_NAME
 echo "Starting $JAR_NAME..."
 
 sudo nohup java -jar $REPOSITORY/$JAR_NAME \
---spring.config.location="classpath:application.yml,file://$REPOSITORY/deployment/aws.yml" \
+--spring.config.location="classpath:application.yml,file://$REPOSITORY/aws.yml" \
 > /dev/null 2> /dev/null < /dev/null &
