@@ -44,7 +44,7 @@ export default function IntelligenceCard (props) {
                     <span>{props.site}</span>&nbsp;|&nbsp;<span>{props.author}</span>&nbsp;|&nbsp;<span>{new Date(props.created_at).toLocaleString()}</span>
                 </p>
                 <div className="footer__prefs">
-                    <Link className="button button__info" to={`/intelligence/${props.uid}`}>
+                    <Link className="button button__info" to={`/service/intelligence/${props.uid}`}>
                         <FontAwesomeIcon icon={faFileAlt} />&nbsp;
                         <span>문서 보기</span>
                     </Link>
