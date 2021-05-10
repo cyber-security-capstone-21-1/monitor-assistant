@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import Constants from "@/shared/constants";
 
 export default function Login(context) {
-  console.log("로그인 렌더링");
   console.log(AuthenticationService.isUserLoggedIn());
 
   const [passwdMsg, setPasswdMsg] = useState("");
@@ -58,7 +57,7 @@ export default function Login(context) {
     <>
       {!loggedIn ? (
         <>
-          <header>로그인</header>
+          <header className="title">로그인</header>
           <div className="form__item_wrapper">
             <div className="form__item">
               <legend>이메일</legend>
