@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Page,
   Text,
@@ -138,47 +138,47 @@ export default function IntelligenceDocument({ content }) {
             {/* Header */}
             <Text style={styles.tableCellHead}>게시물명</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.title}</Text>
+            <Text style={styles.tableCellBody}>{content.data.title}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>사이트</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.site}</Text>
+            <Text style={styles.tableCellBody}>{content.data.site}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>작성자</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.author}</Text>
+            <Text style={styles.tableCellBody}>{content.data.author}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>작성일</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.created_at}</Text>
+            <Text style={styles.tableCellBody}>{content.data.created_at}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>URL</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.url}</Text>
+            <Text style={styles.tableCellBody}>{content.data.url}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>첩보 내용</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.content}</Text>
+            <Text style={styles.tableCellBody}>{content.data.content}</Text>
           </View>
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷</Text>
-            <Image style={styles.tableCellBody} src={`/${content.uid}/screenshot.png`} />
+            <Image style={styles.tableCellBody} src={`/${content.data.uid}/screenshot.png`} />
           </View>
           {/* End of Table */}
         </View>
