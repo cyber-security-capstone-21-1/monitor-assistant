@@ -7,6 +7,7 @@ import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.repositories.Intellig
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.IntelligenceResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class IntelligenceController {
     private IntelligenceRepository intelligenceRepository;
 
     @GetMapping("/intelligences")
+    @Transactional
     public List<IntelligenceEntity> all() {
         // 전체 User에 대한 List 반환 중 --> 향후 JWT Token 사용해 User에 따른 List 반환
         return intelligenceRepository.findAll();
@@ -35,9 +37,8 @@ public class IntelligenceController {
     }
 
     @GetMapping("/intelligences/{uid}")
-    public IntelligenceEntity findOne(@PathVariable String uid) {
-        System.out.println(uid);
-        System.out.println(intelligenceRepository.findByUid(uid));
+    @Transactional
+    public IntelligenceEntity findOne(@PathVariable String iid) {
         return intelligenceRepository.findByUid(uid)
                 .orElseThrow(() -> new IllegalArgumentException("No data"));
     }
