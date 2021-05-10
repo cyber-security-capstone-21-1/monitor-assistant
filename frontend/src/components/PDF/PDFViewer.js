@@ -23,7 +23,7 @@ function Viewer({ match: { params: { uid } }}) {
     <section>
       <article>
         <PDFDownloadLink
-          document={<IntelligenceDocument data={Intelligence} />}
+          document={<IntelligenceDocument content={Intelligence} />}
           fileName="intelligence.pdf"
         >
           {
