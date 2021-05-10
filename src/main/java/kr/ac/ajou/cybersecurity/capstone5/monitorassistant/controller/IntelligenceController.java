@@ -37,7 +37,7 @@ public class IntelligenceController {
 
     @GetMapping("/intelligences/{id}")
     public @ResponseBody Optional<IntelligenceEntity> findOne(@PathVariable String uid) {
-        return intelligenceRepository.findByArchived_UID(uid);
+        return intelligenceRepository.findByArchivedUID(uid);
     }
 
 }
