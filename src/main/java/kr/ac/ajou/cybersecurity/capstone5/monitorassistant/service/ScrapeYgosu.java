@@ -41,8 +41,8 @@ public class ScrapeYgosu implements ScraperServiceInterface {
                  String[] str2=str.split("/");
                     postEntity.setContent(doc2.select("div.container").html());
                 postEntity.setAuthor(doc2.select("div.nickname > a").text());
-                       postEntity.setView(str2[0].substring(7));
-                      postEntity.setCreated_at(str2[1].substring(8));
+                       postEntity.setView(str2[1].substring(7));
+                      postEntity.setCreated_at(str2[0].substring(8));
                 postEntityList.add(postEntity);
             }
         }
