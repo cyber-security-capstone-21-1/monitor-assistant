@@ -45,8 +45,8 @@ public class IntelligenceEntity implements Serializable {
     @Column(name = "action_plan", length = 500)
     private String action_plan;
 
-    @Column(name = "archived_UID", nullable= false)
-    private String archived_UID;
+    @Column(name = "uid", nullable= false)
+    private String uid;
 
     @ManyToOne
     @JsonIgnore

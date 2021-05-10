@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface IntelligenceRepository extends JpaRepository<IntelligenceEntity, Long> {
-    Optional<IntelligenceEntity> findByArchivedUID(String uid);
+    Optional<IntelligenceEntity> findByUid(String uid);
 }
