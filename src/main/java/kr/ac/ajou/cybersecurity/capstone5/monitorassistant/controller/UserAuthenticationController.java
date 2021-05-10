@@ -55,8 +55,8 @@ public class UserAuthenticationController {
 
     @PostMapping("/emailvalidity")
     public Boolean emailValidity(@RequestBody Map<String, String> user) {
-        UserEntity member = userRepository.findByEmail(user.get("email")).get();
-        if(member == null) return true;
-        return false;
+        if (userRepository.findByEmail(user.get("email")).isPresent()) {
+            return true;
+        } else return false;
     }
 }
