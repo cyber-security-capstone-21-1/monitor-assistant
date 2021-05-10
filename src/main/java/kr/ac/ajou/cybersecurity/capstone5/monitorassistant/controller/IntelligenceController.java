@@ -7,10 +7,12 @@ import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.repositories.Intellig
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.IntelligenceResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "intelligences", description = "첩보 API")
 @RestController
@@ -30,6 +32,7 @@ public class IntelligenceController {
 
     @PostMapping("/intelligences")
     public IntelligenceResponse save(@RequestBody IntelligenceEntity entity) {
+
         intelligenceRepository.save(entity);
         System.out.println(entity.getContent());
         return IntelligenceAdapter.intelligenceResponse(entity, null);
@@ -41,5 +44,11 @@ public class IntelligenceController {
         return intelligenceRepository.findByUid(uid)
                 .orElseThrow(() -> new IllegalArgumentException("No data"));
     }
-
+    
+    @DeleteMapping("/intelligences/{uid}")
+    @Transactional
+    public ResponseEntity<?> deleteOne(@PathVariable String uid) {
+        Optional<IntelligenceEntity> targetEntity = intelligenceRepository.deleteByUid(uid);
+        return ResponseEntity.ok(targetEntity);
+    }
 }
