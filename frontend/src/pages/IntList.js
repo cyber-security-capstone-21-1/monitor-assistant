@@ -6,6 +6,8 @@ import IntelligenceCard from '@/components/IntelligenceCard/IntelligenceCard';
 
 import Constants from '@/shared/constants';
 
+import Swal from 'sweetalert2';
+
 function IntList () {
     const [intList, setIntList] = useState([]);
     useEffect(() => {
