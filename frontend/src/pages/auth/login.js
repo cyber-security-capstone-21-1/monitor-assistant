@@ -57,7 +57,7 @@ export default function Login(context) {
     <>
       {!loggedIn ? (
         <>
-          <header>로그인</header>
+          <header className="title">로그인</header>
           <div className="form__item_wrapper">
             <div className="form__item">
               <legend>이메일</legend>
