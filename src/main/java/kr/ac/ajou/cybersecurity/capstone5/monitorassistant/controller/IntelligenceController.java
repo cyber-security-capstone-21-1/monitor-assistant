@@ -30,9 +30,8 @@ public class IntelligenceController {
 
     @PostMapping("/intelligences")
     public IntelligenceResponse save(@RequestBody IntelligenceEntity entity) {
-//        intelligenceRepository.save(entity);
+        intelligenceRepository.save(entity);
         System.out.println(entity.getContent());
-
         return IntelligenceAdapter.intelligenceResponse(entity, null);
     }
 

@@ -14,6 +14,8 @@ import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/ass
 
 export default function IntelligenceDocument(props) {
 
+  console.log(props);
+
   Font.register({
     family: "IBMPlexSansKR",
     fonts: [
@@ -176,7 +178,7 @@ export default function IntelligenceDocument(props) {
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷</Text>
-            <Image style={styles.tableCellBody} src={`/${props.data.archived_UID}/screenshot.png`} />
+            <Image style={styles.tableCellBody} src={`/${props.data.uid}/screenshot.png`} />
           </View>
           {/* End of Table */}
         </View>
