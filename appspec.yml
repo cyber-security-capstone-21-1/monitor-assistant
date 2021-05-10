@@ -12,7 +12,7 @@ permissions:
     group: ubuntu
 
 hooks:
-  ApplicationStart:
-    - location: deployment/deploy.sh
+  AfterInstall:
+    - location: deploy.sh 
       timeout: 60
-      runas: root
+      runas: roo
