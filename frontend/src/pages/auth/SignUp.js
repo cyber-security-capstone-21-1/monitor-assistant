@@ -49,7 +49,7 @@ export default function SignUp () {
 
     return (
         <>
-            <header>회원가입</header>
+            <header className="title">회원가입</header>
             <div className="form__item_wrapper">
                 <div className="form__item">
                     <legend>이메일</legend>
