@@ -42,8 +42,8 @@ export default function SignUp() {
     //회원가입 성공과 동시에 로그인
     axios.post(`${Constants.ENDPOINT}/api/auth/emailvalidity`, data)
       .then((res) => {
-        console.log(res);
-        if (!res) {
+        if (!res.data) {
+            console.log('로그인 진행')
           // 회원가입 가능
           axios
             .post(`${Constants.ENDPOINT}/api/auth/signup`, data)
