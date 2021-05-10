@@ -43,14 +43,10 @@ export default function SignUp() {
     axios.post(`${Constants.ENDPOINT}/api/auth/emailvalidity`, data)
       .then((res) => {
         if (!res.data) {
-            console.log('로그인 진행')
-          // 회원가입 가능
-          axios
-            .post(`${Constants.ENDPOINT}/api/auth/signup`, data)
+            console.log('로그인 진행');
+            axios.post(`${Constants.ENDPOINT}/api/auth/signup`, data)
             .then((res) => {
-              console.log("회원가입 가능 signup 응답값 : ", res);
-              axios
-                .post(`${Constants.ENDPOINT}/api/auth/login`, data)
+              axios.post(`${Constants.ENDPOINT}/api/auth/login`, data)
                 .then((response) => {
                   const { accessToken } = response.data;
                   axios.defaults.headers.common[
@@ -92,6 +88,18 @@ export default function SignUp() {
         <>
           <header className="title">회원가입</header>
           <div className="form__item_wrapper">
+            <div className="form__item">
+
+              {/* <legend>닉네임</legend>
+              <input
+                type="text"
+                onChange={handleAuthInfo}
+                name="text"
+                required
+                placeholder="이메일을 입력하세요"
+              />
+            <span className="error">{emailMsg}</span> */}
+
             <div className="form__item">
               <legend>이메일</legend>
               <input
