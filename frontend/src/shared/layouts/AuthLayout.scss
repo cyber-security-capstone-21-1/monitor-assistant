@@ -5,12 +5,16 @@
 .form-wrapper {
   width: 100vw;
   height: 100vh;
-  background: #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background: url('https://monitor-assistant.com/images/auth_background.jpg') no-repeat center center/cover;
+  > h1 {
+    position: relative;
+    font: {
+      size: 160%;
+      weight: 700;
+    }
+    padding: 10px;
+    z-index: 3;
+  }
   > .cover {
     position: absolute;
     top: 0;
@@ -24,9 +28,16 @@
 
 .form {
   &__auth {
-    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
     width: 500px;
-    height: 550px;
+    min-height: 400px;
     text-align: center;
     background: #fff;
     border-radius: 20px;
@@ -39,18 +50,24 @@
         weight: 700;
       }
       margin: {
-        top: 30px;
         bottom: 20px;
       }
     }
 
     > .form__item_wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 10px;
       > .form__item {
         text-align: left;
         width: 100%;
         margin: {
           bottom: 10px;
-          left: 10px;
         }
         > .error {
           color : red;
@@ -106,4 +123,12 @@
       }
     }
   }
+}
+
+.footer__auth {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-50%, 0);
+  color: #fff;
 }
