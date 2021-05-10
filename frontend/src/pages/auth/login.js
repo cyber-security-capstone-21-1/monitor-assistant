@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import Constants from "@/shared/constants";
 
 export default function Login(context) {
-  console.log(AuthenticationService.isUserLoggedIn());
+  console.log('이메일 중복체크')
   const [passwdMsg, setPasswdMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [AuthInfo, setAuthInfo] = useState({ email: "", password: "" });
