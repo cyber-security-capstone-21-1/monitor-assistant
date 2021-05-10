@@ -5,7 +5,7 @@ import { Login, SignUp } from "@/pages";
 import { RouteWithLayout, AuthLayout } from "../../shared/layouts";
 import AuthenticationService from "@/shared/AuthenticationService";
 
-const MovePage = async ({ location, children }) => {
+const MovePage = ({ location, children }) => {
   const [history, setHistory] = useState("");
   const timeId = useRef();
 
@@ -16,10 +16,14 @@ const MovePage = async ({ location, children }) => {
     }, 30 * 60 * 1000);
   };
 
-  if (location.pathname !== history && location.pathname !== "/") {
-    console.log(history, "에서", location.pathname, "으로 이동");
+  const checkToken = async() => {
     let isValid = await AuthenticationService.executeJwtAuthenticationService();
     console.log(isValid);
+  }
+
+  if (location.pathname !== history && location.pathname !== "/") {
+    console.log(history, "에서", location.pathname, "으로 이동");
+    checkToken();
     setHistory(location.pathname);
     clearTimeout(timeId.current);
     sessionManage();
