@@ -21,7 +21,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
     @Getter
     private List<PostEntity> postEntityList;
 
-    //작가 없음
+    //ㅇㅣ거 수정하기
     @Override
     public List<PostEntity> scrape(String keyword) throws IOException {
         postEntityList = new ArrayList<>();
