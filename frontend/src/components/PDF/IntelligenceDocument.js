@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Page,
   Text,
@@ -12,7 +12,16 @@ import {
 import Logo from "@/assets/images/logo.png";
 import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/assets/fonts/IBMPlexSansKR";
 
+import Constants from "@/shared/constants";
+
 export default function IntelligenceDocument(props) {
+
+  const [intelligence, setIntelligence] = useState({});
+
+  useEffect(() => {
+    console.log(props.location);
+    // axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${}`)
+  }, {});
 
   Font.register({
     family: "IBMPlexSansKR",
@@ -176,7 +185,7 @@ export default function IntelligenceDocument(props) {
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷</Text>
-            <Image style={styles.tableCellBody} src={`https://cscapstone-21-1-5-s3.s3.ap-northeast-2.amazonaws.com/${props.data.archived_UID}/screenshot.png`} />
+            <Image style={styles.tableCellBody} src={`/${props.data.archived_UID}/screenshot.png`} />
           </View>
           {/* End of Table */}
         </View>

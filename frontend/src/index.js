@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 
+import Constants from "@/shared/constants";
 
 import axios from 'axios';
 import App from './shared/App';
 import reportWebVitals from './reportWebVitals';
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = Constants.ENDPOINT;
 
 ReactDOM.render(
   <React.StrictMode>
