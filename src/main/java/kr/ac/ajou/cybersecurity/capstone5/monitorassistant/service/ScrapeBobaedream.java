@@ -29,7 +29,8 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
             Document[] doc = new Document[3];
             Connection.Response response =
                     Jsoup.connect("https://www.bobaedream.co.kr/search")
-                            .userAgent("Mozilla/5.0")
+                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .method(Connection.Method.POST)
                             .data("colle", "community")
                             .data("searchField", "ALL")
