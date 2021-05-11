@@ -10,12 +10,14 @@ export default function AuthLayout({ children }) {
 
     const [count, setCount] = useState(0);
     useEffect(() => {
+
         async function getCommitCount() {
             const count = await axios.get("/api/nthDeploy");
             setCount(count);
         }
+
         getCommitCount();
-    }, 0);
+    }, []);
 
     return (
         <section className="form-wrapper">
