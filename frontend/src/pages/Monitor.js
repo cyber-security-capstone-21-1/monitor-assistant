@@ -48,6 +48,7 @@ function Monitor(props) {
               `${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
             )
             .then((response) => {
+              console.log(response);
               const siteName = response.data.data[0].site;
               setPostList((state) => [...state, ...response.data.data]);
               setResult((state) => [...state, ...response.data.data]);
@@ -135,10 +136,7 @@ function Monitor(props) {
       ])
       .then(async (result) => {
         if (result.value && result.value[0]) {
-          const memo = JSON.stringify(result.value);
-          console.log(memo);
-          console.log(memo[1]);
-          item.action_plan = memo;
+          item.action_plan = result.value[1];
           Swal.fire({
             title: "아카이빙 및 저장 중입니다.",
             html: "완료되면 창은 자동으로 닫힙니다.",
@@ -161,7 +159,7 @@ function Monitor(props) {
               await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
                     url: "http://naver.com", uid
                   }).then((res) => console.log("스크린샷 : ", res.status)).catch(console.log);
-              item.created_at = "";
+              // item.created_at = "";
               item.uid = uid;
 
               console.log(item);
