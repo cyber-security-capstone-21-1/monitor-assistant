@@ -103,6 +103,8 @@ function Monitor(props) {
   };
 
   const openDialog = (item) => {
+    console.log(item, " === item 출력 ====");
+    let a = {...item};
     Swal.mixin({
       cancelButtonColor: "#d33",
       confirmButtonText: "다음",
@@ -137,6 +139,7 @@ function Monitor(props) {
         if (result.value && result.value[0]) {
           const memo = JSON.stringify(result.value);
           console.log(item, "저장");
+          console.log(a, "=========");
           Swal.fire({
             title: "아카이빙 및 저장 중입니다.",
             html: "완료되면 창은 자동으로 닫힙니다.",
