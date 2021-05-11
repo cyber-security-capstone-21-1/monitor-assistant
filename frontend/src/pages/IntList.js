@@ -27,7 +27,7 @@ function IntList () {
     return (
         <>
             <PageHeader title="첩보 목록" desc="첩보 목록" />
-            <section style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+            <section class="section section-intelligence__list">
                 {intList.map(({ title, site, author, created_at, uid, id, content }, index) => {
                     return (
                         <IntelligenceCard

@@ -7,10 +7,12 @@ import AuthenticationService from "@/shared/AuthenticationService";
 
 export default function SignUp() {
   const [AuthInfo, setAuthInfo] = useState({
+    name: "",
     email: "",
     password: "",
     passwordConfirm: "",
   });
+  const [nameMsg, setNameMsg] = useState("");
   const [passwdMsg, setPasswdMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [passMsg, setPassMsg] = useState("");
@@ -25,6 +27,10 @@ export default function SignUp() {
   const onSignUp = (e) => {
     e.preventDefault();
     const data = AuthInfo;
+    if(data.name === "") {
+      setNameMsg("이름을 입력해주세요.");
+      return;
+    }
     if (data.email === "") {
       setEmailMsg("이메일을 입력해주세요.");
       return;
@@ -92,7 +98,17 @@ export default function SignUp() {
         <>
           <header className="title">회원가입</header>
           <div className="form__item_wrapper">
-            
+            <div className="form__item">
+              <legend>이름</legend>
+              <input
+                type="name"
+                onChange={handleAuthInfo}
+                name="name"
+                required
+                placeholder="이름을 입력하세요"
+              />
+              <span className="error">{nameMsg}</span>
+            </div>
             <div className="form__item">
               <legend>이메일</legend>
               <input
@@ -104,18 +120,6 @@ export default function SignUp() {
               />
               <span className="error">{emailMsg}</span>
             </div>
-            {/* <div className="form__item">
-              <legend>이메일</legend>
-              <input
-                type="email"
-                onChange={handleAuthInfo}
-                name="email"
-                required
-                placeholder="이메일을 입력하세요"
-              />
-              <span className="error">{emailMsg}</span>
-            </div> */}
-            
             <div className="form__item">
               <legend>패스워드</legend>
               <input

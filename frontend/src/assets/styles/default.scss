@@ -201,3 +201,13 @@ table {
         width: $content-min-width;
     }
 }
+
+@media (max-width: 720px) {
+    main {
+        display: block;
+    }
+
+    .section-intelligence__list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
