@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Logo from "@/assets/images/logo.png";
+
+import axios from 'axios';
 
 import './AuthLayout.scss';
 
