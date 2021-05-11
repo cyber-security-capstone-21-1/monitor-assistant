@@ -103,8 +103,6 @@ function Monitor(props) {
   };
 
   const openDialog = (item) => {
-    console.log(item, " === item 출력 ====");
-    let a = {...item};
     Swal.mixin({
       cancelButtonColor: "#d33",
       confirmButtonText: "다음",
@@ -138,8 +136,7 @@ function Monitor(props) {
       .then(async (result) => {
         if (result.value && result.value[0]) {
           const memo = JSON.stringify(result.value);
-          console.log(item, "저장");
-          console.log(a, "=========");
+          item.action_plan = memo;
           Swal.fire({
             title: "아카이빙 및 저장 중입니다.",
             html: "완료되면 창은 자동으로 닫힙니다.",
@@ -162,13 +159,11 @@ function Monitor(props) {
               await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
                     url: "http://naver.com", uid
                   }).then((res) => console.log("스크린샷 : ", res)).catch(console.log);
-              
               item.created_at = "";
               item.uid = uid;
-              console.log(uid);
-              console.log(item);
-              axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
 
+              console.log(item, "저장");
+              axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
               Swal.close();
             },
             willClose: () => {
