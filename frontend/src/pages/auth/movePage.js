@@ -16,16 +16,27 @@ const MovePage = ({ location, children }) => {
     }, 30 * 60 * 1000);
   };
 
-  const checkToken = async() => {
-    AuthenticationService.executeJwtAuthenticationService().then(res => {
-      console.log('체크 토큰 결과 - ', res);
-    }).catch(console.log);
-    
-  }
+  const checkToken = async () => {
+    console.log('체크 토큰')
+    AuthenticationService.executeJwtAuthenticationService().then((res) => {
+        if(!res) {
+          console.log('유효여부 : ',res);
+        }
+      }).catch((e) => {
+        console.log('만료 되었음');
+        AuthenticationService.getNewAccessTokenWithRefreshToken().then(res => {
+          AuthenticationService.setupAxiosInterceptors(res.data.data.accessToken);
+        });
+      });
+  };
 
-  if (location.pathname !== history && location.pathname !== "/") {
+  if (location.pathname !== history) {
     console.log(history, "에서", location.pathname, "으로 이동");
-    checkToken();
+
+    if(location.pathname !== "/auth/login" || location.pathname !== "/auth/signup") {
+      checkToken();
+    }
+
     setHistory(location.pathname);
     clearTimeout(timeId.current);
     sessionManage();
@@ -35,10 +46,9 @@ const MovePage = ({ location, children }) => {
     setHistory(location.pathname);
   }, []);
 
-  
   return (
     <>
-      {/* <RouteWithLayout
+      <RouteWithLayout
         layout={AuthLayout}
         path="/auth/login"
         component={Login}
@@ -52,8 +62,8 @@ const MovePage = ({ location, children }) => {
         <Redirect to="/auth/login" />
       ) : (
         children
-      )} */}
-      {children}
+      )}
+      {/* {children} */}
     </>
   );
 };

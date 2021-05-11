@@ -29,15 +29,12 @@ export default function Login(context) {
       
       axios.post(`/api/auth/login`, data)
         .then((response) => {
-          const { accessToken } = response.data;
+          console.log('login 응답값 = ', response);
+          const { accessToken, refreshToken } = response.data.data;
           axios.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${accessToken}`;
-          AuthenticationService.registerSuccessfulLoginForJwt(
-            data.email,
-            accessToken
-          );
-          console.log('/autl/login 응답값 : ',response.data);
+          AuthenticationService.registerSuccessfulLoginForJwt(refreshToken,accessToken,);
           setAuthInfo("", "");
         })
         .catch((error) => {
@@ -52,6 +49,42 @@ export default function Login(context) {
     },
     [AuthInfo]
   );
+
+  // const onLogin = useCallback(
+  //   (e) => {
+  //     e.preventDefault();
+  //     const data = AuthInfo;
+  //       if(data.email === '' || data.password === '') {
+  //           if(data.email === '') setEmailMsg('이메일을 입력해주세요');
+  //           if(data.password === '') setPasswdMsg('비밀번호를 입력해주세요');
+  //           return;
+  //       }
+      
+  //     axios.post(`/api/auth/login`, data)
+  //       .then((response) => {
+  //         const { accessToken } = response.data;
+  //         axios.defaults.headers.common[
+  //           "Authorization"
+  //         ] = `Bearer ${accessToken}`;
+  //         AuthenticationService.registerSuccessfulLoginForJwt(
+  //           data.email,
+  //           accessToken
+  //         );
+  //         console.log('/autl/login 응답값 : ',response.data);
+  //         setAuthInfo("", "");
+  //       })
+  //       .catch((error) => {
+  //         Swal.fire({
+  //           title: "로그인 실패",
+  //           html: '로그인 정보가 올바른지 확인 후 다시 시도해주세요.',
+  //           icon: "error",
+  //           confirmButtonText: "확인",
+  //         });
+  //         console.error(error);
+  //       });
+  //   },
+  //   [AuthInfo]
+  // );
 
   const loggedIn = AuthenticationService.isUserLoggedIn();
   return (

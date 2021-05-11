@@ -14,13 +14,11 @@ function IntList () {
         Swal.fire({
             title: '목록 로딩 중',
             html: '데이터를 불러오고 있습니다.',
+            allowOutsideClick: false,
             didOpen: async () => {
                 Swal.showLoading();
-                axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}`)
-                .then(({ data }) => {
-                    setIntList([...data]);
-                    Swal.close();
-                });
+                const result = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}`)
+                setIntList([...result.data]);
                 Swal.close();
             },
         });
@@ -30,7 +28,7 @@ function IntList () {
         <>
             <PageHeader title="첩보 목록" desc="첩보 목록" />
             <section class="section section-intelligence__list">
-                {intList.map(({ title, site, author, created_at, uid, id, content }, index) => {
+                {intList.map(({ title, site, author, created_at, uid, id, content, action_plan }, index) => {
                     return (
                         <IntelligenceCard
                             title={title}
@@ -39,6 +37,7 @@ function IntList () {
                             created_at={created_at}
                             uid={uid}
                             content={content}
+                            action_plan={action_plan}
                         />
                     )
                 })}
