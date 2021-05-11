@@ -1,23 +1,23 @@
 // Common Style Setup
 @import "variables";
 @import "reset";
-
-@font-face {
-    font-family: 'IBMPlexSansKR-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+@import "fonts";
 
 html {
     font: {
-        family: 'IBMPlexSansKR-Regular';
+        family: 'IBMPlexSansKR-Text';
         weight: normal;
         style: normal;
         size: $default-font-size;
     }
     overflow: {
         x: hidden;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font: {
+        family: "IBMPlexSansKR-Bold";
     }
 }
 
@@ -113,7 +113,7 @@ form.search {
         min-width: 80px;
         height: 80px;
         background: {
-            color: #fff;
+            color: $color-white;
         };
         border: {
             style: none;
@@ -128,7 +128,7 @@ form.search {
                 color: rgb(0, 110, 197);
             }
             cursor: pointer;
-            color: #fff;
+            color: $color-white;
             transition: .2s all ease;
         }
     }
@@ -146,12 +146,12 @@ form.search {
             display: inline-block;
             padding: 10px;
             > a {
-                color: #fff;
+                color: $color-white;
                 display: inherit;
                 padding: 8px 5px;
                 &:hover {
                     background: {
-                        color: #fff;
+                        color: $color-white;
                     }
                     color: #f7765f;
                 }
@@ -163,7 +163,7 @@ form.search {
 table {
     width: 100%;
     background: {
-        color: #fff;
+        color: $color-white;
     }
     > thead {
         font: {
