@@ -20,6 +20,7 @@ function IntList () {
                 .then(({ data }) => {
                     setIntList([...data]);
                 });
+                Swal.close();
             },
         });
     }, []);

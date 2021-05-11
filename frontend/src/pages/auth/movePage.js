@@ -38,7 +38,7 @@ const MovePage = ({ location, children }) => {
   
   return (
     <>
-      <RouteWithLayout
+      {/* <RouteWithLayout
         layout={AuthLayout}
         path="/auth/login"
         component={Login}
@@ -52,7 +52,8 @@ const MovePage = ({ location, children }) => {
         <Redirect to="/auth/login" />
       ) : (
         children
-      )}
+      )} */}
+      {children}
     </>
   );
 };
