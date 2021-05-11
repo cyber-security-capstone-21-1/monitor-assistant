@@ -17,8 +17,10 @@ const MovePage = ({ location, children }) => {
   };
 
   const checkToken = async() => {
-    let isValid = await AuthenticationService.executeJwtAuthenticationService();
-    console.log(isValid);
+    AuthenticationService.executeJwtAuthenticationService().then(res => {
+      console.log('체크 토큰 결과 - ', res);
+    }).catch(console.log);
+    
   }
 
   if (location.pathname !== history && location.pathname !== "/") {

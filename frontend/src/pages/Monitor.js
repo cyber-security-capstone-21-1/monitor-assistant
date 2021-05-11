@@ -148,13 +148,17 @@ function Monitor(props) {
               axios.all([
                 axios
                   .post(
-                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: "http://naver.com" }
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url }
                   ).then((res) => {
-                    console.log('아카이버 반환 : ',res.data.body);
-                  }).catch(console.log),
+                    console.log('아카이버 반환 res.data.body : ',res.data.body);
+                    console.log('전체 결과 : ',res)
+                  }).catch(e => {
+                    console.log('에러 발생');
+                    console.log(e);
+                  }),
                 axios
                   .post(
-                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,{ url: "http://naver.com" }
+                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,{ url: item.url }
                   )
                   .then((res) => console.log('스크린샷', res))
                   .catch(console.log),
