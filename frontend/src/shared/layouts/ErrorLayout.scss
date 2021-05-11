@@ -12,13 +12,12 @@
     background: #fff;
     > h1 {
         font: {
-            size: 500%;
-            weight: 700;
+            size: $default-font-size * 5;
         }
     }
     > p {
         font: {
-            size: 120%;
+            size: $default-font-size * 2;
         }  
     }
 }

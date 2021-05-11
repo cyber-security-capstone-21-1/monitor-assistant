@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCog, faSignInAlt, faSignOutAlt, faListAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 
 import './Aside.scss';
 import AuthenticationService from '@/shared/AuthenticationService';
@@ -11,10 +10,9 @@ import AuthenticationService from '@/shared/AuthenticationService';
 const Aside = memo((props) => {
     const authenticated = AuthenticationService.isUserLoggedIn();
     const signOut = () => {
-        const MySwal = withReactContent(Swal);
-
         Swal.fire({
             title: '로그아웃하시겠습니까?',
+            icon: 'info',
             showDenyButton: true,
             showCancelButton: false,
             confirmButtonText: `예`,

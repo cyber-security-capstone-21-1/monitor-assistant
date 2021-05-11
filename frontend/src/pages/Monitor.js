@@ -45,7 +45,7 @@ function Monitor(props) {
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
             .get(
-              `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
+              `${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
             )
             .then((response) => {
               const siteName = response.data.data[0].site;
@@ -148,20 +148,20 @@ function Monitor(props) {
               axios.all([
                 axios
                   .post(
-                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: "http://naver.com" }
+                    `${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: "http://naver.com" }
                   ).then((res) => {
                     console.log('아카이버 반환 : ',res.data.body);
                   }).catch(console.log),
                 axios
                   .post(
-                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,{ url: "http://naver.com" }
+                    `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,{ url: "http://naver.com" }
                   )
                   .then((res) => console.log('스크린샷', res))
                   .catch(console.log),
               ]);
               item.created_at = "";
               axios.post(
-                `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`,
+                `${Constants.SPRING_BACKEND.APIs.INTLIST}`,
                 item
               );
 
