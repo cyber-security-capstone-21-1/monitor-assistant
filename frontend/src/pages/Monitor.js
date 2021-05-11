@@ -144,6 +144,7 @@ function Monitor(props) {
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
+              let uid;
               axios.all([
                 axios
                   .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
@@ -154,17 +155,19 @@ function Monitor(props) {
                       "아카이버 반환 res.data.body : ",
                       res.data.body
                     );
-                    console.log("전체 결과 : ", res);
+                    uid = res.data.body.data.uid;
+                    console.log("uid : ", uid);
                   })
                   .catch(console.log),
                 axios
                   .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
-                    url: "http://naver.com",
+                    url: "http://naver.com", uid
                   })
-                  .then((res) => console.log("스크린샷", res))
+                  .then((res) => console.log("스크린샷", res.data.data))
                   .catch(console.log),
               ]);
               item.created_at = "";
+              item.uid = uid;
               axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
 
               Swal.close();

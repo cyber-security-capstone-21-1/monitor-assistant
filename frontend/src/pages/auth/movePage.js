@@ -30,7 +30,7 @@ const MovePage = ({ location, children }) => {
       });
   };
 
-  if (location.pathname !== history) {
+  if (location.pathname !== history && location.pathname !== "/") {
     console.log(history, "에서", location.pathname, "으로 이동");
 
     if(location.pathname !== "/auth/login" || location.pathname !== "/auth/signup") {
