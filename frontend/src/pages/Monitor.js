@@ -136,6 +136,8 @@ function Monitor(props) {
       .then(async (result) => {
         if (result.value && result.value[0]) {
           const memo = JSON.stringify(result.value);
+          console.log(memo);
+          console.log(memo[1]);
           item.action_plan = memo;
           Swal.fire({
             title: "아카이빙 및 저장 중입니다.",
@@ -149,8 +151,8 @@ function Monitor(props) {
                     url: "http://naver.com",
                   }).then((res) => {
                     console.log(
-                      "아카이버 반환 res.data.body : ",
-                      res.data.body
+                      "아카이버 반환 res.data.body.data.uid : ",
+                      res.data.body.data.uid
                     );
                     uid = res.data.body.data.uid;
                     console.log("uid : ", uid);
@@ -158,11 +160,11 @@ function Monitor(props) {
 
               await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
                     url: "http://naver.com", uid
-                  }).then((res) => console.log("스크린샷 : ", res)).catch(console.log);
+                  }).then((res) => console.log("스크린샷 : ", res.status)).catch(console.log);
               item.created_at = "";
               item.uid = uid;
 
-              console.log(item, "저장");
+              console.log(item);
               axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
               Swal.close();
             },
