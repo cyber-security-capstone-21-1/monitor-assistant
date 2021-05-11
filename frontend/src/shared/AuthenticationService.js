@@ -3,28 +3,30 @@ import Constants from './constants';
 
 class AuthenticationService {
     executeJwtAuthenticationService() {
-        let email = localStorage.getItem('authenticatedUser');
-        let password = localStorage.getItem('password');
-        return axios.post(`/api/authenticate`, { email, password });
+        return axios.post(`/api/auth/authenticate`);
     }
 
-    registerSuccessfulLoginForJwt(email, token, password) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('authenticatedUser', email);
-        localStorage.setItem('password', password);
-        this.setupAxiosInterceptors();
+    getNewAccessTokenWithRefreshToken() {
+        let refresh = localStorage.getItem('token')
+        return axios.post('/api/auth/refreshAccess', refresh);
+    }
+
+    registerSuccessfulLoginForJwt(refresh, access) {
+        localStorage.setItem('token', refresh);
+        this.setupAxiosInterceptors(access);
     }
 
     createJWTToken(token) {
         return `Bearer ${token}`;
     }
 
-    setupAxiosInterceptors() {
+    setupAxiosInterceptors(access) {
         axios.interceptors.request.use(
             config => {
-                const token = localStorage.getItem('token');
-                if (token) {
-                    config.headers['Authorization'] = this.createJWTToken(token);
+                if (access) {
+                    let beartok = this.createJWTToken(access);
+                    console.log(beartok)
+                    config.headers['Authorization'] = beartok;
                 }
                 return config;
             },
