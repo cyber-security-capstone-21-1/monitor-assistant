@@ -13,6 +13,7 @@ export default function AuthLayout({ children }) {
 
         async function getCommitCount() {
             const count = await axios.get("/api/nthDeploy");
+            console.log(count);
             setCount(count);
         }
 
