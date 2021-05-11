@@ -13,8 +13,8 @@ function Viewer({ match: { params: { uid } }}) {
 
   useEffect(() => {
     async function getIntelligence() {
-      const data = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`);
-      setIntelligence(data);
+      const request = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`);
+      setIntelligence(request.data);
     }
     getIntelligence();
   }, {});
