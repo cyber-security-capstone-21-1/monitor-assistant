@@ -32,7 +32,10 @@ const MovePage = ({ location, children }) => {
 
   if (location.pathname !== history && location.pathname !== "/") {
     console.log(history, "에서", location.pathname, "으로 이동");
-    checkToken();
+
+    if(location.pathname !== "/auth/login") {
+      checkToken();
+    }
     setHistory(location.pathname);
     clearTimeout(timeId.current);
     sessionManage();
