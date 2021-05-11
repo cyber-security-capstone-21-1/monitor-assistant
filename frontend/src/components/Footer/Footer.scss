@@ -1,7 +1,9 @@
+@import "../../assets/styles/variables";
+
 // Footer
-footer {
+.footer__service {
     grid-area: footer;
-    color: #fff;
+    color: $color-white;
     background: {
         color: #3b414d;
     }
@@ -29,13 +31,12 @@ footer {
         & #footer__ {
             &title {
                 font: {
-                    weight: 700;
-                    size: 18px;
+                    size: $default-font-size * 1.3;
                 }
             }
             &creator {
                 font: {
-                    size: 12px;
+                    size: $default-font-size * 0.8;
                 }
             }
         }

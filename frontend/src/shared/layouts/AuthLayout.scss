@@ -1,81 +1,185 @@
+@import "../../assets/styles/variables";
+
+.title:hover {
+  cursor : default;
+}
+
+hr {
+  width: 50%;
+  border: 1px solid rgba(0, 0, 0, .12);
+  margin: 20px auto;
+}
+
+input {
+  display: block;
+  width: 100%;
+  font: {
+    size: $default-font-size * 1.4;
+  }
+  box-sizing: border-box;
+
+  &::placeholder {
+    opacity: .3;
+  }
+  
+  &[type="name"],
+  &[type="email"],
+  &[type="password"] {
+    font: {
+      family: $font-extralight;
+    }
+    padding: 20px;
+    margin: {
+      bottom: 10px;
+    }
+    border: 2px solid transparent;
+    outline: none;
+    box-shadow: $box-shadow-lv1;
+    transition: $transition-lv1;
+    &:focus {
+      border: 2px solid $color-confirm;
+      box-shadow: $box-shadow-lv2;
+    }
+    &:invalid {
+      border: 2px solid $color-error-hover;
+    }
+  }
+
+  &[type="submit"] {
+    font: {
+      family: $font-text;
+    }
+    color: $color-white;
+    background: $color-confirm;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 0;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+      background: $color-confirm-hover;
+    }
+  }
+}
+
+legend {
+  font: {
+    size: $default-font-size * 1.2;
+  }
+  margin: {
+    bottom: 5px;
+  }
+}
+
 .form-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: url('https://monitor-assistant.com/images/auth_background.jpg') no-repeat center center/cover;
+  > h1 {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font: {
+      size: $default-font-size * 1.6;
+    }
+    line-height: 1.2;
+    padding: 30px;
+    z-index: 3;
+    color: $color-white;
+    > img {
+      width: 50px;
+      height: auto;
+      margin: {
+        right: 20px;
+      }
+    }
+  }
+  > .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
-    background: #f3f3f3;
+    background: rgba(0, 0, 0, .8);
+    z-index: 1;
+  }
+}
+
+.form {
+  &__auth {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  
-  .form {
-    &__auth {
-      width: 500px;
-      height: 500px;
+    position: absolute;
+    min-width: 50vmax;
+    min-height: 50vh;
+    text-align: center;
+    background: $color-white;
+    border-radius: 20px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
+    z-index: 2;
+    > header {
       text-align: center;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
-      > header {
-        text-align: center;
-        font: {
-          size: 200%;
-          weight: 700;
-        }
-        margin: {
-          top: 30px;
-          bottom: 20px;
-        }
+      font: {
+        family: $font-semibold;
+        size: $default-font-size * 2.5;
       }
-  
-      > .form__item_wrapper {
-        > .form__item {
-          text-align: left;
-          width: 100%;
-          margin: {
-            bottom: 10px;
-            left: 10px;
+      margin: {
+        top: 30px;
+        bottom: 20px;
+      }
+    }
+
+    > .form__item_wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 50px;
+      margin: {
+        bottom: 30px;
+      }
+      > .form__item {
+        text-align: left;
+        width: 100%;
+        margin: {
+          bottom: 10px;
+        }
+        > .error {
+          color: $color-error-hover;
+        }
+        
+        
+      }
+      > .info {
+        > .btn {
+          color : rgb(202, 26, 179);
+          text-decoration: none;
+          font{
+            size: $default-font-size * 1.1;
           }
-          [type="email"],
-          [type="password"] {
-            display: block;
-            width: 91%;
-            font: {
-              size: 140%;
-            }
-            padding: 10px;
-            border: 1px soild rgba(189, 104, 104, 0.87);
-            border-radius: 3px;
-            margin: {
-              bottom: 10px;
-            }
-          }
-          [type="submit"] {
-            display: block;
-            font: {
-              size: 140%;
-              weight: 700;
-            }
-            color: #fff;
-            background: blueviolet;
-            border: none;
-            border-radius: 3px;
-            width: 91%;
-            padding: 10px 0;
-            text-align: center;
-            margin: {
-              top: 10px;
-              left: 13px;
-              bottom: 10px;
-            }
-            transition: 0.2s all ease;
-            &:hover {
-              cursor: pointer;
-              background: dimgray;
-            }
-          }
+          margin-right: 3px;
         }
       }
     }
   }
-  
+}
+
+.footer__auth {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 50%;
+  bottom: 30px;
+  transform: translate(-50%, 0);
+  color: $color-white;
+  z-index: 4;
+}

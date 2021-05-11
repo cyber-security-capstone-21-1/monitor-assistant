@@ -1,16 +1,16 @@
+@import "../../assets/styles/variables";
+
 // Aside
 aside {
-    min-height: 700px;
-    width: 50px;
-    max-width: 50px;
     margin: 0;
     overflow: hidden;
     background: {
-        color: #fff;
+        color: $color-white;
     }
+    z-index: 1000;
     > nav {
         & .nav-icon.active {
-            color: #fff;
+            color: $color-white;
             background: {
                 color: #3b414d;
             }
@@ -27,7 +27,6 @@ aside {
         > ul {
             > li {
                 position: relative;
-                display: inline-block;
                 width: 50px;
                 height: 50px;
                 line-height: 50px;
@@ -46,11 +45,35 @@ aside {
                     }
                     transition: .2s all ease-out;
                     > a {
-                        color: #fff;
+                        color: $color-white;
                     }
                 }
             }
         }
     }
     box-shadow: 0 2px 2px -1px rgba(152, 162, 179, 0.3), 0 1px 5px -2px rgba(152, 162, 179, 0.3);
+}
+
+@media (min-width: 720px) {
+    aside {
+        min-height: 700px;
+        width: 50px;
+        max-width: 50px;
+    }
+}
+
+@media (max-width: 720px) {
+    aside {
+        width: 100vw;
+        height: 50px;
+        & nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            & .nav__home {
+                transform: translateY(-4px);
+            }
+        }
+    }
 }

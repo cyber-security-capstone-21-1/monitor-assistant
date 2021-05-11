@@ -3,7 +3,7 @@ import "./Footer.scss";
 
 function Footer (props) {
   return (
-    <footer>
+    <footer className="footer footer__service">
       <div className="row">
         <div className="container">
           <div className="pull-left">

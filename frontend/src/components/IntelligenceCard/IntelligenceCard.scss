@@ -1,16 +1,27 @@
+@import "../../assets/styles/variables";
+
+.section-intelligence__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
 article.card {
+    display: flex;
+    flex-direction: column;
     border-radius: 10px;
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
-    background: #fff;
+    background: $color-white;
     padding: 10px 0 0 0;
     overflow: hidden;
     box-shadow: 0 2px 2px -1px rgba(152, 162, 179, 0.3), 0 1px 5px -2px rgba(152, 162, 179, 0.3);
     > .content {
+        height: 100%;
         padding: 0 10px 0 10px;
         > header {
             font: {
-                size: 160%;
+                size: $default-font-size * 1.6;
             }
         }
         > p {
@@ -30,17 +41,14 @@ article.card {
                 width: 100%;
                 text-align: center;
                 align-items: center;
-                color: #fff;
+                color: $color-white;
                 padding: 5px 0;
-                font: {
-                    weight: 700;
-                }
                 text-decoration: none;
                 &__warning {
-                    background: red;
+                    background: linear-gradient(60deg, #ef5350, #e53935);
                 }
                 &__info {
-                    background: blueviolet;
+                    background: linear-gradient(60deg, #ffa726, #fb8c00);
                 }
                 &__cursor__pointer {
                     cursor: pointer;

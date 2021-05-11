@@ -6,7 +6,6 @@ import { RouteWithLayout, AuthLayout } from "../../shared/layouts";
 import AuthenticationService from "@/shared/AuthenticationService";
 
 const MovePage = ({ location, children }) => {
-  console.log("0509 11:16 테스트");
   const [history, setHistory] = useState("");
   const timeId = useRef();
 
@@ -17,9 +16,23 @@ const MovePage = ({ location, children }) => {
     }, 30 * 60 * 1000);
   };
 
+  const checkToken = async () => {
+    console.log('체크 토큰')
+    AuthenticationService.executeJwtAuthenticationService().then((res) => {
+        if(!res) {
+          console.log('유효여부 : ',res);
+        }
+      }).catch((e) => {
+        console.log('만료 되었음');
+        AuthenticationService.getNewAccessTokenWithRefreshToken().then(res => {
+          AuthenticationService.setupAxiosInterceptors(res.data.data.accessToken);
+        });
+      });
+  };
+
   if (location.pathname !== history && location.pathname !== "/") {
-    console.log("페이지 이동");
-    console.log(history, "에서", location.pathname, "으로");
+    console.log(history, "에서", location.pathname, "으로 이동");
+    checkToken();
     setHistory(location.pathname);
     clearTimeout(timeId.current);
     sessionManage();
@@ -29,7 +42,6 @@ const MovePage = ({ location, children }) => {
     setHistory(location.pathname);
   }, []);
 
-  
   return (
     <>
       <RouteWithLayout
@@ -47,6 +59,7 @@ const MovePage = ({ location, children }) => {
       ) : (
         children
       )}
+      {/* {children} */}
     </>
   );
 };

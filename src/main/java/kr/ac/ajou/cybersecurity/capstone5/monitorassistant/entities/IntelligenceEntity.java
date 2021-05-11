@@ -24,7 +24,7 @@ public class IntelligenceEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "title",nullable = false, length = 500)
+    @Column(name = "title", nullable = false, length = 500)
     private String title;
 
     @Column(name = "url", length = 500)
@@ -45,8 +45,8 @@ public class IntelligenceEntity implements Serializable {
     @Column(name = "action_plan", length = 500)
     private String action_plan;
 
-    @Column(name = "archived_UID", nullable= false)
-    private String archived_UID;
+    @Column(name = "uid", nullable = false, unique = true)
+    private String uid;
 
     @ManyToOne
     @JsonIgnore

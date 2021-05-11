@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -35,12 +36,13 @@ public class ScrapeYgosu implements ScraperServiceInterface {
                         .type(el.select("dd.etc > a.category").text())
                         .build();
                     Document doc2=Jsoup.connect(postEntity.getUrl()).get();
-                    String author=doc2.select("div.nickname").text();
-                    String str=doc2.select("div.date").text();
+//                    String author=doc2.select("div.nickname > a").text();
+                 String str=doc2.select("div.date").text();
+                 String[] str2=str.split("/");
                     postEntity.setContent(doc2.select("div.container").html());
-                postEntity.setAuthor(author.substring(author.indexOf(" ")));
-                       postEntity.setView(str.substring(str.indexOf("READ : ")+7));
-                       postEntity.setCreated_at(str.substring(7, str.indexOf("/")-1));
+                postEntity.setAuthor(doc2.select("div.nickname > a").text());
+                       postEntity.setView(str2[1].substring(7));
+                      postEntity.setCreated_at(str2[0].substring(8));
                 postEntityList.add(postEntity);
             }
         }

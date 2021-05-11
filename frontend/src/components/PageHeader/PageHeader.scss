@@ -1,8 +1,9 @@
+@import "../../assets/styles/variables";
+
 header {
     > h2 {
         font: {
-            size: 160%;
-            weight: bold;
+            size: $default-font-size * 1.6;
         }
         line-height: 1.6;
     }

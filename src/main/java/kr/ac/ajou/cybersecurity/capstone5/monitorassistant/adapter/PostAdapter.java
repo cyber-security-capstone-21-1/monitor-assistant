@@ -7,6 +7,9 @@ import java.util.List;
 
 public class PostAdapter {
     public static PostResponse postResponse(final List<PostEntity> postEntities, final List<String> errors) {
-        return PostResponse.builder().postEntities(postEntities).errors(errors).build();
+        return PostResponse.builder()
+                .postEntities(postEntities)
+                .errors(errors)
+                .build();
     }
 }

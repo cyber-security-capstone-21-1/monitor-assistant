@@ -8,6 +8,9 @@ import java.util.List;
 public class IntelligenceAdapter {
 
     public static IntelligenceResponse intelligenceResponse(final IntelligenceEntity intelligenceEntity, final List<String> errors) {
-        return IntelligenceResponse.builder().intelligenceEntity(intelligenceEntity).errors(errors).build();
+        return IntelligenceResponse.builder()
+                .intelligenceEntity(intelligenceEntity)
+                .errors(errors)
+                .build();
     }
 }
