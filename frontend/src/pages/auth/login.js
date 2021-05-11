@@ -37,6 +37,7 @@ export default function Login(context) {
             data.email,
             accessToken
           );
+          console.log('/autl/login 응답값 : ',response.data);
           setAuthInfo("", "");
         })
         .catch((error) => {
