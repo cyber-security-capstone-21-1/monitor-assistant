@@ -1,7 +1,9 @@
+@import "variables";
+
 // Footer
 footer {
     grid-area: footer;
-    color: #fff;
+    color: $color-white;
     background: {
         color: #3b414d;
     }
