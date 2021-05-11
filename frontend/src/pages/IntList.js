@@ -14,9 +14,9 @@ function IntList () {
         Swal.fire({
             title: '목록 로딩 중',
             html: '데이터를 불러오고 있습니다.',
-            didOpen: () => {
+            didOpen: async () => {
                 Swal.showLoading();
-                axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`)
+                await axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`)
                 .then(({ data }) => {
                     setIntList([...data]);
                 });
