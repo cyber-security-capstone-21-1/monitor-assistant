@@ -14,6 +14,7 @@
     }
     padding: 10px;
     z-index: 3;
+    color: #fff;
   }
   > .cover {
     position: absolute;
@@ -50,6 +51,7 @@
         weight: 700;
       }
       margin: {
+        top: 30px;
         bottom: 20px;
       }
     }
@@ -63,6 +65,9 @@
       align-items: center;
       box-sizing: border-box;
       padding: 10px;
+      margin: {
+        bottom: 30px;
+      }
       > .form__item {
         text-align: left;
         width: 100%;
@@ -76,7 +81,7 @@
         [type="email"],
         [type="password"] {
           display: block;
-          width: 91%;
+          width: 100%;
           font: {
             size: 140%;
           }
@@ -86,6 +91,7 @@
           margin: {
             bottom: 10px;
           }
+          box-sizing: border-box;
         }
         [type="submit"] {
           display: block;
