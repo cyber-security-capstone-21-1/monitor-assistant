@@ -46,17 +46,17 @@ export default function SignUp() {
 
     delete data.passwordConfirm;
     //회원가입 성공과 동시에 로그인
-    axios.post(`${Constants.ENDPOINT}/api/auth/emailvalidity`, data)
+    axios.post(`/api/auth/emailvalidity`, data)
       .then((res) => {
         if (!res.data) {
             console.log('로그인 진행')
           // 회원가입 가능
           axios
-            .post(`${Constants.ENDPOINT}/api/auth/signup`, data)
+            .post(`/api/auth/signup`, data)
             .then((res) => {
               console.log("회원가입 가능 signup 응답값 : ", res);
               axios
-                .post(`${Constants.ENDPOINT}/api/auth/login`, data)
+                .post(`/api/auth/login`, data)
                 .then((response) => {
                   const { accessToken } = response.data;
                   axios.defaults.headers.common[

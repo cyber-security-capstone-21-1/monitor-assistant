@@ -16,9 +16,10 @@ function IntList () {
             html: '데이터를 불러오고 있습니다.',
             didOpen: async () => {
                 Swal.showLoading();
-                await axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`)
+                axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}`)
                 .then(({ data }) => {
                     setIntList([...data]);
+                    Swal.close();
                 });
                 Swal.close();
             },

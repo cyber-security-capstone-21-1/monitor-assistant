@@ -19,7 +19,7 @@ article.card {
         padding: 0 10px 0 10px;
         > header {
             font: {
-                size: 160%;
+                size: $default-font-size * 1.6;
             }
         }
         > p {
@@ -41,9 +41,6 @@ article.card {
                 align-items: center;
                 color: #fff;
                 padding: 5px 0;
-                font: {
-                    weight: 700;
-                }
                 text-decoration: none;
                 &__warning {
                     background: linear-gradient(60deg, #ef5350, #e53935);

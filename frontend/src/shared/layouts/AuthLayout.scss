@@ -9,8 +9,7 @@
   > h1 {
     position: relative;
     font: {
-      size: 160%;
-      weight: 700;
+      size: $default-font-size * 1.6;
     }
     padding: 10px;
     z-index: 3;
@@ -47,8 +46,7 @@
     > header {
       text-align: center;
       font: {
-        size: 200%;
-        weight: 700;
+        size: $default-font-size * 1.4;
       }
       margin: {
         top: 30px;
@@ -83,7 +81,7 @@
           display: block;
           width: 100%;
           font: {
-            size: 140%;
+            size: $default-font-size * 1.4;
           }
           padding: 10px;
           border: 2px soild black;
@@ -96,8 +94,7 @@
         [type="submit"] {
           display: block;
           font: {
-            size: 140%;
-            weight: 700;
+            size: $default-font-size * 1.4;
           }
           color: #fff;
           background: blueviolet;
@@ -119,7 +116,9 @@
           color : rgb(202, 26, 179);
           font-weight: bold;
           text-decoration: none;
-          font-size: 15px;
+          font{
+            size: $default-font-size * 1.1;
+          }
           margin-right: 3px;
         }
       }

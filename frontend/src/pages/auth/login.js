@@ -27,7 +27,7 @@ export default function Login(context) {
             return;
         }
       
-      axios.post(`${Constants.ENDPOINT}/api/auth/login`, data)
+      axios.post(`/api/auth/login`, data)
         .then((response) => {
           const { accessToken } = response.data;
           axios.defaults.headers.common[

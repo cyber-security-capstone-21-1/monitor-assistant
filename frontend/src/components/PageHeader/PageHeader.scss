@@ -1,7 +1,7 @@
 header {
     > h2 {
         font: {
-            size: 160%;
+            size: $default-font-size * 1.6;
             weight: bold;
         }
         line-height: 1.6;

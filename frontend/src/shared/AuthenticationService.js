@@ -5,7 +5,7 @@ class AuthenticationService {
     executeJwtAuthenticationService() {
         let email = localStorage.getItem('authenticatedUser');
         let password = localStorage.getItem('password');
-        return axios.post(`${Constants.ENDPOINT}/api/authenticate`, { email, password });
+        return axios.post(`/api/authenticate`, { email, password });
     }
 
     registerSuccessfulLoginForJwt(email, token, password) {
