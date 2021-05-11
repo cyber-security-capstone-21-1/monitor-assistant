@@ -51,13 +51,13 @@ const Aside = memo((props) => {
                         </NavLink>
                     </li> */}
                     { authenticated ?
-                        (<li activeClassName="" data-tip="로그아웃" onClick={signOut}>
+                        (<li data-tip="로그아웃" onClick={signOut}>
                             <NavLink className="nav-icon nav__sign_out" to="#">
                                 <FontAwesomeIcon icon={faSignOutAlt} />
                             </NavLink>
                         </li>)
                         :
-                        (<li activeClassName="" data-tip="로그인">
+                        (<li data-tip="로그인">
                             <NavLink className="nav-icon nav__sign_in" to="/auth/login">
                                 <FontAwesomeIcon icon={faSignInAlt} />
                             </NavLink>
