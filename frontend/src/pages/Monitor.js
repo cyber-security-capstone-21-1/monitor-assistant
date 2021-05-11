@@ -154,10 +154,11 @@ function Monitor(props) {
                     );
                     uid = res.data.body.data.uid;
                     console.log("uid : ", uid);
-                  }).catch(console.log),
+                  }).catch(console.log);
+
               await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
                     url: "http://naver.com", uid
-                  }).then((res) => console.log("스크린샷 : ", res)).catch(console.log),
+                  }).then((res) => console.log("스크린샷 : ", res)).catch(console.log);
               
               item.created_at = "";
               item.uid = uid;
