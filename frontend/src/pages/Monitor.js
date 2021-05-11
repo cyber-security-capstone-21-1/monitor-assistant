@@ -45,7 +45,7 @@ function Monitor(props) {
         for (let i = 0; i < crawlSiteList.length; i++) {
           axios
             .get(
-              `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
+              `${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
             )
             .then((response) => {
               const siteName = response.data.data[0].site;
@@ -118,7 +118,6 @@ function Monitor(props) {
         {
           title: `<header>${item.title}</header>`,
           html: item.content,
-          scrollbarPadding: true,
           confirmButtonColor: "#3085d6",
         },
         {
@@ -146,7 +145,7 @@ function Monitor(props) {
               axios.all([
                 axios
                   .post(
-                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
+                    `${Constants.AWS.APIs.ARCHIVER}`,
                     { url: "http://naver.com" }
                   )
                   .then((res) => {
@@ -155,7 +154,7 @@ function Monitor(props) {
                   .catch(console.log),
                 axios
                   .post(
-                    `${Constants.ENDPOINT}${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
+                    `${Constants.AWS.APIs.SCREENSHOOTER}`,
                     { url: "http://naver.com" }
                   )
                   .then(console.log)
@@ -163,7 +162,7 @@ function Monitor(props) {
               ]);
               item.created_at = "";
               axios.post(
-                `${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`,
+                `${Constants.SPRING_BACKEND.APIs.INTLIST}`,
                 item
               );
 

@@ -1,3 +1,9 @@
+.section-intelligence__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
 article.card {
     display: flex;
     flex-direction: column;
@@ -40,10 +46,10 @@ article.card {
                 }
                 text-decoration: none;
                 &__warning {
-                    background: red;
+                    background: linear-gradient(60deg, #ef5350, #e53935);
                 }
                 &__info {
-                    background: blueviolet;
+                    background: linear-gradient(60deg, #ffa726, #fb8c00);
                 }
                 &__cursor__pointer {
                     cursor: pointer;

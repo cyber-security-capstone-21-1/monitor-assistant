@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { faTrash, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import axios from 'axios';
+
 import "./IntelligenceCard.scss";
 
 export default function IntelligenceCard (props) {
@@ -24,10 +26,14 @@ export default function IntelligenceCard (props) {
             cancelButtonAriaLabel: '취소',
             showLoaderOnConfirm: true,
             preConfirm: () => {
-                // axios call (Delete An intelligence)
+                return axios.delete(`/api/intelligences/${id}`)
             }
         })
-            .then((result) => {})
+            .then((result) => {
+                if (result) {
+                    console.log(result);
+                }
+            })
             .catch((error) => {});
     };
 
@@ -36,7 +42,7 @@ export default function IntelligenceCard (props) {
             <div className="content">
                 <header>{props.title}</header>
                 <p>
-                    {props.content}
+                    {props.action_plan}
                 </p>
             </div>
             <footer>
@@ -48,7 +54,7 @@ export default function IntelligenceCard (props) {
                         <FontAwesomeIcon icon={faFileAlt} />&nbsp;
                         <span>문서 보기</span>
                     </Link>
-                    <a className="button button__warning button__cursor__pointer" onClick={onDelete} value={props.id}>
+                    <a className="button button__warning button__cursor__pointer" onClick={onDelete} value={props.uid}>
                         <FontAwesomeIcon icon={faTrash} />&nbsp;
                         <span>삭제</span>
                     </a>
