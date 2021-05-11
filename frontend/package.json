@@ -172,5 +172,6 @@
   },
   "_moduleAliases": {
     "@": "src"
-  }
+  },
+  "proxy": "https://monitor-assistant.com"
 }

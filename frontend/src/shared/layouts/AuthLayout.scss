@@ -4,18 +4,96 @@
   cursor : default;
 }
 
+hr {
+  width: 50%;
+  border: 1px solid rgba(0, 0, 0, .12);
+  margin: 20px auto;
+}
+
+input {
+  display: block;
+  width: 100%;
+  font: {
+    size: $default-font-size * 1.4;
+  }
+  box-sizing: border-box;
+
+  &::placeholder {
+    opacity: .3;
+  }
+  
+  &[type="name"],
+  &[type="email"],
+  &[type="password"] {
+    font: {
+      family: $font-extralight;
+    }
+    padding: 20px;
+    margin: {
+      bottom: 10px;
+    }
+    border: 2px solid transparent;
+    outline: none;
+    box-shadow: $box-shadow-lv1;
+    transition: $transition-lv1;
+    &:focus {
+      border: 2px solid $color-confirm;
+      box-shadow: $box-shadow-lv2;
+    }
+    &:invalid {
+      border: 2px solid $color-error-hover;
+    }
+  }
+
+  &[type="submit"] {
+    font: {
+      family: $font-text;
+    }
+    color: $color-white;
+    background: $color-confirm;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 0;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+      background: $color-confirm-hover;
+    }
+  }
+}
+
+legend {
+  font: {
+    size: $default-font-size * 1.2;
+  }
+  margin: {
+    bottom: 5px;
+  }
+}
+
 .form-wrapper {
   width: 100vw;
   height: 100vh;
   background: url('https://monitor-assistant.com/images/auth_background.jpg') no-repeat center center/cover;
   > h1 {
     position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     font: {
       size: $default-font-size * 1.6;
     }
-    padding: 10px;
+    line-height: 1.2;
+    padding: 30px;
     z-index: 3;
     color: $color-white;
+    > img {
+      width: 50px;
+      height: auto;
+      margin: {
+        right: 20px;
+      }
+    }
   }
   > .cover {
     position: absolute;
@@ -23,7 +101,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, .6);
+    background: rgba(0, 0, 0, .8);
     z-index: 1;
   }
 }
@@ -38,8 +116,8 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    width: 500px;
-    min-height: 400px;
+    min-width: 50vmax;
+    min-height: 50vh;
     text-align: center;
     background: $color-white;
     border-radius: 20px;
@@ -48,7 +126,8 @@
     > header {
       text-align: center;
       font: {
-        size: $default-font-size * 1.4;
+        family: $font-semibold;
+        size: $default-font-size * 2.5;
       }
       margin: {
         top: 30px;
@@ -64,7 +143,7 @@
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      padding: 10px;
+      padding: 50px;
       margin: {
         bottom: 30px;
       }
@@ -75,43 +154,10 @@
           bottom: 10px;
         }
         > .error {
-          color : red;
+          color: $color-error-hover;
         }
-        [type="name"],
-        [type="email"],
-        [type="password"] {
-          display: block;
-          width: 100%;
-          font: {
-            size: $default-font-size * 1.4;
-          }
-          padding: 10px;
-          border: 2px soild black;
-          border-radius: 3px;
-          margin: {
-            bottom: 10px;
-          }
-          box-sizing: border-box;
-        }
-        [type="submit"] {
-          display: block;
-          font: {
-            size: $default-font-size * 1.4;
-          }
-          color: $color-white;
-          background: blueviolet;
-          border: none;
-          border-radius: 3px;
-          width: 100%;
-          box-sizing: border-box;
-          padding: 10px 0;
-          text-align: center;
-          transition: 0.2s all ease;
-          &:hover {
-            cursor: pointer;
-            background: rgba(137, 43, 226, 0.74);
-          }
-        }
+        
+        
       }
       > .info {
         > .btn {
@@ -129,8 +175,11 @@
 
 .footer__auth {
   position: absolute;
+  width: 100%;
+  text-align: center;
   left: 50%;
-  bottom: 10px;
+  bottom: 30px;
   transform: translate(-50%, 0);
   color: $color-white;
+  z-index: 4;
 }

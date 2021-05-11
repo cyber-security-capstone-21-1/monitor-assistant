@@ -4,6 +4,12 @@ $default-font-size: 14px;
 // Colors
 $color-white: #fff;
 $color-black: #000;
+$color-confirm: linear-gradient(60deg, rgb(102, 187, 106), rgb(67, 160, 71));
+$color-confirm-hover: rgb(102, 187, 106);
+$color-warning: linear-gradient(60deg, rgb(255, 167, 38), rgb(251, 140, 0));
+$color-warning-hover: rgb(255, 167, 38);
+$color-error: linear-gradient(60deg, rgb(239, 83, 80), rgb(229, 57, 53));
+$color-error-hover: rgb(239, 83, 80);
 
 // Width / Height
 $content-min-width: 1200px;
@@ -14,4 +20,13 @@ $box-shadow-lv2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 $box-shadow-lv3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 $box-shadow-lv4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 $box-shadow-lv5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
 $transition-lv1: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+// Font Families
+$font-extralight: 'IBMPlexSansKR-ExtraLight';
+$font-light: 'IBMPlexSansKR-Light';
+$font-regular: 'IBMPlexSansKR-Regular';
+$font-text: 'IBMPlexSansKR-Text';
+$font-semibold: 'IBMPlexSansKR-SemiBold';
+$font-bold: 'IBMPlexSansKR-Bold';

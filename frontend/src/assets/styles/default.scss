@@ -5,7 +5,7 @@
 
 html {
     font: {
-        family: 'IBMPlexSansKR-Text';
+        family: $font-text;
         weight: normal;
         style: normal;
         size: $default-font-size;
@@ -17,7 +17,7 @@ html {
 
 h1, h2, h3, h4, h5, h6 {
     font: {
-        family: "IBMPlexSansKR-Bold";
+        family: $font-bold;
     }
 }
 
@@ -64,6 +64,7 @@ body {
 main {
     position: relative;
     display: flex;
+    min-height: 1000px;
     &::before {
         display: table;
         content: " ";
