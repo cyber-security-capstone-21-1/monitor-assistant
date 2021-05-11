@@ -146,7 +146,7 @@ function Monitor(props) {
               Swal.showLoading();
               axios.all([
                 axios
-                  .post(`${Constants.AWS.APIs.ARCHIVER}`, {
+                  .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
                     url: "http://naver.com",
                   })
                   .then((res) => {
@@ -158,7 +158,7 @@ function Monitor(props) {
                   })
                   .catch(console.log),
                 axios
-                  .post(`${Constants.AWS.APIs.SCREENSHOOTER}`, {
+                  .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
                     url: "http://naver.com",
                   })
                   .then((res) => console.log("스크린샷", res))
