@@ -49,9 +49,9 @@ const Aside = memo((props) => {
                         </NavLink>
                     </li> */}
                     <li data-tip="로그아웃" onClick={signOut}>
-                        <NavLink className="nav-icon nav__sign_out" to="#">
+                        <a className="nav-icon nav__sign_out">
                             <FontAwesomeIcon icon={faSignOutAlt} />
-                        </NavLink>
+                        </a>
                     </li>
                 </ul>
             </nav>

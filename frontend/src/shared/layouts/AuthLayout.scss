@@ -95,6 +95,20 @@ legend {
       }
     }
   }
+  > h2 {
+    position: relative;
+    color: $color-white;
+    font: {
+      size: $default-font-size * 1.3;
+    }
+    & em {
+      font: {
+        size: $default-font-size * 4;
+      }
+    }
+    padding: 10px 30px;
+    z-index: 3;
+  }
   > .cover {
     position: absolute;
     top: 0;

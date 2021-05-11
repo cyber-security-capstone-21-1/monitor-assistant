@@ -51,7 +51,7 @@ aside {
             }
         }
     }
-    box-shadow: 0 2px 2px -1px rgba(152, 162, 179, 0.3), 0 1px 5px -2px rgba(152, 162, 179, 0.3);
+    box-shadow: $box-shadow-lv1;
 }
 
 @media (min-width: 720px) {

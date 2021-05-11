@@ -40,23 +40,23 @@ export default function IntelligenceCard (props) {
     return (
         <article className="card">
             <div className="content">
+                <h4>{props.site}</h4>
                 <header>{props.title}</header>
+                <h5>{props.author}</h5>
                 <p>
                     {props.action_plan}
                 </p>
             </div>
-            <footer>
+            <footer class="footer footer__card">
                 <p>
-                    <span>{props.site}</span>&nbsp;|&nbsp;<span>{props.author}</span>&nbsp;|&nbsp;<span>{new Date(props.created_at).toLocaleString()}</span>
+                    <span>{new Date(props.created_at).toLocaleString()}</span>
                 </p>
                 <div className="footer__prefs">
                     <Link className="button button__info" to={`/service/intelligence/${props.uid}`}>
-                        <FontAwesomeIcon icon={faFileAlt} />&nbsp;
-                        <span>문서 보기</span>
+                        <FontAwesomeIcon icon={faFileAlt} />&nbsp;<span>문서 보기</span>
                     </Link>
                     <a className="button button__warning button__cursor__pointer" onClick={onDelete} value={props.uid}>
-                        <FontAwesomeIcon icon={faTrash} />&nbsp;
-                        <span>삭제</span>
+                        <FontAwesomeIcon icon={faTrash} />&nbsp;<span>삭제</span>
                     </a>
                 </div>
             </footer>
