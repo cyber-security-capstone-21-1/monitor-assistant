@@ -21,16 +21,16 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
     @Getter
     private List<PostEntity> postEntityList;
 
-    //작가 없음
+    //ㅇㅣ거 수정하기
     @Override
     public List<PostEntity> scrape(String keyword) throws IOException {
         postEntityList = new ArrayList<>();
-        for(int i=0;i<2;i++) {
-            Document[] doc = new Document[2];
+        for(int i=0;i<3;i++) {
+            Document[] doc = new Document[3];
             Connection.Response response =
                     Jsoup.connect("https://www.bobaedream.co.kr/search")
-                            .userAgent("Mozilla/5.0")
-                            .timeout(15000)
+                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .method(Connection.Method.POST)
                             .data("colle", "community")
                             .data("searchField", "ALL")
@@ -39,7 +39,6 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                             .data("startDate", "")
                             .data("keyword", keyword)
                             .followRedirects(true)
-                            .maxBodySize(0)
                             .execute();
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
@@ -57,6 +56,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                 postEntity.setCreated_at(str.substring(str.lastIndexOf("|") + 2));
                 postEntity.setContent(doc2.select("div.content02").html());
                 postEntityList.add(postEntity);
+                
             }
         }
        return postEntityList;

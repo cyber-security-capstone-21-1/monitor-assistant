@@ -6,28 +6,36 @@ import IntelligenceCard from '@/components/IntelligenceCard/IntelligenceCard';
 
 import Constants from '@/shared/constants';
 
+import Swal from 'sweetalert2';
+
 function IntList () {
     const [intList, setIntList] = useState([]);
     useEffect(() => {
-        async function loadIntelligences() {
-            const intelligences = await axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`);
-            setIntList([...intelligences.data]);
-        }
-        loadIntelligences();
+        Swal.fire({
+            title: '목록 로딩 중',
+            html: '데이터를 불러오고 있습니다.',
+            didOpen: () => {
+                Swal.showLoading();
+                axios.get(`${Constants.ENDPOINT}${Constants.SPRING_BACKEND.APIs.INTLIST}`)
+                .then(({ data }) => {
+                    setIntList([...data]);
+                });
+            },
+        });
     }, []);
 
     return (
         <>
             <PageHeader title="첩보 목록" desc="첩보 목록" />
             <section style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
-                {intList.map(({ title, site, author, created_at, archived_UID, id, content }, index) => {
+                {intList.map(({ title, site, author, created_at, uid, id, content }, index) => {
                     return (
                         <IntelligenceCard
                             title={title}
                             site={site}
                             author={author}
                             created_at={created_at}
-                            uid={archived_UID}
+                            uid={uid}
                             content={content}
                         />
                     )

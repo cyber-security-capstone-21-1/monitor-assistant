@@ -1,5 +1,5 @@
 export default {
-    ENDPOINT: "https://www.monitor-assistant.com",
+    ENDPOINT: "https://monitor-assistant.com",
     AWS: {
         STAGE: "/api",
         APIs: {
@@ -10,7 +10,7 @@ export default {
     SPRING_BACKEND: {
         APIs: {
             MONITOR: "/api/monitor",
-            INTLIST: "/api/intelligences/"
+            INTLIST: "/api/intelligences"
         }
     } 
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, HashRouter } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import "@/assets/styles/default.scss";
 import { Dashboard, Viewer, IntList, Monitor, Login, SignUp, PageNotFound } from "@/pages";
@@ -8,6 +8,7 @@ import MovePage from '../pages/auth/movePage'
 
 function App () {
   return (
+    <HashRouter>
       <MovePage>
         <Switch>
           <RouteWithLayout layout={AuthLayout} path="/auth/signup" component={SignUp} />   
@@ -19,6 +20,7 @@ function App () {
           <RouteWithLayout layout={ErrorLayout} component={PageNotFound}/>   
         </Switch>
       </MovePage>
+    </HashRouter>
   );
 }
 

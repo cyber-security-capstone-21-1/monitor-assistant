@@ -1,8 +1,10 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.controller;
 
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.adapter.UserAdapter;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.config.JwtTokenUtil;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.UserEntity;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.repositories.UserRepository;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.UserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,10 +33,11 @@ public class UserAuthenticationController {
     private UserRepository userRepository;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> SignUp(@RequestBody Map<String, String> user) {
-        Long result;
+    public UserResponse SignUp(@RequestBody Map<String, String> user) {
+        Long id;
+        List<String> errors = new ArrayList<>();
         try {
-            result = userRepository.save(
+            id = userRepository.save(
                     UserEntity.builder()
                             .email(user.get("email"))
                             .password_encrypted(passwordEncoder.encode(user.get("password")))
@@ -40,10 +45,14 @@ public class UserAuthenticationController {
                             .name(user.get("name"))
                             .build()
             ).getId();
+
         } catch (Exception e) {
-            return ResponseEntity.noContent().build();
+            errors.add(e.getMessage());
+            return UserAdapter.userResponse(
+                    UserAdapter.userResponseEntity(null, null), "failed", errors);
         }
-        return ResponseEntity.ok(result);
+        return UserAdapter.userResponse(
+                UserAdapter.userResponseEntity(id, user.get("email")), "created", errors);
     }
 
     @PostMapping("/login")
@@ -58,8 +67,8 @@ public class UserAuthenticationController {
 
     @PostMapping("/emailvalidity")
     public Boolean emailValidity(@RequestBody Map<String, String> user) {
-        UserEntity member = userRepository.findByEmail(user.get("email")).get();
-        if(member == null) return true;
-        return false;
+        if (userRepository.findByEmail(user.get("email")).isPresent()) {
+            return true;
+        } else return false;
     }
 }

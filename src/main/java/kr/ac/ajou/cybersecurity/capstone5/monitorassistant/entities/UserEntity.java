@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -47,7 +48,7 @@ public class UserEntity implements Serializable, UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity")
     @JsonIgnore
-    private List<IntelligenceEntity> intelligences = new ArrayList<>();
+    private final List<IntelligenceEntity> intelligences = new ArrayList<>();
 
     // Overrides from UserDetails
     @Override

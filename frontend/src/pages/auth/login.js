@@ -7,9 +7,6 @@ import Swal from "sweetalert2";
 import Constants from "@/shared/constants";
 
 export default function Login(context) {
-  console.log("로그인 렌더링");
-  console.log(AuthenticationService.isUserLoggedIn());
-
   const [passwdMsg, setPasswdMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [AuthInfo, setAuthInfo] = useState({ email: "", password: "" });
@@ -19,6 +16,7 @@ export default function Login(context) {
       [e.target.name]: e.target.value,
     });
   };
+  
   const onLogin = useCallback(
     (e) => {
       e.preventDefault();
@@ -28,9 +26,8 @@ export default function Login(context) {
             if(data.password === '') setPasswdMsg('비밀번호를 입력해주세요');
             return;
         }
-      // AuthenticationService.executeJwtAuthenticationService(data.email, data.password);
-      axios
-        .post(`${Constants.ENDPOINT}/api/auth/login`, data)
+      
+      axios.post(`${Constants.ENDPOINT}/api/auth/login`, data)
         .then((response) => {
           const { accessToken } = response.data;
           axios.defaults.headers.common[
@@ -58,7 +55,7 @@ export default function Login(context) {
     <>
       {!loggedIn ? (
         <>
-          <header>로그인</header>
+          <header className="title">로그인</header>
           <div className="form__item_wrapper">
             <div className="form__item">
               <legend>이메일</legend>
