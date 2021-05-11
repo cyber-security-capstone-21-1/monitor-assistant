@@ -248,7 +248,7 @@ function Monitor(props) {
                   <tr onClick={() => openDialog(post)}>
                     <td>{post.site}</td>
                     <td>{post.title}</td>
-                    <td>100</td>
+                    <td>{post.view}</td>
                     <td>{post.author}</td>
                     <td>{post.created_at}</td>
                   </tr>
