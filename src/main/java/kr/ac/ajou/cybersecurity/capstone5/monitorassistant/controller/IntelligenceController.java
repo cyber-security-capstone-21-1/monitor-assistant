@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,9 +32,10 @@ public class IntelligenceController {
 
     @PostMapping("/intelligences")
     public IntelligenceResponse save(@RequestBody IntelligenceEntity entity) {
+        System.out.println(entity);
         intelligenceRepository.save(entity);
         System.out.println(entity.getContent());
-        return IntelligenceAdapter.intelligenceResponse(entity, null);
+        return IntelligenceAdapter.intelligenceResponse(entity, "save success",null);
     }
 
     @GetMapping("/intelligences/{uid}")
@@ -45,8 +47,12 @@ public class IntelligenceController {
 
     @DeleteMapping("/intelligences/{uid}")
     @Transactional
-    public ResponseEntity<?> deleteOne(@PathVariable String uid) {
-        Optional<IntelligenceEntity> targetEntity = intelligenceRepository.deleteByUid(uid);
-        return ResponseEntity.ok(targetEntity);
+    public String deleteOne(@PathVariable String uid) {
+        if(intelligenceRepository.findByUid(uid).isEmpty())
+            return uid+": no data";
+        else {
+            intelligenceRepository.deleteByUid(uid);
+            return uid+": delete success";
+        }
     }
 }

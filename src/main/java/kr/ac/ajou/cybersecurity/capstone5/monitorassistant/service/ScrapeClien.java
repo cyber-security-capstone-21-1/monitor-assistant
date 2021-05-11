@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class ScrapeClien implements ScraperServiceInterface {
 
-    private static String Clien_CRAWL_DATA_URL = "https://www.clien.net/service/search?&sort=recency&boardCd=&isBoard=false&q=";
+    private static String Clien_CRAWL_DATA_URL = "https://www.clien.net/service/search?q=";
 
     @Getter
     private List<PostEntity> postEntityList;
@@ -26,7 +26,8 @@ public class ScrapeClien implements ScraperServiceInterface {
         Document[] doc = new Document[3];
 
         for (int i = 0; i < 3; i++) {
-            doc[i] = Jsoup.connect(Clien_CRAWL_DATA_URL + keyword + "&p=" + (i)).get();//3page까지 긁어오기
+            doc[i] = Jsoup.connect(Clien_CRAWL_DATA_URL + keyword +
+                    "&sort=recency&p=" +(i)+"&boardCd=&isBoard=false").get();//3page까지 긁어오기
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()

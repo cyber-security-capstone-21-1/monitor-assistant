@@ -12,4 +12,10 @@ public class PostResponse extends ApiResponse<List<PostEntity>>{
         super(postEntities);
         this.setErrors(errors);
     }
+    @Builder
+    public PostResponse(final List<PostEntity> postEntities, final String status, final List<String> errors) {
+        super(postEntities);
+        this.setStatus(status);
+        this.setErrors(errors);
+    }
 }

@@ -7,10 +7,17 @@ import java.util.List;
 
 public class IntelligenceAdapter {
 
-    public static IntelligenceResponse intelligenceResponse(final IntelligenceEntity intelligenceEntity, final List<String> errors) {
+    public static IntelligenceResponse intelligenceResponse(final IntelligenceEntity intelligenceEntity,final String status, final List<String> errors) {
         return IntelligenceResponse.builder()
+                .status(status)
                 .intelligenceEntity(intelligenceEntity)
                 .errors(errors)
                 .build();
     }
+//    public static IntelligenceResponse intelligenceErrorResponse(final IntelligenceEntity intelligenceEntity, final List<String> errors) {
+//        return IntelligenceResponse.builder()
+//                .intelligenceEntity(intelligenceEntity)
+//                .errors(errors)
+//                .build();
+//    }
 }

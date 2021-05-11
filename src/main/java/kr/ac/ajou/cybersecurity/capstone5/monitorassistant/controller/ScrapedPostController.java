@@ -53,11 +53,16 @@ public class ScrapedPostController {
     public PostResponse scrapeNaver(@RequestParam String keyword) {
         List<String> errors = new ArrayList<>();
         List<PostEntity> postEntities = null;
+        String status ="";
         try {
             postEntities = scrapeNaver.scrape(keyword);
         } catch (final Exception e) {
             errors.add(e.getMessage());
         }
+        if(errors.isEmpty()) status="success";
+        else status="failed";
+
+
         return PostAdapter.postResponse(postEntities, errors);
     }
     @GetMapping("/nate")
