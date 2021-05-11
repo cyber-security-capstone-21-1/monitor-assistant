@@ -1,14 +1,16 @@
+@import "../../assets/styles/variables";
+
 // Aside
 aside {
     margin: 0;
     overflow: hidden;
     background: {
-        color: #fff;
+        color: $color-white;
     }
     z-index: 1000;
     > nav {
         & .nav-icon.active {
-            color: #fff;
+            color: $color-white;
             background: {
                 color: #3b414d;
             }
@@ -43,7 +45,7 @@ aside {
                     }
                     transition: .2s all ease-out;
                     > a {
-                        color: #fff;
+                        color: $color-white;
                     }
                 }
             }

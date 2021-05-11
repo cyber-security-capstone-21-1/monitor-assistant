@@ -1,3 +1,5 @@
+@import "../../assets/styles/variables";
+
 .title:hover {
   cursor : default;
 }
@@ -13,7 +15,7 @@
     }
     padding: 10px;
     z-index: 3;
-    color: #fff;
+    color: $color-white;
   }
   > .cover {
     position: absolute;
@@ -39,7 +41,7 @@
     width: 500px;
     min-height: 400px;
     text-align: center;
-    background: #fff;
+    background: $color-white;
     border-radius: 20px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
     z-index: 2;
@@ -96,7 +98,7 @@
           font: {
             size: $default-font-size * 1.4;
           }
-          color: #fff;
+          color: $color-white;
           background: blueviolet;
           border: none;
           border-radius: 3px;
@@ -131,5 +133,5 @@
   left: 50%;
   bottom: 10px;
   transform: translate(-50%, 0);
-  color: #fff;
+  color: $color-white;
 }
