@@ -136,7 +136,6 @@ function Monitor(props) {
       .then(async (result) => {
         if (result.value && result.value[0]) {
           const memo = JSON.stringify(result.value);
-
           console.log(item, "저장");
           Swal.fire({
             title: "아카이빙 및 저장 중입니다.",
@@ -168,6 +167,8 @@ function Monitor(props) {
               ]);
               item.created_at = "";
               item.uid = uid;
+              console.log(uid);
+              console.log(item);
               axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
 
               Swal.close();
