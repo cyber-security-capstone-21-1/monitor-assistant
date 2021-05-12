@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Constants from "@/shared/constants";
-import { Link, Redirect } from "react-router-dom";
+
 import AuthenticationService from "@/shared/AuthenticationService";
 
 export default function SignUp() {
@@ -72,6 +72,8 @@ export default function SignUp() {
                   Swal.fire({
                     title: "로그인 실패",
                     icon: "error",
+                    html: "로그인 정보를 다시 한번 확인해주세요.",
+                    confirmButtonText: "확인"
                   });
                   console.error(error);
                 });
@@ -86,6 +88,8 @@ export default function SignUp() {
         Swal.fire({
           title: "회원가입 실패",
           icon: "error",
+          html: "알 수 없는 에러로 가입에 실패했습니다. 같은 현상 반복 시 서버 관리자에 문의하세요.",
+          confirmButtonText: "확인"
         });
         console.error(error);
       });

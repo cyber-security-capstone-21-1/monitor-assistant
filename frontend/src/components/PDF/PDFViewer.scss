@@ -1,0 +1,18 @@
+@import "../../assets/styles/variables";
+
+a[download] {
+    display: block;
+    font: {
+        family: $font-extralight;
+        size: $default-font-size * 2;
+    }
+    padding: 10px 0;
+    color: $color-white;
+    text: {
+        align: center;
+        decoration: none;
+    }
+    border-radius: 10px;
+    background: $color-warning-2;
+    box-shadow: $box-shadow-lv1;
+}

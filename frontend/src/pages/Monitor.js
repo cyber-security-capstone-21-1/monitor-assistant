@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+
 import Constants from "@/shared/constants";
 import PageHeader from "@/components/PageHeader/PageHeader";
+
+import "./Monitor.scss";
 
 const crawlSiteList = [
   "nate",
@@ -28,11 +31,9 @@ function Monitor(props) {
   const useinput = useRef();
 
   const search = async () => {
-    let resLength = 0;
-    const word = useinput.current.value;
 
     Swal.fire({
-      title: "검색 중입니다...",
+      title: "검색 요청 중입니다...",
       html: "검색이 완료되는 순서대로 화면에 표시됩니다.",
       allowOutsideClick: false,
       didOpen: async () => {
@@ -52,7 +53,6 @@ function Monitor(props) {
               setPostList((state) => [...state, ...response.data.data]);
               setResult((state) => [...state, ...response.data.data]);
               setSiteList((site) => [...site, siteName]);
-              resLength += response.data.data.length;
             });
         }
 
@@ -75,10 +75,6 @@ function Monitor(props) {
           icon: "success",
           title: `검색을 시작합니다.`,
         });
-      },
-    }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
       }
     });
   };
@@ -124,7 +120,7 @@ function Monitor(props) {
           title: "메모를 입력해주세요",
           input: "textarea",
           inputLabel: "메모입력",
-          inputPlaceholder: "Enter ...",
+          inputPlaceholder: "어떤 내용의 것인가요?",
           inputAttributes: {
             "aria-label": "Type your message",
           },
@@ -200,8 +196,11 @@ function Monitor(props) {
 
   return (
     <>
-      <PageHeader title="모니터링" desc="모니터링" />
-      <section>
+      <PageHeader
+        title="게시물 모니터링"
+        desc="커뮤니티 사이트로부터 게시물을 수집합니다."
+      />
+      <section className="section section__monitor">
         <form className="search">
           <input
             type="text"
@@ -219,7 +218,7 @@ function Monitor(props) {
               siteList.map((site) => {
                 return (
                   <li>
-                    <a onClick={() => getSiteData(site)}>{site}</a>
+                    <button onClick={() => getSiteData(site)}>{site}</button>
                   </li>
                 );
               })}

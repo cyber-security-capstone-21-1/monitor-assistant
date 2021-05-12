@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import PageHeader from '@/components/PageHeader/PageHeader';
 import IntelligenceCard from '@/components/IntelligenceCard/IntelligenceCard';
 
 import Constants from '@/shared/constants';
-
-import Swal from 'sweetalert2';
 
 function IntList () {
     const [intList, setIntList] = useState([]);
@@ -26,8 +25,11 @@ function IntList () {
 
     return (
         <>
-            <PageHeader title="첩보 목록" desc="첩보 목록" />
-            <section class="section section-intelligence__list">
+            <PageHeader
+                title="첩보 리스트"
+                desc="수집한 게시물의 내용이 담겨있습니다."
+            />
+            <section className="section section__intelligence_list">
                 {intList.map(({ title, site, author, created_at, uid, id, content, action_plan }, index) => {
                     return (
                         <IntelligenceCard
