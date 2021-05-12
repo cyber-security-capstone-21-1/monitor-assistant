@@ -23,10 +23,23 @@ article.card {
     > .content {
         height: 100%;
         padding: 0 10px 0 10px;
+        > h4 {
+            opacity: .4;
+        }
+        > h5 {
+            font: {
+                family: $font-light;
+                size: $default-font-size * .8;
+            }
+        }
         > header {
             font: {
-                family: $font-bold;
+                family: $font-semibold;
                 size: $default-font-size * 1.6;
+            }
+            > a {
+                text-decoration: none;
+                color: $color-black;
             }
         }
         > p {

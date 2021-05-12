@@ -1,9 +1,31 @@
 @import "variables";
+@import "mixin";
 
 // Media
 @media (min-width: $content-min-width) {
     .container {
         width: $content-min-width;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-wrapper {
+        > h1 {
+            padding: 20px 10px;
+            font: {
+                size: $default-font-size;
+            }
+            > img {
+                width: 30px;
+            }
+        }
+        > h2 {
+            display: none;
+        }
+        > .form {
+            max-height: 80vmax;
+            overflow-y: scroll;
+        }
     }
 }
 
