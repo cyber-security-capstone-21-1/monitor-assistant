@@ -45,7 +45,7 @@ const MovePage = ({ location, children }) => {
   useEffect(() => {
     setHistory(location.pathname);
   }, []);
-
+  console.log('move page 로그인 체크 :',AuthenticationService.isUserLoggedIn());
   return (
     <>
       <RouteWithLayout
