@@ -1,4 +1,4 @@
-export default {
+const Constants = {
     ENDPOINT: "https://monitor-assistant.com",
     AWS: {
         STAGE: "/api",
@@ -14,3 +14,5 @@ export default {
         }
     } 
 };
+
+export default Constants;

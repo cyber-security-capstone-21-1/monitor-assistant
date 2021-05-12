@@ -1,6 +1,6 @@
 @import "../../assets/styles/variables";
 
-.section-intelligence__list {
+.section__intelligence_list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
@@ -25,6 +25,7 @@ article.card {
         padding: 0 10px 0 10px;
         > header {
             font: {
+                family: $font-bold;
                 size: $default-font-size * 1.6;
             }
         }
@@ -39,20 +40,38 @@ article.card {
         > .footer__prefs {
             display: flex;
             flex-direction: row;
-            justify-content: space-evenly;
+            justify-content: flex-start;
+            padding: 10px;
             > .button {
                 display: inline-block;
-                width: 100%;
-                text-align: center;
+                width: 30%;
+                font: {
+                    family: $font-semibold;
+                    size: $default-font-size * .9;
+                }
+                text: {
+                    align: center;
+                    decoration: none;
+                }
                 align-items: center;
                 color: $color-white;
                 padding: 5px 0;
-                text-decoration: none;
+                margin: {
+                    right: 10px;
+                }
+                border: none;
+                border-radius: 20px;
                 &__warning {
-                    background: $color-warning;
+                    background: $color-warning-2;
+                    &:hover {
+                        background: $color-error;
+                    }
                 }
                 &__info {
-                    background: $color-confirm;
+                    background: $color-confirm-5;
+                    &:hover {
+                        background: $color-confirm-2;
+                    }
                 }
                 &__cursor__pointer {
                     cursor: pointer;

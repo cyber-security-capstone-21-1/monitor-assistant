@@ -1,7 +1,8 @@
 // Common Style Setup
-@import "variables";
 @import "reset";
+@import "variables";
 @import "fonts";
+@import "media";
 
 html {
     font: {
@@ -19,6 +20,13 @@ h1, h2, h3, h4, h5, h6 {
     font: {
         family: $font-bold;
         weight: normal !important;
+    }
+}
+
+small {
+    font: {
+        family: $font-extralight;
+        size: $default-font-size * .6;
     }
 }
 
@@ -62,6 +70,11 @@ body {
     }
 }
 
+button {
+    border: none;
+    background: none;
+}
+
 main {
     position: relative;
     display: flex;
@@ -80,84 +93,7 @@ main {
         min-height: $content-min-height;
         padding: 15px;
         background: {
-            color: #e3e3e3;
-        }
-    }
-}
-
-// Monitor -- Form
-form.search {
-    display: flex;
-    margin: {
-        bottom: 50px;
-    }
-    > [type="text"] {
-        width: 100%;
-        font: {
-            family: 'IBMPlexSansKR-Regular';
-            size: $default-font-size * 2;
-        }
-        outline: none;
-        border: {
-            style: none;
-            radius: 50px;
-        }
-        padding: 20px 30px;
-        box-shadow: $box-shadow-lv1;
-        &::placeholder {
-            opacity: .6;
-        }
-        margin: {
-            right: 10px;
-        }
-    }
-    > button {
-        min-width: 80px;
-        height: 80px;
-        background: {
-            color: $color-white;
-        };
-        border: {
-            style: none;
-            radius: 50%;
-        }
-        box-shadow: $box-shadow-lv1;
-        font: {
-            size: $default-font-size * 1.6;
-        }
-        &:hover {
-            background: {
-                color: rgb(0, 110, 197);
-            }
-            cursor: pointer;
-            color: $color-white;
-            transition: .2s all ease;
-        }
-    }
-}
-
-.monitor__site_nav {
-    margin: {
-        bottom: 20px;
-    }
-    background: {
-        color: #f7765f;
-    }
-    & ul {
-        > li {
-            display: inline-block;
-            padding: 10px;
-            > a {
-                color: $color-white;
-                display: inherit;
-                padding: 8px 5px;
-                &:hover {
-                    background: {
-                        color: $color-white;
-                    }
-                    color: #f7765f;
-                }
-            }
+            color: $color-main;
         }
     }
 }
@@ -194,22 +130,5 @@ table {
                 transform: translate3d(0, -5px, -5px);
             }
         }
-    }
-}
-
-// Media
-@media (min-width: $content-min-width) {
-    .container {
-        width: $content-min-width;
-    }
-}
-
-@media (max-width: 720px) {
-    main {
-        display: block;
-    }
-
-    .section-intelligence__list {
-        grid-template-columns: repeat(1, 1fr);
     }
 }
