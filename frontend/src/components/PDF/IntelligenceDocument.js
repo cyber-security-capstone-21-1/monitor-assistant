@@ -92,8 +92,8 @@ export default function IntelligenceDocument({ content }) {
         <View style={styles.header}>
           <Image style={styles.logo} src={Logo}/>
           <View>
-            <Text>사이버수사관모니터링</Text>
-            <Text>업무보조시스템</Text>
+            <Text>사이버수사관</Text>
+            <Text>모니터링업무보조시스템</Text>
           </View>
         </View>
         {/* Title */}

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ReactTooltip from 'react-tooltip';
 
 import Aside from '@/components/Aside/Aside';

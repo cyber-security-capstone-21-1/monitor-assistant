@@ -4,9 +4,17 @@ $default-font-size: 14px;
 // Colors
 $color-white: #fff;
 $color-black: #000;
+$color-aside: rgb(28, 30, 35);
+$color-main: rgb(250, 251, 253);
+$color-footer: #334166;
 $color-confirm: linear-gradient(60deg, rgb(102, 187, 106), rgb(67, 160, 71));
+$color-confirm-2: #7596EA;
+$color-confirm-3: #B8C5E6;
+$color-confirm-4: #8F99B3;
+$color-confirm-5: rgb(35, 203, 203);
 $color-confirm-hover: rgb(102, 187, 106);
 $color-warning: linear-gradient(60deg, rgb(255, 167, 38), rgb(251, 140, 0));
+$color-warning-2: rgb(231, 35, 127);
 $color-warning-hover: rgb(255, 167, 38);
 $color-error: linear-gradient(60deg, rgb(239, 83, 80), rgb(229, 57, 53));
 $color-error-hover: rgb(239, 83, 80);
@@ -30,3 +38,10 @@ $font-regular: 'IBMPlexSansKR-Regular';
 $font-text: 'IBMPlexSansKR-Text';
 $font-semibold: 'IBMPlexSansKR-SemiBold';
 $font-bold: 'IBMPlexSansKR-Bold';
+
+$font-sizes: (
+  null  : 18px,
+  480px : 14px,
+  640px : 15px,
+  1024px: 16px
+);

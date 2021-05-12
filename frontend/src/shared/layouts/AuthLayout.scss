@@ -127,15 +127,14 @@ legend {
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     position: absolute;
     min-width: 50vmax;
-    min-height: 50vh;
+    max-height: 80vh;
     text-align: center;
     background: $color-white;
     border-radius: 20px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
+    overflow-y: scroll;
     z-index: 2;
     > header {
       text-align: center;

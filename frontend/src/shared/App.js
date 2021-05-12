@@ -1,10 +1,12 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
-import "@/assets/styles/default.scss";
+
 import { Dashboard, Viewer, IntList, Monitor, Login, SignUp, PageNotFound } from "@/pages";
-import { RouteWithLayout, AuthLayout, ServiceLayout, ErrorLayout } from './layouts';
-import MovePage from '../pages/auth/movePage'
+import { RouteWithLayout, AuthLayout, ServiceLayout, ErrorLayout } from '@/shared/layouts';
+import MovePage from '@/pages/auth/movePage';
+
+import "@/assets/styles/default.scss";
 
 function App () {
   return (

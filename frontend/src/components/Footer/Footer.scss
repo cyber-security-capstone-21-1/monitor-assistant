@@ -5,8 +5,9 @@
     grid-area: footer;
     color: $color-white;
     background: {
-        color: #3b414d;
+        color: $color-footer;
     }
+    line-height: 1;
     & .container {
         padding: {
             top: 18px;
