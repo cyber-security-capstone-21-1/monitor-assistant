@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Data
+@ToString(exclude="userEntity")
 @Entity
 @Table(name = "intelligence")
 @Builder

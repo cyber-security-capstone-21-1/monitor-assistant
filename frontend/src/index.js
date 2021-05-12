@@ -9,7 +9,7 @@ import App from './shared/App';
 import reportWebVitals from './reportWebVitals';
 
 axios.defaults.withCredentials = true;
-// axios.defaults.baseURL = Constants.ENDPOINT;
+axios.defaults.baseURL = Constants.ENDPOINT;
 
 ReactDOM.render(
   <React.StrictMode>

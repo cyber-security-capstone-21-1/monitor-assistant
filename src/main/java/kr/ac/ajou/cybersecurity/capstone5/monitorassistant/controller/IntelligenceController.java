@@ -38,23 +38,16 @@ public class IntelligenceController {
     }
 
     @PostMapping("/intelligences")
-    @Transactional(readOnly = true)
     public IntelligenceResponse save(@RequestBody IntelligenceEntity entity, HttpServletRequest req) {
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         String str = req.getHeader("Authorization");
         if(str.startsWith("Bearer ")) {
             str = str.substring(7);
         }
         String email = jwtTokenUtil.getUsernameFromToken(str);
-        System.out.println(email);
         Optional<UserEntity> user = userRepository.findByEmail(email);
-        System.out.println(user);
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
         entity.setUserEntity(user.get());
-        System.out.println(entity.getUserEntity());
         intelligenceRepository.save(entity);
-        System.out.println(entity.getContent());
         return IntelligenceAdapter.intelligenceResponse(entity, null);
     }
 

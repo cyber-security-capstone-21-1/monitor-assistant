@@ -46,7 +46,7 @@ public class UserEntity implements Serializable, UserDetails {
     @Column(name = "role")
     private int role;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity", fetch = FetchType.EAGER)
     @JsonIgnore
     private final List<IntelligenceEntity> intelligences = new ArrayList<>();
 
