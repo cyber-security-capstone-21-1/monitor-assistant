@@ -10,6 +10,7 @@ public class MonitorAssistantApplication {
 //		System.setProperty("spring.config.location", "classpath:/application.yml,classpath:/aws.yml");
 //	}
 
+
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(MonitorAssistantApplication.class)
 				.run(args);

@@ -50,6 +50,11 @@ function Monitor(props) {
             )
             .then((response) => {
               console.log(response);
+              console.log(response.data.data[0]);
+              console.log(response.data.data[0].site);
+              if(response.data.data[0].site) {
+                console.log('없음');
+              }
               const siteName = response.data.data[0].site;
               setPostList((state) => [...state, ...response.data.data]);
               setResult((state) => [...state, ...response.data.data]);
@@ -151,29 +156,32 @@ function Monitor(props) {
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
-              let uid;
+              let uid = "123124-hset242b-df";
               
-              await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
-                    url: "http://naver.com",
-                  }).then((res) => {
-                    console.log(
-                      "아카이버 반환 res.data.body.data.uid : ",
-                      res.data.body.data.uid
-                    );
-                    uid = res.data.body.data.uid;
-                    console.log("uid : ", uid);
-                  }).catch(console.log);
+              // await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
+              //       url: "http://naver.com",
+              //     }).then((res) => {
+              //       console.log(
+              //         "아카이버 반환 res.data.body.data.uid : ",
+              //         res.data.body.data.uid
+              //       );
+              //       uid = res.data.body.data.uid;
+              //       console.log("uid : ", uid);
+              //     }).catch(console.log);
 
-              await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
-                    url: "http://naver.com", uid
-                  }).then((res) => console.log("스크린샷 : ", res.status)).catch(console.log);
-              // item.created_at = "";
+              // await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
+              //       url: "http://naver.com", uid
+              //     }).then((res) => console.log("스크린샷 : ", res.status)).catch(console.log);
+
+              
+              
+              // 주석 풀면 500 안풀면 400
+              item.created_at = "";
               item.uid = uid;
-
               console.log(item);
               axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
               Swal.close();
-            },
+            },   
             willClose: () => {
               const Toast = Swal.mixin({
                 toast: true,

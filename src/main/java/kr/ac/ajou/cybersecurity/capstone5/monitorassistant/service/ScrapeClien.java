@@ -41,7 +41,6 @@ public class ScrapeClien implements ScraperServiceInterface {
                         .view(el.select(".hit").text())
                         .build();
                 if(postEntity.getAuthor().equals("")) {
-                    System.out.println(postEntity.getTitle());
                     postEntity.setAuthor(el.select(".nickname img").attr("alt"));
                 }
                 Document doc2= Jsoup.connect(postEntity.getUrl()).get();

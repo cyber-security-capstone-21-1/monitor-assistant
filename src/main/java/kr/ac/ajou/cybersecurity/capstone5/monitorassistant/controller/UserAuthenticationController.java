@@ -65,10 +65,8 @@ public class UserAuthenticationController {
             return UserAdapter.userResponse(
                     UserAdapter.userResponseEntity(null, null), "failed", errors);
         }
-        return UserAdapter.userResponse(
-                UserAdapter.userResponseEntity(id, user.get("email")), "created", errors);
+        return UserAdapter.userResponse(UserAdapter.userResponseEntity(id, user.get("email")), "created", errors);
     }
-
 
     @PostMapping("/emailvalidity")
     public Boolean emailValidity(@RequestBody Map<String, String> user) {
@@ -80,7 +78,6 @@ public class UserAuthenticationController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public TokenResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
-
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String accessToken = jwtTokenUtil.generateToken(userDetails);
         final String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
@@ -136,7 +133,4 @@ public class UserAuthenticationController {
         }
         return null;
     }
-
-
-
 }

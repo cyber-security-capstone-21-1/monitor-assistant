@@ -1,16 +1,15 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@Getter
 @Data
+@ToString(exclude="userEntity")
 @Entity
 @Table(name = "intelligence")
 @Builder
@@ -52,5 +51,4 @@ public class IntelligenceEntity implements Serializable {
     @JsonIgnore
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
-
 }
