@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import Logo from "@/assets/images/logo.png";
-
 import axios from 'axios';
+
+import Logo from "@/assets/images/logo.png";
 
 import './AuthLayout.scss';
 
@@ -21,7 +21,7 @@ export default function AuthLayout({ children }) {
     return (
         <section className="form-wrapper">
             <h1>
-                <img src={Logo} />
+                <img src={Logo} alt="LOGO" />
                 <span>사이버수사관<br />모니터링업무보조시스템</span>
             </h1>
             <h2>

@@ -5,14 +5,14 @@ aside {
     margin: 0;
     overflow: hidden;
     background: {
-        color: $color-white;
+        color: $color-aside;
     }
-    z-index: 1000;
+    z-index: 5;
     > nav {
         & .nav-icon.active {
-            color: $color-white;
+            color: $color-aside;
             background: {
-                color: #3b414d;
+                color: $color-white;
             }
         }
         > .nav__home {
@@ -31,21 +31,24 @@ aside {
                 height: 50px;
                 line-height: 50px;
                 text-align: center;
-                > a {
+                > a,
+                > button {
                     position: absolute;
                     top: 0;
                     left: 0;
                     width: 50px;
                     height: 50px;
+                    color: $color-white;
+                    background: $color-aside;
+                    border: none;
                 }
                 &:hover {
-                    cursor: pointer;
-                    background: {
-                        color: #3b414d;
-                    }
                     transition: .2s all ease-out;
-                    > a {
+                    > a,
+                    > button {
+                        cursor: pointer;
                         color: $color-white;
+                        background: $color-confirm-2;
                     }
                 }
             }

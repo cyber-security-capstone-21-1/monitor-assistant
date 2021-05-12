@@ -3,11 +3,15 @@
 header {
     > h2 {
         font: {
+            family: $font-text;
             size: $default-font-size * 1.6;
         }
         line-height: 1.6;
     }
     > p {
+        font: {
+            family: $font-extralight;
+        }
         margin: {
             bottom: 20px;
         }

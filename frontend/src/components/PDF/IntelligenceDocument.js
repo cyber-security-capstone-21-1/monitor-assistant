@@ -92,8 +92,8 @@ export default function IntelligenceDocument({ content }) {
         <View style={styles.header}>
           <Image style={styles.logo} src={Logo}/>
           <View>
-            <Text>사이버수사관모니터링</Text>
-            <Text>업무보조시스템</Text>
+            <Text>사이버수사관</Text>
+            <Text>모니터링업무보조시스템</Text>
           </View>
         </View>
         {/* Title */}
@@ -138,47 +138,47 @@ export default function IntelligenceDocument({ content }) {
             {/* Header */}
             <Text style={styles.tableCellHead}>게시물명</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.data.title}</Text>
+            <Text style={styles.tableCellBody}>{content.title}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>사이트</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.data.site}</Text>
+            <Text style={styles.tableCellBody}>{content.site}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>작성자</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.data.author}</Text>
+            <Text style={styles.tableCellBody}>{content.author}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>작성일</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.data.created_at}</Text>
+            <Text style={styles.tableCellBody}>{content.created_at}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>URL</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.data.url}</Text>
+            <Text style={styles.tableCellBody}>{content.url}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>첩보 내용</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.data.content}</Text>
+            <Text style={styles.tableCellBody}>{content.action_plan}</Text>
           </View>
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷</Text>
-            <Image style={styles.tableCellBody} src={`/${content.data.uid}/screenshot.png`} />
+            <Image style={styles.tableCellBody} src={`/${content.uid}/screenshot.png`} />
           </View>
           {/* End of Table */}
         </View>

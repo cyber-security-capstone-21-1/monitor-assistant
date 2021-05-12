@@ -25,7 +25,6 @@ class AuthenticationService {
             config => {
                 if (access) {
                     let beartok = this.createJWTToken(access);
-                    console.log(beartok)
                     config.headers['Authorization'] = beartok;
                 }
                 return config;

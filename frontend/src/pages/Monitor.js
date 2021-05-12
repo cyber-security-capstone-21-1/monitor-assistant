@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+
 import Constants from "@/shared/constants";
 import PageHeader from "@/components/PageHeader/PageHeader";
+
+import "./Monitor.scss";
 
 const crawlSiteList = [
   "nate",
@@ -28,11 +31,9 @@ function Monitor(props) {
   const useinput = useRef();
 
   const search = async () => {
-    let resLength = 0;
-    const word = useinput.current.value;
 
     Swal.fire({
-      title: "검색 중입니다...",
+      title: "검색 요청 중입니다...",
       html: "검색이 완료되는 순서대로 화면에 표시됩니다.",
       allowOutsideClick: false,
       didOpen: async () => {
@@ -48,11 +49,11 @@ function Monitor(props) {
               `${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
             )
             .then((response) => {
+              console.log(response);
               const siteName = response.data.data[0].site;
               setPostList((state) => [...state, ...response.data.data]);
               setResult((state) => [...state, ...response.data.data]);
               setSiteList((site) => [...site, siteName]);
-              resLength += response.data.data.length;
             });
         }
 
@@ -75,10 +76,6 @@ function Monitor(props) {
           icon: "success",
           title: `검색을 시작합니다.`,
         });
-      },
-    }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
       }
     });
   };
@@ -111,7 +108,7 @@ function Monitor(props) {
       cancelButtonAriaLabel: "취소",
       showCancelButton: true,
       focusConfirm: true,
-      progressSteps: ["1", "2"],
+      progressSteps: ["1", "2", "3"],
       showLoaderOnConfirm: true,
     })
       .queue([
@@ -123,50 +120,58 @@ function Monitor(props) {
         {
           title: "메모를 입력해주세요",
           input: "textarea",
-          inputLabel: "메모입력",
-          inputPlaceholder: "Enter ...",
+          inputLabel: "메모 입력",
+          inputPlaceholder: "어떤 내용의 것인가요?",
           inputAttributes: {
-            "aria-label": "Type your message",
+            "aria-label": "메모 입력",
           },
           confirmButtonColor: "#51cf66",
           confirmButtonText: "저장",
           confirmButtonAriaLabel: "저장",
         },
+        {
+          title: "대응방안을 입력해주세요",
+          input: "textarea",
+          inputLabel: "대응 방안 입력",
+          inputPlaceholder: "내용을 입력해주세요.",
+          inputAttributes: {
+            "aria-label": "대응 방안 입력",
+          },
+          confirmButtonColor: "#51cf66",
+          confirmButtonText: "저장",
+          confirmButtonAriaLabel: "저장",
+        }
       ])
       .then(async (result) => {
         if (result.value && result.value[0]) {
-          const memo = JSON.stringify(result.value);
-
-          console.log(item, "저장");
+          item.action_plan = result.value[1];
           Swal.fire({
-            title: "아카이빙 및 저장 중입니다.",
-            html: "완료되면 창은 자동으로 닫힙니다.",
+            title: "데이터 저장 작업 진행 중",
+            html: "페이지 아카이빙 및 스크린샷 데이터를 저장하고 있습니다. 완료 후 창은 자동으로 닫힙니다.",
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
-              axios.all([
-                axios
-                  .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
+              let uid;
+              
+              await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
                     url: "http://naver.com",
-                  })
-                  .then((res) => {
+                  }).then((res) => {
                     console.log(
-                      "아카이버 반환 res.data.body : ",
-                      res.data.body
+                      "아카이버 반환 res.data.body.data.uid : ",
+                      res.data.body.data.uid
                     );
-                    console.log("전체 결과 : ", res);
-                  })
-                  .catch(console.log),
-                axios
-                  .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
-                    url: "http://naver.com",
-                  })
-                  .then((res) => console.log("스크린샷", res))
-                  .catch(console.log),
-              ]);
-              item.created_at = "";
-              axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
+                    uid = res.data.body.data.uid;
+                    console.log("uid : ", uid);
+                  }).catch(console.log);
 
+              await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
+                    url: "http://naver.com", uid
+                  }).then((res) => console.log("스크린샷 : ", res.status)).catch(console.log);
+              // item.created_at = "";
+              item.uid = uid;
+
+              console.log(item);
+              axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
               Swal.close();
             },
             willClose: () => {
@@ -188,20 +193,25 @@ function Monitor(props) {
               });
             },
           });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire(
-            "취소되었습니다.",
-            "아카이빙 및 저장 로직 실행 되지 않음",
-            "error"
-          );
         }
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: '오류 발생!',
+          icon: "error",
+          html: '알 수 없는 에러가 발생하였습니다. 지속적으로 동일 현상이 발생하면 서버 관리자에게 문의해주세요.'
+        });
+        console.error(error);
       });
   };
 
   return (
     <>
-      <PageHeader title="모니터링" desc="모니터링" />
-      <section>
+      <PageHeader
+        title="게시물 모니터링"
+        desc="커뮤니티 사이트로부터 게시물을 수집합니다."
+      />
+      <section className="section section__monitor">
         <form className="search">
           <input
             type="text"
@@ -219,7 +229,7 @@ function Monitor(props) {
               siteList.map((site) => {
                 return (
                   <li>
-                    <a onClick={() => getSiteData(site)}>{site}</a>
+                    <button onClick={() => getSiteData(site)}>{site}</button>
                   </li>
                 );
               })}
