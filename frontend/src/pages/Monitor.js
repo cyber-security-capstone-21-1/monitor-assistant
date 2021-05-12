@@ -107,7 +107,7 @@ function Monitor(props) {
       cancelButtonAriaLabel: "취소",
       showCancelButton: true,
       focusConfirm: true,
-      progressSteps: ["1", "2"],
+      progressSteps: ["1", "2", "3"],
       showLoaderOnConfirm: true,
     })
       .queue([
@@ -119,31 +119,43 @@ function Monitor(props) {
         {
           title: "메모를 입력해주세요",
           input: "textarea",
-          inputLabel: "메모입력",
+          inputLabel: "메모 입력",
           inputPlaceholder: "어떤 내용의 것인가요?",
           inputAttributes: {
-            "aria-label": "Type your message",
+            "aria-label": "메모 입력",
           },
           confirmButtonColor: "#51cf66",
           confirmButtonText: "저장",
           confirmButtonAriaLabel: "저장",
         },
+        {
+          title: "대응방안을 입력해주세요",
+          input: "textarea",
+          inputLabel: "대응 방안 입력",
+          inputPlaceholder: "내용을 입력해주세요.",
+          inputAttributes: {
+            "aria-label": "대응 방안 입력",
+          },
+          confirmButtonColor: "#51cf66",
+          confirmButtonText: "저장",
+          confirmButtonAriaLabel: "저장",
+        }
       ])
       .then(async (result) => {
-        if (result.value && result.value[0]) {
+        if (result.value && result.value[0] & result.value[1]) {
           const memo = JSON.stringify(result.value);
 
           console.log(item, "저장");
           Swal.fire({
-            title: "아카이빙 및 저장 중입니다.",
-            html: "완료되면 창은 자동으로 닫힙니다.",
+            title: "데이터 저장 작업 진행 중",
+            html: "페이지 아카이빙 및 스크린샷 데이터를 저장하고 있습니다. 완료 후 창은 자동으로 닫힙니다.",
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
               axios.all([
                 axios
                   .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
-                    url: "http://naver.com",
+                    url: item.url,
                   })
                   .then((res) => {
                     console.log(
@@ -155,7 +167,7 @@ function Monitor(props) {
                   .catch(console.log),
                 axios
                   .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
-                    url: "http://naver.com",
+                    url: item.url,
                   })
                   .then((res) => console.log("스크린샷", res))
                   .catch(console.log),
@@ -184,13 +196,15 @@ function Monitor(props) {
               });
             },
           });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire(
-            "취소되었습니다.",
-            "아카이빙 및 저장 로직 실행 되지 않음",
-            "error"
-          );
         }
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: '오류 발생!',
+          icon: "error",
+          html: '알 수 없는 에러가 발생하였습니다. 지속적으로 동일 현상이 발생하면 서버 관리자에게 문의해주세요.'
+        });
+        console.error(error);
       });
   };
 

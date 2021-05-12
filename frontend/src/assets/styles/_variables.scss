@@ -38,3 +38,10 @@ $font-regular: 'IBMPlexSansKR-Regular';
 $font-text: 'IBMPlexSansKR-Text';
 $font-semibold: 'IBMPlexSansKR-SemiBold';
 $font-bold: 'IBMPlexSansKR-Bold';
+
+$font-sizes: (
+  null  : 18px,
+  480px : 14px,
+  640px : 15px,
+  1024px: 16px
+);
