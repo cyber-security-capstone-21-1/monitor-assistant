@@ -44,6 +44,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
             System.out.println("bobaedream: "+i+" "+response.statusCode()+response.statusMessage());
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
+            try{
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
                         .site("bobaedream")
@@ -57,8 +58,13 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                 postEntity.setView(str.substring(3, str.indexOf("|") - 1));
                 postEntity.setCreated_at(str.substring(str.lastIndexOf("|") + 2));
                 postEntity.setContent(doc2.select("div.content02").html());
-                System.out.println("bobaedream title:"+postEntity.getTitle());
+                System.out.println("bobaedream title:" + postEntity.getTitle());
+
                 postEntityList.add(postEntity);
+            }
+            } catch(NullPointerException e)
+            {
+                continue;
             }
             System.out.println("bobaedream list empty??:"+postEntityList.isEmpty());
         }
