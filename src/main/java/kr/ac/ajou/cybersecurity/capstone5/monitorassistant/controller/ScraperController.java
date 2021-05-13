@@ -16,40 +16,40 @@ import java.util.List;
 @RequestMapping("/api/monitor")
 public class ScraperController {
 
-    @GetMapping("/{siteId}")
+    @RequestMapping(value = "/{site}", method = RequestMethod.GET)
     public ResponseEntity<? extends BasicResponse> getPostsByKeyword(
-            @PathVariable("siteId") String siteId,
-            @RequestParam String keyword) {
+            @PathVariable(name = "site") String siteId,
+            @RequestParam(value = "keyword") String keyword) {
 
         List<PostEntity> posts = null;
         String statusText;
 
         ScraperService scraper = new ScraperService();
-        if (siteId == "CS01") {
+        if (siteId.equals("CS01")) {
             scraper.setScraperType(new NaverScraper());
-        } else if (siteId == "CS02") {
+        } else if (siteId.equals("CS02")) {
             scraper.setScraperType(new IlbeScraper());
-        } else if (siteId == "CS03") {
+        } else if (siteId.equals("CS03")) {
             scraper.setScraperType(new BobaedreamScraper());
-        } else if (siteId == "CS04") {
+        } else if (siteId.equals("CS04")) {
             scraper.setScraperType(new ClienScraper());
-        } else if (siteId == "CS05") {
+        } else if (siteId.equals("CS05")) {
             scraper.setScraperType(new DCInsideScraper());
-        } else if (siteId == "CS06") {
+        } else if (siteId.equals("CS06")) {
             scraper.setScraperType(new DogdripScraper());
-        } else if (siteId == "CS07") {
+        } else if (siteId.equals("CS07")) {
             scraper.setScraperType(new TodayhumorScraper());
-        } else if (siteId == "CS08") {
+        } else if (siteId.equals("CS08")) {
             scraper.setScraperType(new PpomppuScraper());
-        } else if (siteId == "CS09") {
+        } else if (siteId.equals("CS09")) {
             scraper.setScraperType(new YgosuScraper());
-        } else if (siteId == "CS10") {
+        } else if (siteId.equals("CS10")) {
             scraper.setScraperType(new NatePannScraper());
-        } else if (siteId == "CS11") {
+        } else if (siteId.equals("CS11")) {
             scraper.setScraperType(new RuliwebScraper());
-        } else if (siteId == "CS12") {
+        } else if (siteId.equals("CS12")) {
             scraper.setScraperType(new FMKoreaScraper());
-        } else if (siteId == "CS13") {
+        } else if (siteId.equals("CS13")) {
             scraper.setScraperType(new MLBParkScraper());
         } else {
             return ResponseEntity.notFound().build();
