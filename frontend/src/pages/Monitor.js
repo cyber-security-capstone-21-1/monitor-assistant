@@ -156,26 +156,21 @@ function Monitor(props) {
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
-              let uid = "123124-hset242b-df";
-              
-              // await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
-              //       url: "http://naver.com",
-              //     }).then((res) => {
-              //       console.log(
-              //         "아카이버 반환 res.data.body.data.uid : ",
-              //         res.data.body.data.uid
-              //       );
-              //       uid = res.data.body.data.uid;
-              //       console.log("uid : ", uid);
-              //     }).catch(console.log);
+              let uid;
+              await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
+                    url: item.url,
+                  }).then((res) => {
+                    console.log(
+                      "아카이버 반환 res.data.body.data.uid : ",
+                      res.data.body.data.uid
+                    );
+                    uid = res.data.body.data.uid;
+                    console.log("uid : ", uid);
+                  }).catch(console.log);
+              await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
+                    url: item.url, uid
+                  }).then((res) => console.log("스크린샷 : ", res.status)).catch(console.log);
 
-              // await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
-              //       url: "http://naver.com", uid
-              //     }).then((res) => console.log("스크린샷 : ", res.status)).catch(console.log);
-
-              
-              
-              // 주석 풀면 500 안풀면 400
               item.created_at = "";
               item.uid = uid;
               console.log(item);
