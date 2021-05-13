@@ -15,7 +15,8 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI monitorAssistantAPI() {
         Server server = new Server();
-        server.setUrl("https://monitor-assistant.com");
+       server.setUrl("https://monitor-assistant.com");
+        //server.setUrl("http://localhost");
         return new OpenAPI()
                 .servers(List.of(server))
                 .info(new Info()

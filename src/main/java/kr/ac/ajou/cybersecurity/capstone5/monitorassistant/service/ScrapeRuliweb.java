@@ -26,13 +26,16 @@ public class ScrapeRuliweb implements ScraperServiceInterface {
         postEntityList = new ArrayList<>();
         Document doc[] = new Document[3];
         for(int i=0;i<3;i++) {
-            doc[i]=Jsoup.connect(RULIWEB_CRAWL_DATA_URL + keyword + "&page="+(i+1)).get();
+            doc[i]=Jsoup.connect(RULIWEB_CRAWL_DATA_URL + keyword + "&page="+(i+1))
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                    .referrer("www.google.com")
+                    .get();
             Elements elements = doc[i].select("tr.table_body");
             System.out.println(doc[i]);
             for (Element el : elements) {
                 if (el.select("td.divsn.text_over").text().equals(""))
                     continue;
-                //System.out.println(el.select("a.deco").text());
                 PostEntity postEntity = PostEntity.builder()
                         .author(el.select(".name").text())
                         .site("ruliweb")

@@ -24,10 +24,13 @@ public class ScrapeClien implements ScraperServiceInterface {
     public List<PostEntity> scrape(String keyword) throws IOException {
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
-
         for (int i = 0; i < 3; i++) {
             doc[i] = Jsoup.connect(Clien_CRAWL_DATA_URL + keyword +
-                    "&sort=recency&p=" +(i)+"&boardCd=&isBoard=false").get();//3page까지 긁어오기
+                    "&sort=recency&p=" +(i)+"&boardCd=&isBoard=false")
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                    .referrer("www.google.com")
+                    .get();
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
@@ -41,10 +44,12 @@ public class ScrapeClien implements ScraperServiceInterface {
                         .view(el.select(".hit").text())
                         .build();
                 if(postEntity.getAuthor().equals("")) {
+
                     postEntity.setAuthor(el.select(".nickname img").attr("alt"));
                 }
                 Document doc2= Jsoup.connect(postEntity.getUrl()).get();
                 postEntity.setContent(doc2.select("div.post_article").html());
+                System.out.println("clien title: "+postEntity.getTitle());
                 postEntityList.add(postEntity);
             }
         }

@@ -25,7 +25,11 @@ public class ScrapeMlbpark implements ScraperServiceInterface {
         postEntityList = new ArrayList<>();
         Document doc ;
 
-            doc = Jsoup.connect( MLBPARRK_CRAWL_DATA_URL + keyword).get();
+            doc = Jsoup.connect( MLBPARRK_CRAWL_DATA_URL + keyword)
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                    .referrer("www.google.com")
+                    .get();
             Elements elements = doc.select(".tbl_type01 tbody tr");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()

@@ -25,7 +25,11 @@ public class ScrapeNate implements ScraperServiceInterface {
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
         for (int i = 0; i < 3; i++) {
-            doc[i] = Jsoup.connect(NATE_CRAWL_DATA_URL + keyword + "&page=" + (i + 1)).get();//3page까지 긁어오기
+            doc[i] = Jsoup.connect(NATE_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                    .referrer("www.google.com")
+                    .get();//3page까지 긁어오기
             Elements elements = doc[i].select(".s_list li");
             for (Element el : elements) {
                 Document doc_detail = Jsoup.connect("https://pann.nate.com" + el.select(".subject").attr("href")).get();

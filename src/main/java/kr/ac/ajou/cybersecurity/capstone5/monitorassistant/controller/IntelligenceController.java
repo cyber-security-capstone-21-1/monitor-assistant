@@ -52,7 +52,7 @@ public class IntelligenceController {
 
         entity.setUserEntity(user.get());
         intelligenceRepository.save(entity);
-        return IntelligenceAdapter.intelligenceResponse(entity, null);
+        return IntelligenceAdapter.intelligenceResponse(entity,"success", null);
     }
 
     @GetMapping("/intelligences/{uid}")
