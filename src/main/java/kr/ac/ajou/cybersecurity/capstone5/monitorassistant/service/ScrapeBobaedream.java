@@ -39,7 +39,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                             .data("keyword", keyword)
                             .followRedirects(true)
                             .execute();
-            System.out.println(response.statusCode());
+            System.out.println("bobaedream: "+response.statusCode()+response.statusMessage());
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
             for (Element el : elements) {
