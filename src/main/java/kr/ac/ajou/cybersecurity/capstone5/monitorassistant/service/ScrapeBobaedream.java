@@ -23,7 +23,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
     @Getter
     private List<PostEntity> postEntityList;
     @Override
-    public List<PostEntity> scrape(String keyword) throws IOException, SSLHandshakeException, SocketTimeoutException{
+    public List<PostEntity> scrape(String keyword) throws IOException, NullPointerException,SSLHandshakeException, SocketTimeoutException{
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
         for(int i=0;i<3;i++) {

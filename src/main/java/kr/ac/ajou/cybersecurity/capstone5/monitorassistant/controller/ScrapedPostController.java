@@ -58,7 +58,11 @@ public class ScrapedPostController {
         String status ="";
         try {
             postEntities = scrapeNaver.scrape(keyword);
-        } catch (final SSLHandshakeException e) {
+        }catch (final NullPointerException e) {
+            errors.add(e.getMessage());
+            status="null";
+        }
+        catch (final SSLHandshakeException e) {
             errors.add(e.getMessage());
             status="SSL Error";
         }catch (final SocketTimeoutException e){
@@ -70,7 +74,6 @@ public class ScrapedPostController {
         }
 
         if(errors.isEmpty()) status="success";
-        else status="failed";
 
 
         return PostAdapter.postResponse(postEntities, errors);
