@@ -26,12 +26,6 @@ public class ScrapeClien implements ScraperServiceInterface {
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
         for (int i = 0; i < 3; i++) {
-//            doc[i] = Jsoup.connect(Clien_CRAWL_DATA_URL + keyword +
-//                    "&sort=recency&p=" +(i)+"&boardCd=&isBoard=false")
-//                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
-//                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
-//                    .referrer("www.google.com")
-//                    .get();
             Connection.Response response =
                     Jsoup.connect(Clien_CRAWL_DATA_URL + keyword +
                     "&sort=recency&p=" +(i)+"&boardCd=&isBoard=false")
@@ -59,7 +53,7 @@ public class ScrapeClien implements ScraperServiceInterface {
                 }
                 Document doc2= Jsoup.connect(postEntity.getUrl()).get();
                 postEntity.setContent(doc2.select("div.post_article").html());
-                System.out.println("clien title: "+postEntity.getTitle());
+               // System.out.println("clien title: "+postEntity.getTitle());
                 postEntityList.add(postEntity);
             }
         }

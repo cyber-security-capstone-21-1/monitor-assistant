@@ -42,7 +42,7 @@ public class ScrapeRuliweb implements ScraperServiceInterface {
         System.out.println("ruliweb: "+response.statusCode()+response.statusMessage());
         doc[i] = response.parse();
             Elements elements = doc[i].select("tr.table_body");
-            System.out.println(doc[i]);
+           // System.out.println(doc[i]);
             for (Element el : elements) {
                 if (el.select("td.divsn.text_over").text().equals(""))
                     continue;
