@@ -39,7 +39,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                             .data("keyword", keyword)
                             .followRedirects(true)
                             .execute();
-            System.out.println("bobaedream: "+response.statusCode()+response.statusMessage());
+            System.out.println("bobaedream: "+i+" "+response.statusCode()+response.statusMessage());
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
             for (Element el : elements) {
@@ -55,9 +55,10 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                 postEntity.setView(str.substring(3, str.indexOf("|") - 1));
                 postEntity.setCreated_at(str.substring(str.lastIndexOf("|") + 2));
                 postEntity.setContent(doc2.select("div.content02").html());
+                System.out.println("bobaedream title:"+postEntity.getTitle());
                 postEntityList.add(postEntity);
-                
             }
+            System.out.println("bobaedream list empty??:"+postEntityList.isEmpty());
         }
        return postEntityList;
     }

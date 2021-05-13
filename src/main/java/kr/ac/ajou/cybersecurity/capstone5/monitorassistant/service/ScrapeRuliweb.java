@@ -39,7 +39,7 @@ public class ScrapeRuliweb implements ScraperServiceInterface {
                                 "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                         .referrer("www.google.com")
                         .execute();
-        System.out.println("ruliweb: "+response.statusCode()+response.statusMessage());
+        System.out.println("ruliweb: "+i+" "+response.statusCode()+response.statusMessage());
         doc[i] = response.parse();
             Elements elements = doc[i].select("tr.table_body");
            // System.out.println(doc[i]);

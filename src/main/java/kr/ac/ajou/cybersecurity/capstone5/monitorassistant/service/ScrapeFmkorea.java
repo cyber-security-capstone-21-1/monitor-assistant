@@ -33,7 +33,7 @@ public class ScrapeFmkorea implements ScraperServiceInterface {
                                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
-            System.out.println("fmkorea: "+response.statusCode()+response.statusMessage());
+            System.out.println("fmkorea: "+i+" "+response.statusCode()+response.statusMessage());
             doc[i] = response.parse();
             Elements elements = doc[i].select(".searchResult li");
             for (Element el : elements) {
