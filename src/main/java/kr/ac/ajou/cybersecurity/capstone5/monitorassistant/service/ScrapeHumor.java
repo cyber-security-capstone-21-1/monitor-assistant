@@ -27,11 +27,6 @@ public class ScrapeHumor implements ScraperServiceInterface {
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
         for(int i=0;i<3;i++) {
-//            doc[i]=Jsoup.connect(TodayHumor_CRAWL_DATA_URL + keyword+"&page="+(i+1))
-//                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
-//                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
-//                    .referrer("www.google.com")
-//                    .get();
 
             Connection.Response response =
                     Jsoup.connect(TodayHumor_CRAWL_DATA_URL + keyword+"&page="+(i+1))
@@ -39,7 +34,7 @@ public class ScrapeHumor implements ScraperServiceInterface {
                                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
-            System.out.println("humor: "+ i+" "+response.statusCode()+response.statusMessage());
+            System.out.println("humor page: "+ i+" "+response.statusCode()+response.statusMessage());
             doc[i] = response.parse();
             Elements elements = doc[i].select(".table_list tbody tr");
             for (Element el : elements) {
@@ -55,6 +50,7 @@ public class ScrapeHumor implements ScraperServiceInterface {
                             .build();
                     Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                     postEntity.setContent(doc2.select("div.viewContent").html());
+
                     postEntityList.add(postEntity);
                 }
             }

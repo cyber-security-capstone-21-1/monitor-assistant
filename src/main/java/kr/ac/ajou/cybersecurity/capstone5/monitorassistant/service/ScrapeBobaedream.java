@@ -9,7 +9,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import javax.net.ssl.SSLHandshakeException;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
     @Getter
     private List<PostEntity> postEntityList;
     @Override
-    public List<PostEntity> scrape(String keyword) throws IOException {
+    public List<PostEntity> scrape(String keyword) throws IOException, SSLHandshakeException, SocketTimeoutException{
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
         for(int i=0;i<3;i++) {

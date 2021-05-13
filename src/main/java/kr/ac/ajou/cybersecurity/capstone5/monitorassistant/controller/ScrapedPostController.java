@@ -6,7 +6,9 @@ import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.net.ssl.SSLHandshakeException;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +58,17 @@ public class ScrapedPostController {
         String status ="";
         try {
             postEntities = scrapeNaver.scrape(keyword);
-        } catch (final Exception e) {
+        } catch (final SSLHandshakeException e) {
             errors.add(e.getMessage());
+            status="SSL Error";
+        }catch (final SocketTimeoutException e){
+            errors.add(e.getMessage());
+            status="timeout";
+        } catch (final Exception e){
+            errors.add(e.getMessage());
+            status="?";
         }
+
         if(errors.isEmpty()) status="success";
         else status="failed";
 
