@@ -23,7 +23,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
     @Getter
     private List<PostEntity> postEntityList;
     @Override
-    public List<PostEntity> scrape(String keyword) throws IOException, NullPointerException,SSLHandshakeException, SocketTimeoutException{
+    public List<PostEntity> scrape(String keyword) throws NullPointerException, IOException {
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
         for(int i=0;i<3;i++) {
@@ -40,6 +40,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                             .data("startDate", "")
                             .data("keyword", keyword)
                             .followRedirects(true)
+                            .ignoreHttpErrors(true)
                             .execute();
             System.out.println("bobaedream: "+i+" "+response.statusCode()+response.statusMessage());
             doc[i] = response.parse();
@@ -63,6 +64,10 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                 postEntityList.add(postEntity); }
             }
             catch(NullPointerException e) {
+                System.out.println(e.getCause());
+            }
+            catch(SSLHandshakeException e) {
+                System.out.println("hihihihih");
                 System.out.println(e.getCause());
             }
             catch(Exception e) {
