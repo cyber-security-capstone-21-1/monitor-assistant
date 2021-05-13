@@ -90,7 +90,7 @@ public class ScrapedPostController {
         }
         return PostAdapter.postResponse(postEntities, errors);
     }
-    @GetMapping("/humor")
+    @RequestMapping(value = "/humor", method = {RequestMethod.GET,RequestMethod.POST})
     public PostResponse scrapeHumor(@RequestParam String keyword) throws IOException {
 
         List<PostEntity> postEntities = null;
