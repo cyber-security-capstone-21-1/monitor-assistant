@@ -60,13 +60,14 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                 postEntity.setContent(doc2.select("div.content02").html());
                 System.out.println("bobaedream title:" + postEntity.getTitle());
 
-                postEntityList.add(postEntity);
+                postEntityList.add(postEntity); }
             }
-            } catch(NullPointerException e)
-            {
-                continue;
+            catch(NullPointerException e) {
+                System.out.println(e.getCause());
             }
-            System.out.println("bobaedream list empty??:"+postEntityList.isEmpty());
+            catch(Exception e) {
+                System.out.println(e.getCause());
+            }
         }
        return postEntityList;
     }
