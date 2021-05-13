@@ -27,14 +27,21 @@ public class ScrapeDcinside implements ScraperServiceInterface {
         postEntityList = new ArrayList<>();
         for(int i=0;i<3;i++) {
             Document[] doc = new Document[3];
-            doc[i] =
+//            doc[i] =
+//                    Jsoup.connect(DC_CRAWL_DATA_URL +(i+1)+"/sort/latest/q/"+ keyword)
+//                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+//                                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+//                            .referrer("www.google.com")
+//                            .get();
+
+            Connection.Response response =
                     Jsoup.connect(DC_CRAWL_DATA_URL +(i+1)+"/sort/latest/q/"+ keyword)
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
                                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
-                            .get();
-
-            //doc[i] = response.parse();
+                            .execute();
+            System.out.println("dc:"+ response.statusCode());
+            doc[i] = response.parse();
             Elements elements = doc[i].select(".sch_result_list li");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()

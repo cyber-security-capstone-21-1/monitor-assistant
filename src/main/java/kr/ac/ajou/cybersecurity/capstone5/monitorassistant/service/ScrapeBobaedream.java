@@ -20,13 +20,11 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
 
     @Getter
     private List<PostEntity> postEntityList;
-
-    //ㅇㅣ거 수정하기
     @Override
     public List<PostEntity> scrape(String keyword) throws IOException {
         postEntityList = new ArrayList<>();
+        Document[] doc = new Document[3];
         for(int i=0;i<3;i++) {
-            Document[] doc = new Document[3];
             Connection.Response response =
                     Jsoup.connect("https://www.bobaedream.co.kr/search")
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
@@ -41,6 +39,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                             .data("keyword", keyword)
                             .followRedirects(true)
                             .execute();
+            System.out.println(response.statusCode());
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
             for (Element el : elements) {

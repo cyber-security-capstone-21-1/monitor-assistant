@@ -2,6 +2,7 @@ package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
 import lombok.Getter;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,12 +26,21 @@ public class ScrapeClien implements ScraperServiceInterface {
         postEntityList = new ArrayList<>();
         Document[] doc = new Document[3];
         for (int i = 0; i < 3; i++) {
-            doc[i] = Jsoup.connect(Clien_CRAWL_DATA_URL + keyword +
+//            doc[i] = Jsoup.connect(Clien_CRAWL_DATA_URL + keyword +
+//                    "&sort=recency&p=" +(i)+"&boardCd=&isBoard=false")
+//                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+//                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+//                    .referrer("www.google.com")
+//                    .get();
+            Connection.Response response =
+                    Jsoup.connect(Clien_CRAWL_DATA_URL + keyword +
                     "&sort=recency&p=" +(i)+"&boardCd=&isBoard=false")
-                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
-                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
-                    .referrer("www.google.com")
-                    .get();
+                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                            .referrer("www.google.com")
+                            .execute();
+            System.out.println(response.statusCode());
+            doc[i] = response.parse();
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
