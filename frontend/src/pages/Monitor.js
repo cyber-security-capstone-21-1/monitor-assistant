@@ -10,19 +10,19 @@ import PageHeader from "@/components/PageHeader/PageHeader";
 import "./Monitor.scss";
 
 const crawlSiteList = [
-  "nate",
-  "ygosu",
-  "fmkorea",
-  "mlbpark",
-  "humor",
-  "clien",
-  "ilbe",
-  "dogdrip",
-  "bobaedream",
-  "ppomppu",
-  "ruliweb",
-  "dcinside",
-  "naver",
+  "CS01",
+  "CS02",
+  "CS03",
+  "CS04",
+  "CS05",
+  "CS06",
+  "CS07",
+  "CS08",
+  "CS09",
+  "CS10",
+  "CS11",
+  "CS12",
+  "CS13",
 ];
 function Monitor(props) {
   const [postList, setPostList] = useState([]);
