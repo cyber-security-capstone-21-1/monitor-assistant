@@ -175,14 +175,26 @@ public class ScrapedPostController {
         return PostAdapter.postResponse(postEntities, errors);
     }
     @GetMapping("/bobaedream")
-    public PostResponse scrapeRBobaedream(@RequestParam String keyword) throws IOException {
+    public PostResponse scrapeBobaedream(@RequestParam String keyword) throws IOException {
 
         List<PostEntity> postEntities = null;
+        String status="";
         List<String> errors = new ArrayList<>();
         try {
             postEntities = scrapeBobaedream.scrape(keyword);
-        } catch (final Exception e) {
+        } catch (final NullPointerException e) {
             errors.add(e.getMessage());
+            status="null pointer";
+        }
+        catch (final SSLHandshakeException e) {
+            errors.add(e.getMessage());
+            status="SSL Error";
+        }catch (final SocketTimeoutException e){
+            errors.add(e.getMessage());
+            status="timeout";
+        } catch (final Exception e){
+            errors.add(e.getMessage());
+            status="?";
         }
         return PostAdapter.postResponse(postEntities, errors);
     }
