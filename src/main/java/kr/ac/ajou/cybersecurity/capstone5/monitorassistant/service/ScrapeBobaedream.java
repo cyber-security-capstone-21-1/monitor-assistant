@@ -39,6 +39,7 @@ public class ScrapeBobaedream implements ScraperServiceInterface {
                             .data("sort", "DATE")
                             .data("startDate", "")
                             .data("keyword", keyword)
+                            //.sslSocketFactory()
                             .followRedirects(true)
                             .execute();
             System.out.println("bobaedream: "+i+" "+response.statusCode()+response.statusMessage());
