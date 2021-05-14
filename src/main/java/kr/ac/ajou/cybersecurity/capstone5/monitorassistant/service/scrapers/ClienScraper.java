@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -35,12 +36,14 @@ public class ClienScraper implements Scraper {
                         .author(el.select(".nickname").text())
                         .site("clien")
                         .title(el.select(".subject_fixed").text())
-                        .created_at(el.select(".timestamp").text())
+                      //  .created_at(el.select(".timestamp").text())
                         .url("https://www.clien.net" + el.select(".subject_fixed").attr("href"))
                         .content(el.select(".preview").text())
                         .type(el.select(".shortname.fixed").text())
                         .view(el.select(".hit").text())
                         .build();
+                ChangeDate fun= new ChangeDate(el.select(".timestamp").text(),1);
+                postEntity.setCreated_at(fun.getLocalDateTime());
                 if (postEntity.getAuthor().equals("")) {
                     postEntity.setAuthor(el.select(".nickname img").attr("alt"));
                 }

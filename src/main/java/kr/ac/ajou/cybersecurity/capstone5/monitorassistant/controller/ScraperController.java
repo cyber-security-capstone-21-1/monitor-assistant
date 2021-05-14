@@ -51,7 +51,16 @@ public class ScraperController {
             scraper.setScraperType(new FMKoreaScraper());
         } else if (siteId.equals("CS13")) {
             scraper.setScraperType(new MLBParkScraper());
-        } else {
+        } else if (siteId.equals("CS14")) {
+            scraper.setScraperType(new InstizScraper());
+        } else if (siteId.equals("CS15")) {
+            scraper.setScraperType(new HygScraper());
+        } else if (siteId.equals("CS16")) {
+            scraper.setScraperType(new InvenScraper());
+        } else if (siteId.equals("CS17")) {
+            scraper.setScraperType(new Cook82Scraper());
+        }
+        else {
             return ResponseEntity.notFound().build();
         }
 

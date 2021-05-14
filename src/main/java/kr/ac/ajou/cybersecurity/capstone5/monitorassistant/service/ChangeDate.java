@@ -1,27 +1,65 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class ChangeDate {
-    private String str;
-    private SimpleDateFormat dateFormat;
+    private LocalDateTime localDateTime;
 
-    public ChangeDate(String str) {
-        this.str = str;
-        SimpleDateFormat dateParser = new SimpleDateFormat("MM/dd/yy HH:mm");
-        {
-            try {
-                Date date = dateParser.parse(str);
-                System.out.println(date);
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
-                System.out.println(dateFormatter.format(date));
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
+    public ChangeDate(String str, int type) {
+        if(type==1) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            this.localDateTime = LocalDateTime.parse(str, formatter);
         }
+        else if(type==2){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            this.localDateTime = LocalDateTime.parse(str, formatter);
+        }
+        else if(type==3){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
+            this.localDateTime = LocalDateTime.parse(str, formatter);
+        }
+        else if(type==4){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+            this.localDateTime = LocalDateTime.parse(str, formatter);
+        }
+        else if(type==5){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd (HH:mm:ss)");
+            this.localDateTime = LocalDateTime.parse(str, formatter);
+        }
+        else if(type==6){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd (E) HH:mm");
+            this.localDateTime = LocalDateTime.parse(str, formatter);
+        }
+        else if(type==7){
+            int minus=0;
+            LocalDateTime now= LocalDateTime.now().withNano(0);
+            if(str.contains("분 전")){
+                minus=Integer.parseInt(str.replaceAll("[^\\d]", ""));
+                this.localDateTime=now.minusMinutes(minus);
+            }
+            else if(str.contains("시간 전")){
+                minus=Integer.parseInt(str.replaceAll("[^\\d]", ""));
+                this.localDateTime=now.minusMinutes(minus);
+            }
+            else if(str.contains("일 전")){
+                minus=Integer.parseInt(str.replaceAll("[^\\d]", ""));
+                this.localDateTime=now.minusMinutes(minus);
+            }
+            else{
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+                LocalDate date=LocalDate.parse(str,formatter);
+                this.localDateTime = date.atStartOfDay();
+            }
+        }
+        else if(type==8){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            this.localDateTime = LocalDateTime.parse(str, formatter);
+        }
+    }
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 }

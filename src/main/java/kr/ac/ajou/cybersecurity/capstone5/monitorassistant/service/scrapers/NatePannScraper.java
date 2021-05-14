@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,17 +32,18 @@ public class NatePannScraper implements Scraper {
                 Document doc_detail = Jsoup.connect("https://pann.nate.com" + el.select(".subject").attr("href")).get();
                 String content_all = doc_detail.select("#contentArea").html();
                 String view = doc_detail.select("div.info > span.count").text();
-
                 PostEntity postEntity = PostEntity.builder()
                         .author(el.select(".writer").text())
                         .site("네이트판")
                         .title(el.select(".subject").text())
-                        .created_at(doc_detail.select("span.date").text())
                         .url("https://pann.nate.com" + el.select(".subject").attr("href"))
                         .content(content_all)
                         .view(view.replaceAll("[^0-9]", ""))
                         .type(el.select(".t_talk").text())
                         .build();
+                ChangeDate fun= new ChangeDate(doc_detail.select("span.date").text(),4);
+                postEntity.setCreated_at(fun.getLocalDateTime());
+
                 list.add(postEntity);
             }
         }

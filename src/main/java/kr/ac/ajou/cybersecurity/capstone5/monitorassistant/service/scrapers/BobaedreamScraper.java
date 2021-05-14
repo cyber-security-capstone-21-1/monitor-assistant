@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,7 +34,6 @@ public class BobaedreamScraper implements Scraper {
                             .data("sort", "DATE")
                             .data("startDate", "")
                             .data("keyword", keyword)
-                            //.sslSocketFactory()
                             .followRedirects(true)
                             .execute();
             doc[i] = response.parse();
@@ -47,10 +47,14 @@ public class BobaedreamScraper implements Scraper {
                         .build();
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 String str = doc2.select("span.countGroup").text();
+                String time=str.substring(str.lastIndexOf("|") + 2);
+                ChangeDate date=new ChangeDate(time,6);
+                postEntity.setCreated_at(date.getLocalDateTime());
                 postEntity.setAuthor(doc2.select("a.nickname").text());
                 postEntity.setView(str.substring(3, str.indexOf("|") - 1));
-                postEntity.setCreated_at(str.substring(str.lastIndexOf("|") + 2));
                 postEntity.setContent(doc2.select("div.content02").html());
+
+
                 list.add(postEntity);
             }
         }

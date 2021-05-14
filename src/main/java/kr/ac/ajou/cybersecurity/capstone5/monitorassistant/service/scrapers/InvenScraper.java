@@ -10,42 +10,46 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TodayhumorScraper implements Scraper {
+public class InvenScraper implements Scraper {
 
-    private static String TodayHumor_CRAWL_DATA_URL = "http://www.todayhumor.co.kr/board/list.php?kind=search&keyfield=subject&keyword=";
+    private static String INVEN_CRAWL_DATA_URL = "http://www.inven.co.kr/search/webzine/article/";
 
     @Override
-    public List<PostEntity> getPosts(String keyword) throws IOException {
+    public List<PostEntity> getPosts(String keyword) throws IOException, ParseException {
         List<PostEntity> list = new ArrayList<>();
-        Document[] doc = new Document[3];
+
+        Document doc[] = new Document[3];
+
         for(int i = 0; i < 3; i++) {
             Connection.Response response =
-                    Jsoup.connect(TodayHumor_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
+                    Jsoup.connect(INVEN_CRAWL_DATA_URL + keyword + "/" + (i + 1)+"?sort=recency")
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
             doc[i] = response.parse();
-            Elements elements = doc[i].select(".table_list tbody tr");
+
+            Elements elements = doc[i].select("div.section_body ul li");
             for (Element el : elements) {
-                if (!el.select(".name").text().equals("")) {
                     PostEntity postEntity = PostEntity.builder()
-                            .author(el.select(".name").text())
-                            .site("오늘의유머")
-                            .title(el.select(".subject a").text())
-                            .url("http://www.todayhumor.co.kr" + el.select(".subject a").attr("href"))
-                            .view(el.select(".hits").text())
-                            .type(el.attr("class").substring(13))
+                            .site("인벤")
+                            .title(el.select("a.name").text())
+                            .url(el.select("a.name").attr("href"))
                             .build();
-                    ChangeDate fun= new ChangeDate(el.select(".date").text(),3);
-                    postEntity.setCreated_at(fun.getLocalDateTime());
                     Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                    postEntity.setContent(doc2.select("div.viewContent").html());
-                    list.add(postEntity);
+                    postEntity.setContent(doc2.select("div.articleMain").html());
+                String time=doc2.select("div.articleDate").text();
+                    postEntity.setAuthor(doc2.select("div.articleWriter").text());
+                if(!time.equals("")) {
+                    ChangeDate fun = new ChangeDate(time,2);
+                    postEntity.setCreated_at(fun.getLocalDateTime());
                 }
+                    list.add(postEntity);
+
             }
         }
         return list;

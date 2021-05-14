@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TodayhumorScraper implements Scraper {
+public class Cook82Scraper implements Scraper {
 
-    private static String TodayHumor_CRAWL_DATA_URL = "http://www.todayhumor.co.kr/board/list.php?kind=search&keyfield=subject&keyword=";
+    private static String COOK82_CRAWL_DATA_URL = "https://www.82cook.com/entiz/enti.php?bn=15&searchType=search&search1=1&keys=";
 
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
@@ -24,26 +24,27 @@ public class TodayhumorScraper implements Scraper {
         Document[] doc = new Document[3];
         for(int i = 0; i < 3; i++) {
             Connection.Response response =
-                    Jsoup.connect(TodayHumor_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
+                    Jsoup.connect(COOK82_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
             doc[i] = response.parse();
-            Elements elements = doc[i].select(".table_list tbody tr");
+            Elements elements = doc[i].select("div#bbs table tbody tr");
             for (Element el : elements) {
-                if (!el.select(".name").text().equals("")) {
+                if (!el.select("td.user_function").text().equals("82cook")) {
+                    String t=el.select("td.numbers").text();
                     PostEntity postEntity = PostEntity.builder()
-                            .author(el.select(".name").text())
-                            .site("오늘의유머")
-                            .title(el.select(".subject a").text())
-                            .url("http://www.todayhumor.co.kr" + el.select(".subject a").attr("href"))
-                            .view(el.select(".hits").text())
-                            .type(el.attr("class").substring(13))
+                            .author(el.select("td.user_function").text())
+                            .site("82cook")
+                            .view(t.substring(t.lastIndexOf(" "))+1)
+                            .title(el.select("td.title a").text())
+                            .url("https://www.82cook.com/entiz/" + el.select("td.title a").attr("href"))
+                            .type("자유게시판")
                             .build();
-                    ChangeDate fun= new ChangeDate(el.select(".date").text(),3);
-                    postEntity.setCreated_at(fun.getLocalDateTime());
+                    ChangeDate date= new ChangeDate(el.select("td.regdate.numbers").attr("title"),1);
+                    postEntity.setCreated_at(date.getLocalDateTime());
                     Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                    postEntity.setContent(doc2.select("div.viewContent").html());
+                    postEntity.setContent(doc2.select("div#articleBody").html());
                     list.add(postEntity);
                 }
             }

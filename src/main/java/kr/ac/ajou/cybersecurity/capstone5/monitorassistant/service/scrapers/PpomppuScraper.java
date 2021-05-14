@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -33,13 +34,12 @@ public class PpomppuScraper implements Scraper {
             String str = el.select(".desc").text();
             postEntity.setType(str.substring(1,str.indexOf("]")));
             postEntity.setView(str.substring(str.indexOf(":") + 1, str.indexOf(":") + 3));
-
             Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
             postEntity.setContent(doc2.select(".pic_bg").html());
             postEntity.setAuthor(doc2.select(".view_name").text());
             String str2 = doc2.select(".sub-top-text-box").text();
-            postEntity.setCreated_at(str2.substring(str2.indexOf("등록일:") + 5,str2.indexOf("조회수:") - 1));
-
+            ChangeDate date= new ChangeDate(str2.substring(str2.indexOf("등록일:") + 5,str2.indexOf("조회수:") - 1),2);
+            postEntity.setCreated_at(date.getLocalDateTime());
             list.add(postEntity);
         }
         return list;

@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -34,10 +35,11 @@ public class DCInsideScraper implements Scraper {
                 PostEntity postEntity = PostEntity.builder()
                         .site("디씨인사이드")
                         .title(el.select(".tit_txt").text())
-                        .created_at(el.select(".date_time").text())
                         .url(el.select(".tit_txt").attr("href"))
                         .type(el.select(".sub_txt").text())
                         .build();
+                ChangeDate date=new ChangeDate(el.select(".date_time").text(),4);
+                postEntity.setCreated_at(date.getLocalDateTime());
 
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 String view = doc2.select("span.gall_count").text();

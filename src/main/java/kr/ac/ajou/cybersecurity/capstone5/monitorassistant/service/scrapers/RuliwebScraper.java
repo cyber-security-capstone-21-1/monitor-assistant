@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -44,7 +45,8 @@ public class RuliwebScraper implements Scraper {
 
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 postEntity.setContent(doc2.select("div.view_content").html());
-                postEntity.setCreated_at(doc2.select("span.regdate").text());
+                ChangeDate fun= new ChangeDate(doc2.select("span.regdate").text(),5);
+                postEntity.setCreated_at(fun.getLocalDateTime());
                 list.add(postEntity);
             }
         }

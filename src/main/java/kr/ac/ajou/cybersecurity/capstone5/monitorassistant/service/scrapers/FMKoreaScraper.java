@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -36,10 +37,11 @@ public class FMKoreaScraper implements Scraper {
                         .author(el.select("strong").text())
                         .site("에펨코리아")
                         .title(el.select("dt a").text())
-                        .created_at(el.select(".time").text())
                         .url("https://www.fmkorea.com" + el.select("dt a").attr("href"))
                         .content(el.select("dd").text())
                         .build();
+                ChangeDate fun= new ChangeDate(el.select(".time").text(),2);
+                postEntity.setCreated_at(fun.getLocalDateTime());
 
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 String str = doc2.select(".side.fr").text();
@@ -47,6 +49,7 @@ public class FMKoreaScraper implements Scraper {
                 postEntity.setView(str.substring(5,str.indexOf("추천")-1));
                 postEntity.setContent(doc2.select("div.rd_body.clear").html());
                 postEntity.setType(str2.substring(1,str2.indexOf("]")));
+
                 list.add(postEntity);
             }
         }

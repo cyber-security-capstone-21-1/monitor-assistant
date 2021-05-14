@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,11 +37,12 @@ public class YgosuScraper implements Scraper {
 
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 String str = doc2.select("div.date").text();
-                String[] str2 = str.split("/");
+                String[] str2 = str.split(" /");
                 postEntity.setContent(doc2.select("div.container").html());
                 postEntity.setAuthor(doc2.select("div.nickname > a").text());
                 postEntity.setView(str2[1].substring(7));
-                postEntity.setCreated_at(str2[0].substring(8));
+                ChangeDate fun= new ChangeDate(str2[0].substring(7),1);
+                postEntity.setCreated_at(fun.getLocalDateTime());
                 list.add(postEntity);
             }
         }
