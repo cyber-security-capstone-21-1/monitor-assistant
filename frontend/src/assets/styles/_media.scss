@@ -31,10 +31,48 @@
 
 @media (max-width: 720px) {
     main {
-        display: block;
+        display: block !important;
+        & aside {
+            & nav {
+                & ul {
+                    display: inherit;
+                }
+            }
+        }
+        > .content {
+            width: 100vw !important;
+        }
     }
 
     .section__intelligence_list {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .footer {
+        &__service {
+            & .container {
+                min-width: 100vw;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                & [class*="pull-"]{
+                    position: relative;
+                    float: none !important;
+                    text-align: center;
+                    margin: {
+                        bottom: 15px;
+                    }
+                    > .symbol {
+                        position: relative;
+                        float: none !important;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        margin: {
+                            bottom: 20px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
