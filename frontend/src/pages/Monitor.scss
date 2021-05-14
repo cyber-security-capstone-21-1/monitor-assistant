@@ -9,7 +9,6 @@
         width: 100%;
         font: {
             family: $font-extralight;
-            size: $default-font-size * 2;
         }
         outline: none;
         border: {
@@ -55,24 +54,29 @@
 
 .monitor__site_nav {
     margin: {
-        bottom: 20px;
+        bottom: 30px;
     }
-    background: {
-        color: #f7765f;
-    }
+    background: rgb(36, 37, 42);
+    box-shadow: $box-shadow-lv4;
     & ul {
         > li {
             display: inline-block;
             padding: 10px;
-            > a {
+            > button {
                 color: $color-white;
                 display: inherit;
-                padding: 8px 5px;
-                &:hover {
+                font: {
+                    family: $font-semibold;
+                    size: $default-font-size * 1.4;
+                }
+                padding: 8px 40px;
+                &.active, &:hover {
+                    transition: $transition-lv1;
+                    border-radius: 40px;
                     background: {
-                        color: $color-white;
+                        color: $color-confirm-5;
                     }
-                    color: #f7765f;
+                    color: $color-white;
                 }
             }
         }

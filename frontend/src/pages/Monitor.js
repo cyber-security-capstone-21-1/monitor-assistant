@@ -10,19 +10,19 @@ import PageHeader from "@/components/PageHeader/PageHeader";
 import "./Monitor.scss";
 
 const crawlSiteList = [
-  "nate",
-  "ygosu",
-  "fmkorea",
-  "mlbpark",
-  "humor",
-  "clien",
-  "ilbe",
-  "dogdrip",
-  "bobaedream",
-  "ppomppu",
-  "ruliweb",
-  "dcinside",
-  "naver",
+  "CS01",
+  "CS02",
+  "CS03",
+  "CS04",
+  "CS05",
+  "CS06",
+  "CS07",
+  "CS08",
+  "CS09",
+  "CS10",
+  "CS11",
+  "CS12",
+  "CS13",
 ];
 function Monitor(props) {
   const [postList, setPostList] = useState([]);
@@ -32,57 +32,68 @@ function Monitor(props) {
 
   const search = async () => {
 
-    Swal.fire({
-      title: "검색 요청 중입니다...",
-      html: "검색이 완료되는 순서대로 화면에 표시됩니다.",
-      allowOutsideClick: false,
-      didOpen: async () => {
-        Swal.showLoading();
-        const word = useinput.current.value;
-        setResult([]);
-        setPostList([]);
-        setSiteList(["전체"]);
+    const word = useinput.current.value;
 
-        for (let i = 0; i < crawlSiteList.length; i++) {
-          axios
-            .get(
-              `${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
-            )
-            .then((response) => {
-              console.log(response);
-              console.log(response.data.data[0]);
-              console.log(response.data.data[0].site);
-              if(response.data.data[0].site) {
-                console.log('없음');
-              }
-              const siteName = response.data.data[0].site;
-              setPostList((state) => [...state, ...response.data.data]);
-              setResult((state) => [...state, ...response.data.data]);
-              setSiteList((site) => [...site, siteName]);
-            });
+    if (word.length > 0) {
+      Swal.fire({
+        title: "검색 요청 중입니다...",
+        html: "검색이 완료되는 순서대로 화면에 표시됩니다.",
+        allowOutsideClick: false,
+        didOpen: async () => {
+          Swal.showLoading();
+          setResult([]);
+          setPostList([]);
+          setSiteList(["전체"]);
+  
+          for (let i = 0; i < crawlSiteList.length; i++) {
+            axios
+              .get(
+                `${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
+              )
+              .then((response) => {
+                console.log(response);
+                console.log(response.data.data[0]);
+                console.log(response.data.data[0].site);
+                if(response.data.data[0].site) {
+                  console.log('없음');
+                }
+                const siteName = response.data.data[0].site;
+                setPostList((state) => [...state, ...response.data.data]);
+                setResult((state) => [...state, ...response.data.data]);
+                setSiteList((site) => [...site, siteName]);
+              });
+          }
+  
+          Swal.close();
+        },
+        willClose: () => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+  
+          Toast.fire({
+            icon: "success",
+            title: `검색을 시작합니다.`,
+          });
         }
-
-        Swal.close();
-      },
-      willClose: () => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-
-        Toast.fire({
-          icon: "success",
-          title: `검색을 시작합니다.`,
-        });
-      }
-    });
+      });
+    } else {
+      Swal.fire({
+        title: '오류',
+        icon: 'error',
+        html: '모니터링 키워드 입력이 필요합니다.',
+        confirmButtonText: '확인',
+        showCancelButton: false
+      });
+    }
   };
 
   const handleKeypress = (e) => {

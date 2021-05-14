@@ -31,8 +31,19 @@ small {
     }
 }
 
+button {
+    font: {
+        family: $font-text;
+    }
+}
+
 body {
+    -ms-overflow-style: none;
     line-height: 1.6;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .row {
@@ -96,6 +107,7 @@ main {
         background: {
             color: $color-main;
         }
+        box-sizing: border-box;
     }
 }
 
@@ -128,8 +140,17 @@ table {
             }
             &:hover {
                 cursor: pointer;
-                transform: translate3d(0, -5px, -5px);
+                transform: scale(1.05, 1.05);
+                box-shadow: $box-shadow-lv2;
             }
         }
     }
+}
+
+.swal2-container.swal2-backdrop-show {
+    background: rgba(0,0,0,.8);
+}
+
+.swal2-modal[role="dialog"] {
+    min-width: 50vw;
 }
