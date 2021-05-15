@@ -41,8 +41,10 @@ public class NatePannScraper implements Scraper {
                         .view(view.replaceAll("[^0-9]", ""))
                         .type(el.select(".t_talk").text())
                         .build();
-                ChangeDate fun= new ChangeDate(doc_detail.select("span.date").text(),4);
-                postEntity.setCreated_at(fun.getLocalDateTime());
+                if(!doc_detail.select("div.info > span.date").text().equals("")) {
+                    ChangeDate fun = new ChangeDate(doc_detail.select("div.info > span.date").text(), 4);
+                    postEntity.setCreated_at(fun.getLocalDateTime());
+                }
 
                 list.add(postEntity);
             }

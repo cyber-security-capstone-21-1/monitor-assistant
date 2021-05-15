@@ -37,9 +37,12 @@ public class PpomppuScraper implements Scraper {
             Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
             postEntity.setContent(doc2.select(".pic_bg").html());
             postEntity.setAuthor(doc2.select(".view_name").text());
+
             String str2 = doc2.select(".sub-top-text-box").text();
-            ChangeDate date= new ChangeDate(str2.substring(str2.indexOf("등록일:") + 5,str2.indexOf("조회수:") - 1),2);
-            postEntity.setCreated_at(date.getLocalDateTime());
+            if(!str2.equals("")) {
+                ChangeDate date = new ChangeDate(str2.substring(str2.indexOf("등록일:") + 5, str2.indexOf("조회수:") - 1), 2);
+                postEntity.setCreated_at(date.getLocalDateTime());
+            }
             list.add(postEntity);
         }
         return list;
