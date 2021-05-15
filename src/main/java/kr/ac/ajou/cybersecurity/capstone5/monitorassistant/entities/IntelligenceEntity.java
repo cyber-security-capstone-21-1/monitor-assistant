@@ -44,6 +44,18 @@ public class IntelligenceEntity implements Serializable {
     @Column(name = "action_plan", length = 500)
     private String action_plan;
 
+    @Column(name = "description", length = 500)
+    private String description;
+
+    @Column(name = "search_keyword", length = 500)
+    private String search_keyword;
+
+    @Column(name = "intelligence_title", length = 500)
+    private String intelligence_title;
+
+    @Column(name = "crime_type", length = 500)
+    private String crime_type;
+
     @Column(name = "uid", nullable = false, unique = true)
     private String uid;
 

@@ -135,7 +135,11 @@ function Monitor(props) {
         {
           title: '첩보 제목 입력',
           input: "text",
-          inputPlaceholder: '첩보 제목을 입력해주세요'
+          inputPlaceholder: '첩보 제목을 입력해주세요',
+          inputAttributes: {
+            required: true
+          },
+          validationMessage: "입력값 누락 혹은 오류"
         },
         {
           title: '유형 입력',
@@ -145,7 +149,11 @@ function Monitor(props) {
               '정보통신망이용촉진및정보보호등에관한법률': '정보통신망이용촉진및정보보호등에관한법률'
             }
           },
-          inputPlaceholder: '관련 법률 선택'
+          inputPlaceholder: '관련 법률 선택',
+          inputAttributes: {
+            required: true
+          },
+          validationMessage: "입력값 누락 혹은 오류"
         },
         {
           title: "첩보 내용을 입력해주세요",
@@ -153,7 +161,9 @@ function Monitor(props) {
           inputPlaceholder: "어떤 내용의 것인가요?",
           inputAttributes: {
             "aria-label": "메모 입력",
-          }
+            required: true
+          },
+          validationMessage: "입력값 누락 혹은 오류"
         },
         {
           title: "대응방안을 입력해주세요",
@@ -161,8 +171,10 @@ function Monitor(props) {
           inputLabel: "대응 방안 입력",
           inputPlaceholder: "내용을 입력해주세요.",
           inputAttributes: {
-            "aria-label": "대응 방안 입력",
+            "aria-label": "메모 입력",
+            required: true
           },
+          validationMessage: "입력값 누락 혹은 오류",
           confirmButtonText: `<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="save" class="svg-inline--fa fa-save fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg> 저장`,
           confirmButtonAriaLabel: "저장",
         }
@@ -174,6 +186,7 @@ function Monitor(props) {
           item.crime_type = result.value[2];
           item.description = result.value[3];
           item.action_plan = result.value[4];
+          item.search_keyword = useinput.current.value;
           Swal.fire({
             title: "데이터 저장 작업 진행 중",
             html: "페이지 아카이빙 및 스크린샷 데이터를 저장하고 있습니다. 완료 후 창은 자동으로 닫힙니다.",
