@@ -6,6 +6,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import Constants from "@/shared/constants";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import uuidv4 from "@/shared/services/uuid";
 
 import "./Monitor.scss";
 
@@ -115,32 +116,44 @@ function Monitor(props) {
   const openDialog = (item) => {
     Swal.mixin({
       cancelButtonColor: "#d33",
-      confirmButtonText: "다음",
+      confirmButtonText: `<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" class="svg-inline--fa fa-arrow-right fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg> 다음`,
       confirmButtonAriaLabel: "다음",
-      cancelButtonText: "취소",
+      confirmButtonColor: "#25cbcb",
+      cancelButtonText: `<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg> 취소`,
       cancelButtonAriaLabel: "취소",
+      cancelButtonColor: "#e7237f",
       showCancelButton: true,
       focusConfirm: true,
-      progressSteps: ["1", "2", "3"],
+      progressSteps: ["1", "2", "3", "4", "5"],
       showLoaderOnConfirm: true,
     })
       .queue([
         {
           title: `<header>${item.title}</header>`,
           html: item.content,
-          confirmButtonColor: "#3085d6",
         },
         {
-          title: "메모를 입력해주세요",
+          title: '첩보 제목 입력',
+          input: "text",
+          inputPlaceholder: '첩보 제목을 입력해주세요'
+        },
+        {
+          title: '유형 입력',
+          input: 'select',
+          inputOptions: {
+            '정보통신망이용촉진및정보보호등에관한법률': {
+              '정보통신망이용촉진및정보보호등에관한법률': '정보통신망이용촉진및정보보호등에관한법률'
+            }
+          },
+          inputPlaceholder: '관련 법률 선택'
+        },
+        {
+          title: "첩보 내용을 입력해주세요",
           input: "textarea",
-          inputLabel: "메모 입력",
           inputPlaceholder: "어떤 내용의 것인가요?",
           inputAttributes: {
             "aria-label": "메모 입력",
-          },
-          confirmButtonColor: "#51cf66",
-          confirmButtonText: "저장",
-          confirmButtonAriaLabel: "저장",
+          }
         },
         {
           title: "대응방안을 입력해주세요",
@@ -150,14 +163,17 @@ function Monitor(props) {
           inputAttributes: {
             "aria-label": "대응 방안 입력",
           },
-          confirmButtonColor: "#51cf66",
-          confirmButtonText: "저장",
+          confirmButtonText: `<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="save" class="svg-inline--fa fa-save fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg> 저장`,
           confirmButtonAriaLabel: "저장",
         }
       ])
       .then(async (result) => {
-        if (result.value && result.value[0]) {
-          item.action_plan = result.value[1];
+        console.log(result);
+        if (result.value && result.value.length === 5) {
+          item.intelligence_title = result.value[1];
+          item.crime_type = result.value[2];
+          item.description = result.value[3];
+          item.action_plan = result.value[4];
           Swal.fire({
             title: "데이터 저장 작업 진행 중",
             html: "페이지 아카이빙 및 스크린샷 데이터를 저장하고 있습니다. 완료 후 창은 자동으로 닫힙니다.",
@@ -269,7 +285,7 @@ function Monitor(props) {
             {postList &&
               postList.map((post) => {
                 return (
-                  <tr onClick={() => openDialog(post)}>
+                  <tr onClick={() => openDialog(post)} key={uuidv4()}>
                     <td>{post.site}</td>
                     <td>{post.title}</td>
                     <td>{post.view}</td>
