@@ -15,10 +15,10 @@ function Viewer({ match: { params: { uid } }}) {
   useEffect(() => {
     async function getIntelligence() {
       const request = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`);
-      setIntelligence(request.data);
+      setIntelligence(request.data.data);
     }
     getIntelligence();
-  }, {});
+  }, []);
 
   return (
     <section className="section section__pdf_viewer">

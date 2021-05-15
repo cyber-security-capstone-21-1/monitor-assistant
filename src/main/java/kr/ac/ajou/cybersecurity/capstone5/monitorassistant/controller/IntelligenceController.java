@@ -7,15 +7,16 @@ import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.Intelligence
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.UserEntity;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.repositories.IntelligenceRepository;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.repositories.UserRepository;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.BasicResponse;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.CommonResponse;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.ErrorResponse;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.IntelligenceResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -29,19 +30,21 @@ public class IntelligenceController {
 
     @Autowired
     private IntelligenceRepository intelligenceRepository;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private final JwtTokenUtil jwtTokenUtil;
 
     @GetMapping("/intelligences")
     @Transactional
-    public List<IntelligenceEntity> all() {
-        return intelligenceRepository.findAll();
+    public ResponseEntity<? extends BasicResponse> all() {
+        return ResponseEntity.ok()
+                .body(new CommonResponse<List<IntelligenceEntity>>(intelligenceRepository.findAll(), "ok"));
     }
 
     @PostMapping("/intelligences")
-
     public IntelligenceResponse save(@RequestBody IntelligenceEntity entity, HttpServletRequest req) {
         String str = req.getHeader("Authorization");
         if(str.startsWith("Bearer ")) {
@@ -57,19 +60,26 @@ public class IntelligenceController {
 
     @GetMapping("/intelligences/{uid}")
     @Transactional
-    public IntelligenceEntity findOne(@PathVariable String uid) {
-        return intelligenceRepository.findByUid(uid)
-                .orElseThrow(() -> new IllegalArgumentException("No data"));
+    public ResponseEntity<? extends BasicResponse> findOne(@PathVariable String uid) {
+        Optional<IntelligenceEntity> intelligenceEntity = intelligenceRepository.findByUid(uid);
+        if (intelligenceEntity.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ErrorResponse("No Data exists", 404));
+        }
+        return ResponseEntity.ok()
+                .body(new CommonResponse<Optional<IntelligenceEntity>>(intelligenceEntity, "ok"));
     }
 
-    @DeleteMapping("/intelligences/{uid}")
+    @DeleteMapping("/intelligences/{id}")
     @Transactional
-    public String deleteOne(@PathVariable String uid) {
-        if(intelligenceRepository.findByUid(uid).isEmpty())
-            return uid+": no data";
+    public ResponseEntity<? extends BasicResponse> deleteOne(@PathVariable Long id) {
+        if (intelligenceRepository.findById(id).isEmpty())
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ErrorResponse("No Data exists", 404));
         else {
-            intelligenceRepository.deleteByUid(uid);
-            return uid+": delete success";
+            intelligenceRepository.deleteById(id);
+            return ResponseEntity.ok()
+                    .body(new CommonResponse<String>("", "Deleted"));
         }
     }
 }

@@ -14,8 +14,6 @@ import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/ass
 
 export default function IntelligenceDocument({ content }) {
 
-  console.log(content);
-
   Font.register({
     family: "IBMPlexSansKR",
     fonts: [
@@ -159,7 +157,7 @@ export default function IntelligenceDocument({ content }) {
             {/* Header */}
             <Text style={styles.tableCellHead}>작성일</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.created_at}</Text>
+            <Text style={styles.tableCellBody}>{content.created_at !== '' ? new Date(content.created_at).toLocaleString() : ''}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
