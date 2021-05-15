@@ -9,6 +9,7 @@ import Constants from '@/shared/constants';
 
 function IntList () {
     const [intList, setIntList] = useState([]);
+
     useEffect(() => {
         Swal.fire({
             title: '목록 로딩 중',
@@ -17,11 +18,55 @@ function IntList () {
             didOpen: async () => {
                 Swal.showLoading();
                 const result = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}`)
-                setIntList([...result.data]);
+                setIntList([...result.data.data]);
                 Swal.close();
             },
         });
     }, []);
+
+    const onRemove = (id) => {
+        Swal.fire({
+            title: '삭제 확인',
+            icon: 'warning',
+            html: '삭제하시겠습니까?',
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: true,
+            confirmButtonText: '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash" class="svg-inline--fa fa-trash fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg> 삭제',
+            confirmButtonColor: "#25cbcb",
+            confirmButtonAriaLabel: '삭제',
+            cancelButtonText: '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg> 취소',
+            cancelButtonColor: "#e7237f",
+            cancelButtonAriaLabel: '취소',
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                return axios.delete(`/api/intelligences/${id}`)
+            }
+        })
+            .then((result) => {
+                if (result.isConfirmed && result.value.status === 200) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener("mouseenter", Swal.stopTimer);
+                          toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                      });
+              
+                      Toast.fire({
+                        icon: "success",
+                        title: `삭제되었습니다.`,
+                      });
+
+                    setIntList(intList.filter(item => item.id !== id));
+                }
+            })
+            .catch((error) => {});
+    };
 
     return (
         <>
@@ -30,16 +75,11 @@ function IntList () {
                 desc="수집한 게시물의 내용이 담겨있습니다."
             />
             <section className="section section__intelligence_list">
-                {intList.map(({ title, site, author, created_at, uid, id, content, action_plan }, index) => {
+                {intList.map((item) => {
                     return (
                         <IntelligenceCard
-                            title={title}
-                            site={site}
-                            author={author}
-                            created_at={created_at}
-                            uid={uid}
-                            content={content}
-                            action_plan={action_plan}
+                            item={item}
+                            onRemove={onRemove}
                         />
                     )
                 })}

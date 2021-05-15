@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,26 +9,24 @@ import PageHeader from "@/components/PageHeader/PageHeader";
 
 import "./Monitor.scss";
 
-const crawlSiteList = [
-  "CS01",
-  "CS02",
-  "CS03",
-  "CS04",
-  "CS05",
-  "CS06",
-  "CS07",
-  "CS08",
-  "CS09",
-  "CS10",
-  "CS11",
-  "CS12",
-  "CS13",
-];
 function Monitor(props) {
+  var crawlSiteList = [];
+  const [activeTab, setActiveTab] = useState(0);
+  const [reqSiteCodeList, setReqSiteCodeList] = useState([]);
   const [postList, setPostList] = useState([]);
   const [siteList, setSiteList] = useState([]);
   const [result, setResult] = useState([]);
   const useinput = useRef();
+
+  useEffect(() => {
+    async function getSiteList() {
+      const sites = await axios.get('/api/monitor/');
+      if ('data' in sites.data) {
+        setReqSiteCodeList([...(sites.data.data)]);
+      }
+    }
+    getSiteList();
+  }, []);
 
   const search = async () => {
 
@@ -45,22 +43,21 @@ function Monitor(props) {
           setPostList([]);
           setSiteList(["전체"]);
   
-          for (let i = 0; i < crawlSiteList.length; i++) {
+          for (let site of reqSiteCodeList) {
             axios
               .get(
-                `${Constants.SPRING_BACKEND.APIs.MONITOR}/${crawlSiteList[i]}?keyword=${word}`
+                `${Constants.SPRING_BACKEND.APIs.MONITOR}/${site['code']}?keyword=${word}`
               )
-              .then((response) => {
-                console.log(response);
-                console.log(response.data.data[0]);
-                console.log(response.data.data[0].site);
-                if(response.data.data[0].site) {
-                  console.log('없음');
+              .then(({ data: { data, message } }) => {
+                if (message !== 'ok') {
+                  throw Error(message);
                 }
-                const siteName = response.data.data[0].site;
-                setPostList((state) => [...state, ...response.data.data]);
-                setResult((state) => [...state, ...response.data.data]);
-                setSiteList((site) => [...site, siteName]);
+                setPostList((state) => [...state, ...data]);
+                setResult((state) => [...state, ...data]);
+                setSiteList((sites) => [...sites, site['name']]);
+              })
+              .catch(error => {
+                console.error(error);
               });
           }
   
@@ -248,8 +245,11 @@ function Monitor(props) {
                 );
               })}
           </ul>
+          <div className="notice notice__monitor_description">
+            <p>옆으로 스크롤하여 사이트별로 필터링이 가능합니다.</p>
+          </div>
         </nav>
-        <table>
+        <table className="table table__monitor">
           <col style={{ width: "10%" }} />
           <col style={{ width: "60%" }} />
           <col style={{ width: "10%" }} />
@@ -274,7 +274,7 @@ function Monitor(props) {
                     <td>{post.title}</td>
                     <td>{post.view}</td>
                     <td>{post.author}</td>
-                    <td>{post.created_at}</td>
+                    <td>{post.created_at !== '' ? new Date(post.created_at).toLocaleDateString() : '' }</td>
                   </tr>
                 );
               })}

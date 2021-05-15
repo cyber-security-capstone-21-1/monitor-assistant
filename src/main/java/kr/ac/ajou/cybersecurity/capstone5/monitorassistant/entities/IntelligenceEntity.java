@@ -47,7 +47,7 @@ public class IntelligenceEntity implements Serializable {
     @Column(name = "uid", nullable = false, unique = true)
     private String uid;
 
-    @ManyToOne(targetEntity = UserEntity.class)
+    @ManyToOne(cascade = CascadeType.PERSIST, targetEntity = UserEntity.class)
     @JsonIgnore
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;

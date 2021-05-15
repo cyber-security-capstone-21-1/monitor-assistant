@@ -53,12 +53,19 @@
 }
 
 .monitor__site_nav {
-    margin: {
-        bottom: 30px;
-    }
-    background: rgb(36, 37, 42);
-    box-shadow: $box-shadow-lv4;
     & ul {
+        margin: {
+            bottom: 10px;
+        }
+        background: rgb(36, 37, 42);
+        box-shadow: $box-shadow-lv4;
+        white-space: nowrap;
+        overflow-x: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
         > li {
             display: inline-block;
             padding: 10px;
@@ -79,6 +86,15 @@
                     color: $color-white;
                 }
             }
+        }
+    }
+}
+
+.notice {
+    &__monitor_description {
+        text-align: center;
+        margin: {
+            bottom: 20px;
         }
     }
 }

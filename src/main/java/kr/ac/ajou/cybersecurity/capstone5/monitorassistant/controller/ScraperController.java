@@ -1,6 +1,7 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.controller;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.SiteMetaEntity;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.BasicResponse;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.CommonResponse;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.ErrorResponse;
@@ -10,11 +11,35 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/monitor")
 public class ScraperController {
+
+    @GetMapping("/")
+    public ResponseEntity<? extends BasicResponse> getSiteList() {
+        List<SiteMetaEntity> sites = new ArrayList<>();
+        sites.add(SiteMetaEntity.builder().code("CS01").name("네이버").build());
+        sites.add(SiteMetaEntity.builder().code("CS02").name("일간베스트").build());
+        sites.add(SiteMetaEntity.builder().code("CS03").name("보배드림").build());
+        sites.add(SiteMetaEntity.builder().code("CS04").name("클리앙").build());
+        sites.add(SiteMetaEntity.builder().code("CS05").name("디씨인사이드").build());
+        sites.add(SiteMetaEntity.builder().code("CS06").name("개드립").build());
+        sites.add(SiteMetaEntity.builder().code("CS07").name("오늘의유머").build());
+        sites.add(SiteMetaEntity.builder().code("CS08").name("뽐뿌").build());
+        sites.add(SiteMetaEntity.builder().code("CS09").name("와이고수").build());
+        sites.add(SiteMetaEntity.builder().code("CS10").name("네이트판").build());
+        sites.add(SiteMetaEntity.builder().code("CS11").name("루리웹").build());
+        sites.add(SiteMetaEntity.builder().code("CS12").name("에펨코리아").build());
+        sites.add(SiteMetaEntity.builder().code("CS13").name("MLB파크").build());
+        sites.add(SiteMetaEntity.builder().code("CS14").name("인스티즈").build());
+        sites.add(SiteMetaEntity.builder().code("CS15").name("혜연갤").build());
+        sites.add(SiteMetaEntity.builder().code("CS16").name("인벤").build());
+        sites.add(SiteMetaEntity.builder().code("CS17").name("쿡82").build());
+        return ResponseEntity.ok().body(new CommonResponse<List<SiteMetaEntity>>(sites, "ok"));
+    }
 
     @RequestMapping(value = "/{site}", method = RequestMethod.GET)
     public ResponseEntity<? extends BasicResponse> getPostsByKeyword(

@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -46,7 +45,7 @@ public class UserEntity implements Serializable, UserDetails {
     @Column(name = "role")
     private int role;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "userEntity", fetch = FetchType.EAGER)
     @JsonIgnore
     private final List<IntelligenceEntity> intelligences = new ArrayList<>();
 
