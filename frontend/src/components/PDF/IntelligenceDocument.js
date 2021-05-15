@@ -176,7 +176,7 @@ export default function IntelligenceDocument({ content }) {
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷</Text>
-            <Image style={styles.tableCellBody} src={`/${content.uid}/screenshot.png`} />
+            <Image style={styles.tableCellBody} src={`/archives/${content.uid}/screenshot.png`} />
           </View>
           {/* End of Table */}
         </View>

@@ -35,9 +35,9 @@ public class ScraperController {
         sites.add(SiteMetaEntity.builder().code("CS12").name("에펨코리아").build());
         sites.add(SiteMetaEntity.builder().code("CS13").name("MLB파크").build());
         sites.add(SiteMetaEntity.builder().code("CS14").name("인스티즈").build());
-        sites.add(SiteMetaEntity.builder().code("CS15").name("혜연갤").build());
+        sites.add(SiteMetaEntity.builder().code("CS15").name("해연갤").build());
         sites.add(SiteMetaEntity.builder().code("CS16").name("인벤").build());
-        sites.add(SiteMetaEntity.builder().code("CS17").name("쿡82").build());
+        sites.add(SiteMetaEntity.builder().code("CS17").name("82cook").build());
         return ResponseEntity.ok().body(new CommonResponse<List<SiteMetaEntity>>(sites, "ok"));
     }
 

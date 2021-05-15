@@ -27,6 +27,20 @@
             overflow-y: scroll;
         }
     }
+
+    .swal2-modal[role="dialog"] {
+        width: 100vw;
+        & #swal2-title {
+            > header {
+                font: {
+                    size: $default-font-size * 1.4;
+                }
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+    }
 }
 
 @media (max-width: 720px) {
@@ -74,5 +88,9 @@
                 }
             }
         }
+    }
+
+    .swal2-modal[role="dialog"] {
+        width: 90vw;
     }
 }

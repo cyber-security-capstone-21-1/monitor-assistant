@@ -15,6 +15,8 @@ html {
     overflow: {
         x: hidden;
     }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -153,4 +155,16 @@ table {
 
 .swal2-modal[role="dialog"] {
     min-width: 50vw;
+}
+
+.swal2-html-container {
+    max-height: 80vh;
+    overflow: {
+        x: hidden;
+        y: scroll;
+    }
+    & img {
+        width: 100%;
+        height: auto;
+    }
 }

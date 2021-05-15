@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { faTrash, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import axios from 'axios';
 
 import "./IntelligenceCard.scss";
 
@@ -16,7 +13,7 @@ export default function IntelligenceCard ({ item, onRemove }) {
             <div className="content">
                 <h4>{item.site}</h4>
                 <header>
-                    <a href={`https://cscapstone-21-1-5-s3.s3.ap-northeast-2.amazonaws.com/${item.uid}/index.html`}>{item.title}</a>
+                    <a href={`/archives/${item.uid}/index.html`}>{item.title}</a>
                 </header>
                 <h5>{item.author}</h5>
                 <hr style={{ width: "80%", margin: "15px 0" }}/>
