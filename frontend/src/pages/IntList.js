@@ -78,6 +78,7 @@ function IntList () {
                 {intList.map((item) => {
                     return (
                         <IntelligenceCard
+                            key={item.uid}
                             item={item}
                             onRemove={onRemove}
                         />
