@@ -57,9 +57,14 @@ public class IntelligenceController {
                     .body(new ErrorResponse("존재하지 않는 사용자입니다.", 404));
         }
 
-        IntelligenceEntity savedEntity = intelligenceRepository.save(entity);
-        return ResponseEntity.ok()
-                .body(new CommonResponse<IntelligenceEntity>(savedEntity, "ok"));
+        try {
+            IntelligenceEntity savedEntity = intelligenceRepository.save(entity);
+            return ResponseEntity.ok()
+                    .body(new CommonResponse<IntelligenceEntity>(savedEntity, "ok"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ErrorResponse(e.getMessage(), 500));
+        }
     }
 
     @GetMapping("/intelligences/{uid}")
