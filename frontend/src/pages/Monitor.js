@@ -179,8 +179,7 @@ function Monitor(props) {
           confirmButtonAriaLabel: "저장",
         }
       ])
-      .then(async (result) => {
-        console.log(result);
+      .then((result) => {
         if (result.value && result.value.length === 5) {
           item.intelligence_title = result.value[1];
           item.crime_type = result.value[2];
@@ -194,19 +193,14 @@ function Monitor(props) {
             didOpen: async () => {
               Swal.showLoading();
               let uid;
-              await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
-                    url: item.url,
-                  }).then((res) => {
-                    console.log(
-                      "아카이버 반환 res.data.body.data.uid : ",
-                      res.data.body.data.uid
-                    );
-                    uid = res.data.body.data.uid;
-                    console.log("uid : ", uid);
-                  }).catch(console.log);
-              await axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, {
-                    url: item.url, uid
-                  }).then((res) => console.log("스크린샷 : ", res.status)).catch(console.log);
+              axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url, })
+                .then(({ data }) => {
+                  console.log(data);
+                  axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid })
+                    .then((res) => console.log("스크린샷 : ", res.status))
+                    .catch(console.log);
+                })
+                .catch(console.error);
 
               item.created_at = "";
               item.uid = uid;

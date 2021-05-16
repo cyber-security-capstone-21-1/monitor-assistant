@@ -50,7 +50,12 @@ public class IntelligenceController {
         }
         String email = jwtTokenUtil.getUsernameFromToken(str);
         Optional<UserEntity> user = userRepository.findByEmail(email);
-        entity.setUserEntity(user.get());
+        if (user.isPresent()) {
+            entity.setUserEntity(user.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("존재하지 않는 사용자입니다.", 404));
+        }
 
         IntelligenceEntity savedEntity = intelligenceRepository.save(entity);
         return ResponseEntity.ok()
