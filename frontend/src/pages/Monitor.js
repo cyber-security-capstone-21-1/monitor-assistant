@@ -196,8 +196,8 @@ function Monitor(props) {
               let uid;
               axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url, })
                 .then(({ data: { body: { data } } }) => {
-                  console.log(data);
-                  axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, data.uid })
+                  uid = data.uid
+                  axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
                     .then(({ data }) => {
                       console.log("스크린샷 : ", data);
                       item.created_at = new Date();
