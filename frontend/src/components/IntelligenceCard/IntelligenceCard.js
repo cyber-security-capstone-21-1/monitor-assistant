@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 import Constants from '@/shared/constants';
@@ -18,13 +19,14 @@ export default function IntelligenceCard ({ item, onRemove }) {
             didOpen: () => {
                 Swal.showLoading();
                 axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.RESIZER}${uid}`)
-                    .then(({ body, statusCode }) => {
-                        if (statusCode === 200) {
-                            window.location.href = `/service/intelligence/${uid}`;
+                    .then((result) => {
+                        console.log(result);
+                        if (result.status === 200) {
+                            return <Redirect to={`/service/intelligence/${uid}`} />;
                         }
                     })
-                    .catch(console.error);
-                Swal.close();
+                    .catch(console.error)
+                    .finally(Swal.close());
             }
         });
     };
