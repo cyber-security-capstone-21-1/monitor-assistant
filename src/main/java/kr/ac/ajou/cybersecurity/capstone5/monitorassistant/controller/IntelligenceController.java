@@ -52,18 +52,17 @@ public class IntelligenceController {
         Optional<UserEntity> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
             entity.setUserEntity(user.get());
+            try {
+                Object savedEntity = intelligenceRepository.saveAndFlush(entity);
+                return ResponseEntity.ok()
+                        .body(new CommonResponse<Object>(savedEntity, "ok"));
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+                        .body(new ErrorResponse(e.getMessage(), 500));
+            }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("존재하지 않는 사용자입니다.", 404));
-        }
-
-        try {
-            Object savedEntity = intelligenceRepository.saveAndFlush(entity);
-            return ResponseEntity.ok()
-                    .body(new CommonResponse<Object>(savedEntity, "ok"));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ErrorResponse(e.getMessage(), 500));
         }
     }
 
