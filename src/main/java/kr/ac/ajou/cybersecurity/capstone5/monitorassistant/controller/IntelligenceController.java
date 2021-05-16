@@ -58,9 +58,9 @@ public class IntelligenceController {
         }
 
         try {
-            IntelligenceEntity savedEntity = intelligenceRepository.save(entity);
+            Object savedEntity = intelligenceRepository.saveAndFlush(entity);
             return ResponseEntity.ok()
-                    .body(new CommonResponse<IntelligenceEntity>(savedEntity, "ok"));
+                    .body(new CommonResponse<Object>(savedEntity, "ok"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ErrorResponse(e.getMessage(), 500));
