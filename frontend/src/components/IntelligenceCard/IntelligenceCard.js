@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import Constants from '@/shared/constants';
+import axios from 'axios';
 import { faTrash, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -8,6 +10,21 @@ import "./IntelligenceCard.scss";
 
 export default function IntelligenceCard ({ item, onRemove }) {
     
+    const onThumbnailReady = (uid) => {
+        Swal.fire({
+            title: '문서 준비중...',
+            html: '문서에 들어갈 스크린샷 이미지 썸네일을 준비하고 있습니다.',
+            allowOutsideClick: false,
+            didOpen: async () => {
+                Swal.showLoading();
+                const result = await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.RESIZER}${uid}`);
+                if (result.statusCode === 200) {
+                    window.location.href = `/service/intelligence/${uid}`;
+                }
+            }
+        });
+    };
+
     return (
         <article className="card">
             <div className="content">
@@ -26,12 +43,12 @@ export default function IntelligenceCard ({ item, onRemove }) {
                     <span>{new Date(item.created_at).toLocaleString()}</span>
                 </p>
                 <div className="footer__prefs">
-                    <Link
+                    <button
                         className="button button__info"
-                        to={`/service/intelligence/${item.uid}`}
+                        onClick={() => onThumbnailReady(item.uid)}
                     >
                         <FontAwesomeIcon icon={faFileAlt} />&nbsp;<span>문서 보기</span>
-                    </Link>
+                    </button>
                     <button
                         className="button button__warning button__cursor__pointer"
                         onClick={() => onRemove(item.id)}

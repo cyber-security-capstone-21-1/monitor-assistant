@@ -13,7 +13,6 @@ import Logo from "@/assets/images/logo.png";
 import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/assets/fonts/IBMPlexSansKR";
 
 export default function IntelligenceDocument({ content }) {
-
   Font.register({
     family: "IBMPlexSansKR",
     fonts: [
@@ -176,7 +175,7 @@ export default function IntelligenceDocument({ content }) {
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷</Text>
-            <Image style={styles.tableCellBody} src={`/archives/${content.uid}/screenshot.png`} />
+            <Image style={styles.tableCellBody} src={`/archives/${content.uid}/screenshots/w_1024.png`} />
           </View>
           {/* End of Table */}
         </View>

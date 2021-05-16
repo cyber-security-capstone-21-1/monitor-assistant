@@ -4,7 +4,8 @@ const Constants = {
         STAGE: "/api",
         APIs: {
             ARCHIVER: "/archive",
-            SCREENSHOOTER: "/screenshot"
+            SCREENSHOOTER: "/screenshot",
+            RESIZER: "/screenshot/resize?uid="
         }
     },
     SPRING_BACKEND: {
