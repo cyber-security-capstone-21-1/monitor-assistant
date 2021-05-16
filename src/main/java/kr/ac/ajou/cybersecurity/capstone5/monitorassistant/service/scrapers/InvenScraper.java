@@ -41,7 +41,7 @@ public class InvenScraper implements Scraper {
                             .url(el.select("a.name").attr("href"))
                             .build();
                     Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                    postEntity.setContent(doc2.select("div.articleMain").html());
+                    postEntity.setContent(doc2.select("div.articleContent").html());
                 String time=doc2.select("div.articleDate").text();
                     postEntity.setAuthor(doc2.select("div.articleWriter").text());
                 if(!time.equals("")) {

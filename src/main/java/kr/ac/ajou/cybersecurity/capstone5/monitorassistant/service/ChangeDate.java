@@ -30,7 +30,7 @@ public class ChangeDate {
             this.localDateTime = LocalDateTime.parse(str, formatter);
         }
         else if(type==6){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd (E) HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd  HH:mm");
             this.localDateTime = LocalDateTime.parse(str, formatter);
         }
         else if(type==7){
@@ -42,11 +42,11 @@ public class ChangeDate {
             }
             else if(str.contains("시간 전")){
                 minus=Integer.parseInt(str.replaceAll("[^\\d]", ""));
-                this.localDateTime=now.minusMinutes(minus);
+                this.localDateTime=now.minusHours(minus);
             }
             else if(str.contains("일 전")){
                 minus=Integer.parseInt(str.replaceAll("[^\\d]", ""));
-                this.localDateTime=now.minusMinutes(minus);
+                this.localDateTime=now.minusDays(minus);
             }
             else{
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
