@@ -186,6 +186,7 @@ function Monitor(props) {
           item.description = result.value[3];
           item.action_plan = result.value[4];
           item.search_keyword = useinput.current.value;
+          
           Swal.fire({
             title: "데이터 저장 작업 진행 중",
             html: "페이지 아카이빙 및 스크린샷 데이터를 저장하고 있습니다. 완료 후 창은 자동으로 닫힙니다.",
@@ -197,16 +198,18 @@ function Monitor(props) {
                 .then(({ data }) => {
                   console.log(data);
                   axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid })
-                    .then((res) => console.log("스크린샷 : ", res.status))
-                    .catch(console.log);
+                    .then(({ data }) => {
+                      console.log("스크린샷 : ", data);
+                      item.created_at = new Date();
+                      item.uid = uid;
+                      axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item)
+                        .then((result) => {
+                          Swal.close();
+                        });
+                    })
+                    .catch(console.error);
                 })
                 .catch(console.error);
-
-              item.created_at = "";
-              item.uid = uid;
-              console.log(item);
-              axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item);
-              Swal.close();
             },   
             willClose: () => {
               const Toast = Swal.mixin({
