@@ -15,12 +15,16 @@ export default function IntelligenceCard ({ item, onRemove }) {
             title: '문서 준비중...',
             html: '문서에 들어갈 스크린샷 이미지 썸네일을 준비하고 있습니다.',
             allowOutsideClick: false,
-            didOpen: async () => {
+            didOpen: () => {
                 Swal.showLoading();
-                const result = await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.RESIZER}${uid}`);
-                if (result.statusCode === 200) {
-                    window.location.href = `/service/intelligence/${uid}`;
-                }
+                axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.RESIZER}${uid}`)
+                    .then(({ body, statusCode }) => {
+                        if (statusCode === 200) {
+                            window.location.href = `/service/intelligence/${uid}`;
+                        }
+                    })
+                    .catch(console.error);
+                Swal.close();
             }
         });
     };
