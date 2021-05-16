@@ -2,6 +2,7 @@ package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.scrapers;
 
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.PostEntity;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeDate;
+import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service.ChangeImgSrc;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,14 +36,21 @@ public class PpomppuScraper implements Scraper {
             postEntity.setType(str.substring(1,str.indexOf("]")));
             postEntity.setView(str.substring(str.indexOf(":") + 1, str.indexOf(":") + 3));
             Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-            postEntity.setContent(doc2.select(".pic_bg").html());
+           // postEntity.setContent(doc2.select(".pic_bg").html());
             postEntity.setAuthor(doc2.select(".view_name").text());
+            /* **** IMG SRC 변환  */
+            String content=doc2.select(".pic_bg").html();
+            ChangeImgSrc tmp = new ChangeImgSrc(content,2);
+            postEntity.setContent(tmp.getHtml());
+            /* **** IMG SRC 변환  */
 
+            /* **** DATE 객체 변환  */
             String str2 = doc2.select(".sub-top-text-box").text();
             if(!str2.equals("")) {
                 ChangeDate date = new ChangeDate(str2.substring(str2.indexOf("등록일:") + 5, str2.indexOf("조회수:") - 1), 2);
                 postEntity.setCreated_at(date.getLocalDateTime());
             }
+            /* **** DATE 객체 변환  */
             list.add(postEntity);
         }
         return list;

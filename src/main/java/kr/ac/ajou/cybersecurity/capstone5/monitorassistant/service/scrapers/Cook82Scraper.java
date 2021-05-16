@@ -36,13 +36,19 @@ public class Cook82Scraper implements Scraper {
                     PostEntity postEntity = PostEntity.builder()
                             .author(el.select("td.user_function").text())
                             .site("82cook")
-                            .view(t.substring(t.lastIndexOf(" "))+1)
                             .title(el.select("td.title a").text())
                             .url("https://www.82cook.com/entiz/" + el.select("td.title a").attr("href"))
                             .type("자유게시판")
                             .build();
-                    ChangeDate date= new ChangeDate(el.select("td.regdate.numbers").attr("title"),1);
-                    postEntity.setCreated_at(date.getLocalDateTime());
+                    if(!t.isEmpty()){
+                        postEntity.setView(t.substring(t.lastIndexOf(" ")+1));
+                    }
+                    /* **** DATE 객체 변환  */
+                    if(!el.select("td.regdate.numbers").attr("title").isEmpty()) {
+                        ChangeDate date = new ChangeDate(el.select("td.regdate.numbers").attr("title"), 1);
+                        postEntity.setCreated_at(date.getLocalDateTime());
+                    }
+                    /* **** DATE 객체 변환  */
                     Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                     postEntity.setContent(doc2.select("div#articleBody").html());
                     list.add(postEntity);
