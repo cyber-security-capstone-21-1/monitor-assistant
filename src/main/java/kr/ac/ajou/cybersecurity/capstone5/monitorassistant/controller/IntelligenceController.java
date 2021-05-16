@@ -1,7 +1,6 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.adapter.IntelligenceAdapter;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.config.JwtTokenUtil;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.IntelligenceEntity;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.entities.UserEntity;
@@ -10,7 +9,6 @@ import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.repositories.UserRepo
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.BasicResponse;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.CommonResponse;
 import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.ErrorResponse;
-import kr.ac.ajou.cybersecurity.capstone5.monitorassistant.response.IntelligenceResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,17 +43,18 @@ public class IntelligenceController {
     }
 
     @PostMapping("/intelligences")
-    public IntelligenceResponse save(@RequestBody IntelligenceEntity entity, HttpServletRequest req) {
+    public ResponseEntity<? extends BasicResponse> save(@RequestBody IntelligenceEntity entity, HttpServletRequest req) {
         String str = req.getHeader("Authorization");
-        if(str.startsWith("Bearer ")) {
+        if (str.startsWith("Bearer ")) {
             str = str.substring(7);
         }
         String email = jwtTokenUtil.getUsernameFromToken(str);
         Optional<UserEntity> user = userRepository.findByEmail(email);
-
         entity.setUserEntity(user.get());
-        intelligenceRepository.save(entity);
-        return IntelligenceAdapter.intelligenceResponse(entity,"success", null);
+
+        IntelligenceEntity savedEntity = intelligenceRepository.save(entity);
+        return ResponseEntity.ok()
+                .body(new CommonResponse<IntelligenceEntity>(savedEntity, "ok"));
     }
 
     @GetMapping("/intelligences/{uid}")
