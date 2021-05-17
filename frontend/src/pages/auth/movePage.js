@@ -26,6 +26,9 @@ const MovePage = ({ location, children }) => {
         console.log('만료 되었음');
         AuthenticationService.getNewAccessTokenWithRefreshToken().then(res => {
           AuthenticationService.setupAxiosInterceptors(res.data.data.accessToken);
+        }).catch(e => {
+          console.log(e);
+          window.location.href = '/';
         });
       });
   };
@@ -33,7 +36,7 @@ const MovePage = ({ location, children }) => {
   if (location.pathname !== history && location.pathname !== "/") {
     console.log(history, "에서", location.pathname, "으로 이동");
 
-    if(location.pathname !== "/auth/login" || location.pathname !== "/auth/signup") {
+    if(location.pathname !== "/auth/login" && location.pathname !== "/auth/signup") {
       checkToken();
     }
 
@@ -45,7 +48,6 @@ const MovePage = ({ location, children }) => {
   useEffect(() => {
     setHistory(location.pathname);
   }, []);
-  console.log('move page 로그인 체크 :',AuthenticationService.isUserLoggedIn());
   return (
     <>
       <RouteWithLayout
