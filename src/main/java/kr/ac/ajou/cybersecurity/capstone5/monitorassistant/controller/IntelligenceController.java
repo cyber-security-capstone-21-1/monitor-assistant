@@ -48,8 +48,6 @@ public class IntelligenceController {
         UserEntity myUser = user.get();
         return ResponseEntity.ok()
                 .body(new CommonResponse<List<IntelligenceEntity>>(intelligenceRepository.findByuserEntity(myUser), "ok"));
-//        return ResponseEntity.ok()
-//                .body(new CommonResponse<List<IntelligenceEntity>>(intelligenceRepository.findAll(), "ok"));
     }
 
     @PostMapping("/intelligences")

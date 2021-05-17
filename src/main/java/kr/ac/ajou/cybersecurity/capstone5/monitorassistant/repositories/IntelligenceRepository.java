@@ -15,6 +15,5 @@ import java.util.Optional;
 @Transactional
 public interface IntelligenceRepository extends JpaRepository<IntelligenceEntity, Long> {
     Optional<IntelligenceEntity> findByUid(@Param("uid") String uid);
-//    @Query("select log from Log log where log.user_id = ?1")
     List<IntelligenceEntity> findByuserEntity(@Param("user_id") UserEntity userEntity);
 }
