@@ -37,9 +37,19 @@ public class IntelligenceController {
 
     @GetMapping("/intelligences")
     @Transactional
-    public ResponseEntity<? extends BasicResponse> all() {
+    public ResponseEntity<? extends BasicResponse> all(HttpServletRequest req) {
+        String str = req.getHeader("Authorization");
+        if (str.startsWith("Bearer ")) {
+            str = str.substring(7);
+        }
+        String email = jwtTokenUtil.getUsernameFromToken(str);
+        System.out.println("찾은 이멜 " + email);
+        Optional<UserEntity> user = userRepository.findByEmail(email);
+        UserEntity myUser = user.get();
         return ResponseEntity.ok()
-                .body(new CommonResponse<List<IntelligenceEntity>>(intelligenceRepository.findAll(), "ok"));
+                .body(new CommonResponse<List<IntelligenceEntity>>(intelligenceRepository.findByuserEntity(myUser), "ok"));
+//        return ResponseEntity.ok()
+//                .body(new CommonResponse<List<IntelligenceEntity>>(intelligenceRepository.findAll(), "ok"));
     }
 
     @PostMapping("/intelligences")
