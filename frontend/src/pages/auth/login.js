@@ -39,14 +39,21 @@ export default function Login(context) {
         })
         .catch((error) => {
           console.log(error.response.status)
-          // if(error.response.status === 403){
-          //   Swal.fire({
-          //     title: "로그인 실패",
-          //     html: '로그인 정보가 올바른지 확인 후 다시 시도해주세요.',
-          //     icon: "error",
-          //     confirmButtonText: "확인",
-          //   });
-          // }
+          if(error.response.status === 403){
+            Swal.fire({
+              title: "로그인 실패",
+              html: '로그인 정보가 올바른지 확인 후 다시 시도해주세요.',
+              icon: "error",
+              confirmButtonText: "확인",
+            });
+          } else if(error.response.status >= 500) {
+            Swal.fire({
+              title: "로그인 실패",
+              html: '서버로부터 응답이 없습니다..',
+              icon: "error",
+              confirmButtonText: "확인",
+            });
+          }
           console.error(error);
         });
     },
