@@ -21,8 +21,7 @@ class AuthenticationService {
     }
 
     setupAxiosInterceptors(access) {
-        axios.interceptors.request.use(
-            config => {
+        axios.interceptors.request.use(config => {
                 if (access) {
                     let beartok = this.createJWTToken(access);
                     config.headers['Authorization'] = beartok;

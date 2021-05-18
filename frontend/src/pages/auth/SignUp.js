@@ -38,6 +38,10 @@ export default function SignUp() {
       setPassMsg("비밀번호를 입력해주세요");
       return;
     }
+    if(data.password.length < 4) {
+      setPassMsg('비밀번호는 4글자 이상으로 입력해주세요')
+      return;
+    }
 
     if (data.password !== data.passwordConfirm) {
       setPasswdMsg("비밀번호가 일치하지 않습니다.");

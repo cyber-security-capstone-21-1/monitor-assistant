@@ -10,5 +10,4 @@ public class MonitorAssistantApplication {
 		new SpringApplicationBuilder(MonitorAssistantApplication.class)
 				.run(args);
 	}
-
 }

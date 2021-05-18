@@ -17,29 +17,26 @@ const MovePage = ({ location, children }) => {
   };
 
   const checkToken = async () => {
-    console.log('체크 토큰')
     AuthenticationService.executeJwtAuthenticationService().then((res) => {
-        if(!res) {
-          console.log('유효여부 : ',res);
-        }
+        console.log('유효여부 : ',res.data);
       }).catch((e) => {
         console.log('만료 되었음');
         AuthenticationService.getNewAccessTokenWithRefreshToken().then(res => {
           AuthenticationService.setupAxiosInterceptors(res.data.data.accessToken);
         }).catch(e => {
-          console.log(e);
-          window.location.href = '/';
+          console.log('refresh도 만료!',e);
+          AuthenticationService.logout();
+          setHistory('');
         });
       });
   };
 
-  if (location.pathname !== history && location.pathname !== "/") {
+  if (location.pathname !== history) {
     console.log(history, "에서", location.pathname, "으로 이동");
 
     if(location.pathname !== "/auth/login" && location.pathname !== "/auth/signup") {
       checkToken();
     }
-
     setHistory(location.pathname);
     clearTimeout(timeId.current);
     sessionManage();

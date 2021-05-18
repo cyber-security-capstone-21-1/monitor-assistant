@@ -43,7 +43,6 @@ public class IntelligenceController {
             str = str.substring(7);
         }
         String email = jwtTokenUtil.getUsernameFromToken(str);
-        System.out.println("찾은 이멜 " + email);
         Optional<UserEntity> user = userRepository.findByEmail(email);
         UserEntity myUser = user.get();
         return ResponseEntity.ok()
