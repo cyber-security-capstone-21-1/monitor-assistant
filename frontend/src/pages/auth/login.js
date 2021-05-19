@@ -31,9 +31,6 @@ export default function Login(context) {
         .then((response) => {
           console.log('login 응답값 = ', response.data.data);
           const { accessToken, refreshToken } = response.data.data;
-          // axios.defaults.headers.common[
-          //   "Authorization"
-          // ] = `Bearer ${accessToken}`;
           AuthenticationService.registerSuccessfulLoginForJwt(refreshToken,accessToken);
           setAuthInfo("", "");
         })

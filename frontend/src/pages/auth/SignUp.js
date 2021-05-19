@@ -63,9 +63,6 @@ export default function SignUp() {
                 .post(`/api/auth/login`, data)
                 .then((response) => {
                   const { accessToken } = response.data;
-                  axios.defaults.headers.common[
-                    "Authorization"
-                  ] = `Bearer ${accessToken}`;
                   AuthenticationService.registerSuccessfulLoginForJwt(
                     data.email,
                     accessToken

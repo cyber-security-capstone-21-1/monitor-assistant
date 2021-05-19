@@ -21,16 +21,15 @@ function Monitor(props) {
 
   useEffect(() => {
     async function getSiteList() {
-      const sites = await axios.get('/api/monitor/');
-      if ('data' in sites.data) {
-        setReqSiteCodeList([...(sites.data.data)]);
+      const sites = await axios.get("/api/monitor/");
+      if ("data" in sites.data) {
+        setReqSiteCodeList([...sites.data.data]);
       }
     }
     getSiteList();
   }, []);
 
   const search = async () => {
-
     const word = useinput.current.value;
 
     if (word.length > 0) {
@@ -43,25 +42,25 @@ function Monitor(props) {
           setResult([]);
           setPostList([]);
           setSiteList(["전체"]);
-  
+
           for (let site of reqSiteCodeList) {
             axios
               .get(
-                `${Constants.SPRING_BACKEND.APIs.MONITOR}/${site['code']}?keyword=${word}`
+                `${Constants.SPRING_BACKEND.APIs.MONITOR}/${site["code"]}?keyword=${word}`
               )
               .then(({ data: { data, message } }) => {
-                if (message !== 'ok') {
+                if (message !== "ok") {
                   throw Error(message);
                 }
                 setPostList((state) => [...state, ...data]);
                 setResult((state) => [...state, ...data]);
-                setSiteList((sites) => [...sites, site['name']]);
+                setSiteList((sites) => [...sites, site["name"]]);
               })
-              .catch(error => {
+              .catch((error) => {
                 console.error(error);
               });
           }
-  
+
           Swal.close();
         },
         willClose: () => {
@@ -76,20 +75,20 @@ function Monitor(props) {
               toast.addEventListener("mouseleave", Swal.resumeTimer);
             },
           });
-  
+
           Toast.fire({
             icon: "success",
             title: `검색을 시작합니다.`,
           });
-        }
+        },
       });
     } else {
       Swal.fire({
-        title: '오류',
-        icon: 'error',
-        html: '모니터링 키워드 입력이 필요합니다.',
-        confirmButtonText: '확인',
-        showCancelButton: false
+        title: "오류",
+        icon: "error",
+        html: "모니터링 키워드 입력이 필요합니다.",
+        confirmButtonText: "확인",
+        showCancelButton: false,
       });
     }
   };
@@ -133,27 +132,28 @@ function Monitor(props) {
           html: item.content,
         },
         {
-          title: '첩보 제목 입력',
+          title: "첩보 제목 입력",
           input: "text",
-          inputPlaceholder: '첩보 제목을 입력해주세요',
+          inputPlaceholder: "첩보 제목을 입력해주세요",
           inputAttributes: {
-            required: true
+            required: true,
           },
-          validationMessage: "입력값 누락 혹은 오류"
+          validationMessage: "입력값 누락 혹은 오류",
         },
         {
-          title: '유형 입력',
-          input: 'select',
+          title: "유형 입력",
+          input: "select",
           inputOptions: {
-            '정보통신망이용촉진및정보보호등에관한법률': {
-              '정보통신망이용촉진및정보보호등에관한법률': '정보통신망이용촉진및정보보호등에관한법률'
-            }
+            정보통신망이용촉진및정보보호등에관한법률: {
+              정보통신망이용촉진및정보보호등에관한법률:
+                "정보통신망이용촉진및정보보호등에관한법률",
+            },
           },
-          inputPlaceholder: '관련 법률 선택',
+          inputPlaceholder: "관련 법률 선택",
           inputAttributes: {
-            required: true
+            required: true,
           },
-          validationMessage: "입력값 누락 혹은 오류"
+          validationMessage: "입력값 누락 혹은 오류",
         },
         {
           title: "첩보 내용을 입력해주세요",
@@ -161,9 +161,9 @@ function Monitor(props) {
           inputPlaceholder: "어떤 내용의 것인가요?",
           inputAttributes: {
             "aria-label": "메모 입력",
-            required: true
+            required: true,
           },
-          validationMessage: "입력값 누락 혹은 오류"
+          validationMessage: "입력값 누락 혹은 오류",
         },
         {
           title: "대응방안을 입력해주세요",
@@ -172,12 +172,12 @@ function Monitor(props) {
           inputPlaceholder: "내용을 입력해주세요.",
           inputAttributes: {
             "aria-label": "메모 입력",
-            required: true
+            required: true,
           },
           validationMessage: "입력값 누락 혹은 오류",
           confirmButtonText: `<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="save" class="svg-inline--fa fa-save fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg> 저장`,
           confirmButtonAriaLabel: "저장",
-        }
+        },
       ])
       .then((result) => {
         if (result.value && result.value.length === 5) {
@@ -186,7 +186,7 @@ function Monitor(props) {
           item.description = result.value[3];
           item.action_plan = result.value[4];
           item.search_keyword = useinput.current.value;
-          
+          let success = true;
           Swal.fire({
             title: "데이터 저장 작업 진행 중",
             html: "페이지 아카이빙 및 스크린샷 데이터를 저장하고 있습니다. 완료 후 창은 자동으로 닫힙니다.",
@@ -194,25 +194,51 @@ function Monitor(props) {
             didOpen: async () => {
               Swal.showLoading();
               let uid;
-              axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url, })
-                .then(({ data: { body: { data } } }) => {
-                  uid = data.uid
-                  axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
-                    .then(({ data }) => {
-                      console.log("스크린샷 : ", data);
-                      item.created_at = new Date();
-                      item.uid = uid;
-                      delete item["view"];
-                      axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item)
-                        .then((result) => {
-                          Swal.close();
-                        });
-                    })
-                    .catch(console.error);
+              axios
+                .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
+                  url: item.url,
                 })
-                .catch(console.error);
-            },   
+                .then(
+                  ({
+                    data: {
+                      body: { data },
+                    },
+                  }) => {
+                    uid = data.uid;
+                    axios
+                      .post(
+                        `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
+                        { url: item.url, uid: data.uid }
+                      )
+                      .then(({ data }) => {
+                        console.log("스크린샷 : ", data);
+                        item.created_at = new Date();
+                        item.uid = uid;
+                        delete item["view"];
+                        axios
+                          .post(
+                            `${Constants.SPRING_BACKEND.APIs.INTLIST}`,
+                            item
+                          )
+                          .then((result) => {
+                            Swal.close();
+                          })
+                          .catch((e) => {
+                            success =false
+                          });
+                      })
+                      .catch((e) => {
+                        success =false
+                      });
+                  }
+                )
+                .catch((e) => {
+                  success =false
+                });
+            },
             willClose: () => {
+              console.log(success);
+              
               const Toast = Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -227,7 +253,7 @@ function Monitor(props) {
 
               Toast.fire({
                 icon: "success",
-                title: `저장이 완료되었습니다.`,
+                title: '저장이 완료되었습니다.',
               });
             },
           });
@@ -235,9 +261,9 @@ function Monitor(props) {
       })
       .catch((error) => {
         Swal.fire({
-          title: '오류 발생!',
+          title: "오류 발생!",
           icon: "error",
-          html: '알 수 없는 에러가 발생하였습니다. 지속적으로 동일 현상이 발생하면 서버 관리자에게 문의해주세요.'
+          html: "알 수 없는 에러가 발생하였습니다. 지속적으로 동일 현상이 발생하면 서버 관리자에게 문의해주세요.",
         });
         console.error(error);
       });
@@ -301,7 +327,11 @@ function Monitor(props) {
                     <td>{post.title}</td>
                     <td>{post.view}</td>
                     <td>{post.author}</td>
-                    <td>{post.created_at !== '' ? new Date(post.created_at).toLocaleDateString() : '' }</td>
+                    <td>
+                      {post.created_at !== ""
+                        ? new Date(post.created_at).toLocaleDateString()
+                        : ""}
+                    </td>
                   </tr>
                 );
               })}

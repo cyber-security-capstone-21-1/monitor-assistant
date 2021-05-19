@@ -37,7 +37,7 @@ public class IntelligenceController {
 
     @GetMapping("/intelligences")
     @Transactional
-    public ResponseEntity<? extends BasicResponse> all(HttpServletRequest req) {
+    public ResponseEntity<? extends BasicResponse> getIntelligence(HttpServletRequest req) {
         String str = req.getHeader("Authorization");
         if (str.startsWith("Bearer ")) {
             str = str.substring(7);
