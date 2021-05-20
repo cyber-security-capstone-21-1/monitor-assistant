@@ -6,7 +6,7 @@ const Constants = {
             ARCHIVER: "/archive",
             SCREENSHOOTER: "/screenshot",
             RESIZER: "/screenshot/resize?uid=",
-            SCREENSHOTPREVIEW:"/screesshot/preview?url="
+            SCREENSHOTPREVIEW:"/screenshot/preview?url="
         }
     },
     SPRING_BACKEND: {
