@@ -5,7 +5,8 @@ const Constants = {
         APIs: {
             ARCHIVER: "/archive",
             SCREENSHOOTER: "/screenshot",
-            RESIZER: "/screenshot/resize?uid="
+            RESIZER: "/screenshot/resize?uid=",
+            SCREENSHOTPREVIEW:"/screesshot/preview?url="
         }
     },
     SPRING_BACKEND: {

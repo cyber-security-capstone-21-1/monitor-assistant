@@ -128,8 +128,8 @@ function Monitor(props) {
     })
       .queue([
         {
-          title: `<header>${item.title}</header>`,
-          html: item.content,
+        title: `<header>${item.title}</header>`,
+        html: <img src={`data:image/png;base64,${axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`)}`}/>
         },
         {
           title: "첩보 제목 입력",
@@ -194,6 +194,7 @@ function Monitor(props) {
             didOpen: async () => {
               Swal.showLoading();
               let uid;
+
               axios
                 .post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
                   url: item.url,
