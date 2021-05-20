@@ -114,7 +114,7 @@ function Monitor(props) {
 
   const openDialog = async (item) => {
     let res = '';
-    await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(res => {
+    axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(res => {
       console.log(res);
     });
 
