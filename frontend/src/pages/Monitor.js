@@ -129,7 +129,7 @@ function Monitor(props) {
       .queue([
         {
         title: `<header>${item.title}</header>`,
-        html: axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`)
+        html: <img src={`data:image/png;base64,${axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`)}`}/>
         },
         {
           title: "첩보 제목 입력",
