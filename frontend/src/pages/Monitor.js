@@ -189,7 +189,7 @@ function Monitor(props) {
           let success = true;
           Swal.fire({
             title: "데이터 저장 작업 진행 중",
-            html: "페이지 아카이빙 및 스크린샷 데이터를 저장하고 있습니다. 완료 후 창은 자동으로 닫힙니다.",
+            html: "페이지 아카이빙 및 스크린샷 데이터를 저장하고 있습니다.\n 완료 후 창은 자동으로 닫힙니다.",
             allowOutsideClick: false,
             didOpen: async () => {
               Swal.showLoading();
@@ -238,7 +238,7 @@ function Monitor(props) {
             },
             willClose: () => {
               console.log(success);
-              
+
               const Toast = Swal.mixin({
                 toast: true,
                 position: "top-end",
