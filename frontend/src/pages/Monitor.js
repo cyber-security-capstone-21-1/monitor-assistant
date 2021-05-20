@@ -129,8 +129,8 @@ function Monitor(props) {
     })
       .queue([
         {
-          title: `<header>${item.title}</header>`,
-          html: item.content,
+        title: `<header>${item.title}</header>`,
+        html: axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`)
         },
         {
           title: '첩보 제목 입력',
@@ -194,7 +194,8 @@ function Monitor(props) {
             didOpen: async () => {
               Swal.showLoading();
               let uid;
-              axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url, })
+        
+              axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url, }) 
                 .then(({ data: { body: { data } } }) => {
                   uid = data.uid
                   axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
@@ -203,7 +204,7 @@ function Monitor(props) {
                       item.created_at = new Date();
                       item.uid = uid;
                       delete item["view"];
-                      axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item)
+                      axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`, item) 
                         .then((result) => {
                           Swal.close();
                         });
