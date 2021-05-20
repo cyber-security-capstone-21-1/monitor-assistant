@@ -131,7 +131,7 @@ function Monitor(props) {
           title: `<header>${item.title}</header>`,
           html: (
             <img
-              src={`data:image/png;base64, ${await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`)}`}
+              src={`data:image/png;base64, ${axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`)}`}
             />
           ),
         },
