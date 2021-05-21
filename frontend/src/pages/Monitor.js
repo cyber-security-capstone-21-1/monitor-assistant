@@ -133,10 +133,11 @@ function Monitor(props) {
       .queue([
         {
           title: `<header>${item.title}</header>`,
-          html: (
+          html: 
+          (
             <img
               src={`data:image/png;base64, ${await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(response => {
-                   let data = response.data;
+                   let data = response.body;
                    return data
                 })}`}
             />
