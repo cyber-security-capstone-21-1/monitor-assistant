@@ -134,11 +134,9 @@ function Monitor(props) {
       .queue([
         {
           title: `<header>${item.title}</header>`,
-          html: (
-            <img
-              src={`data:image/png;base64, ${res}`}
-            />
-          ),
+          html: `
+            <img src='{data:image/png;base64, ${res}}' />
+            `,
         },
         {
           title: "첩보 제목 입력",
