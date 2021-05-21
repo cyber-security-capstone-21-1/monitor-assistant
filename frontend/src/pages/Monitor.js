@@ -136,7 +136,7 @@ function Monitor(props) {
           html: `
             <img src='data:image/png;base64,${res}' />
           `,
-          footer : item.url,
+          footer : `<a href=${item.url}>본문으로 이동</a>`,
         },
         {
           title: "첩보 제목 입력",
