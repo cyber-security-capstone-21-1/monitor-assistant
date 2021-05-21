@@ -113,10 +113,10 @@ function Monitor(props) {
   };
 
   const openDialog = async (item) => {
-    let res
-    // await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(response => {
-    //   res = response.data;
-    // })
+    let res;
+    await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(response => {
+      res = response.data;
+    })
     Swal.mixin({
       cancelButtonColor: "#d33",
       confirmButtonText: `<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" class="svg-inline--fa fa-arrow-right fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg> 다음`,
@@ -134,20 +134,8 @@ function Monitor(props) {
         {
           title: `<header>${item.title}</header>`,
           html: `
-            <img src='{data:image/png;base64, ${res}}' />
-            `,
-          // html: (
-            // <img
-            //   src={`data:image/png;base64, ${await axios
-            //     .get(
-            //       `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`
-            //     )
-            //     .then((response) => {
-            //       let data = response.data;
-            //       return data;
-            //     })}`}
-            // />
-          // ),
+            <img src='data:image/png;base64,${res}' />
+          `,
         },
         {
           title: "첩보 제목 입력",
@@ -261,25 +249,30 @@ function Monitor(props) {
             willClose: () => {
               console.log(success);
 
+              if (success) {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                  },
+                });
 
-
-              
-              const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                  toast.addEventListener("mouseenter", Swal.stopTimer);
-                  toast.addEventListener("mouseleave", Swal.resumeTimer);
-                },
-              });
-
-              Toast.fire({
-                icon: "success",
-                title: "저장이 완료되었습니다.",
-              });
+                Toast.fire({
+                  icon: "success",
+                  title: "저장이 완료되었습니다.",
+                });
+              } else {
+                Swal.fire({
+                  title: "오류 발생!",
+                  icon: "error",
+                  html: "알 수 없는 에러가 발생하였습니다. 지속적으로 동일 현상이 발생하면 서버 관리자에게 문의해주세요.",
+                });
+              }
             },
           });
         }
