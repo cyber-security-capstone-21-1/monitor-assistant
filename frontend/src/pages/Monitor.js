@@ -133,10 +133,11 @@ function Monitor(props) {
       .queue([
         {
           title: `<header>${item.title}</header>`,
+          width:'65em',
           html: `
-            <img src='data:image/png;base64,${res}' style="width:600px;" />
+            <img src='data:image/png;base64,${res}' style="width:60em;" />
           `,
-          footer : `<a href=${item.url}>본문으로 이동</a>`,
+          footer : `<a href=${item.url}>본문으로 이동</a>`, 
         },
         {
           title: "첩보 제목 입력",
