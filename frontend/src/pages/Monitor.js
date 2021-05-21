@@ -115,7 +115,7 @@ function Monitor(props) {
   const openDialog = async (item) => {
     let res;
     await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(response => {
-      console.log(res);
+      console.log(response);
       res = response.body;
     })
     Swal.mixin({
