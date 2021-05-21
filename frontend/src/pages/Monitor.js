@@ -134,7 +134,7 @@ function Monitor(props) {
         {
           title: `<header>${item.title}</header>`,
           html: `
-            <img src='data:image/png;base64,${res}' />
+            <img src='data:image/jpg;base64,${res}' />
           `,
         },
         {
