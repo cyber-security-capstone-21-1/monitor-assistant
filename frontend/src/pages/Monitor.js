@@ -134,7 +134,7 @@ function Monitor(props) {
         {
           title: `<header>${item.title}</header>`,
           html: `
-            <img src='data:image/png;base64,${res}' />
+            <img src='data:image/png;base64,${res}' style="width:600px;" />
           `,
           footer : `<a href=${item.url}>본문으로 이동</a>`,
         },
