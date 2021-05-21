@@ -115,9 +115,7 @@ function Monitor(props) {
   const openDialog = async (item) => {
     let res;
     await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(response => {
-      
       res = response.data;
-      console.log(typeof(res));
     })
     Swal.mixin({
       cancelButtonColor: "#d33",
@@ -136,7 +134,7 @@ function Monitor(props) {
         {
           title: `<header>${item.title}</header>`,
           html: `
-            <img src='data:image/png;base64,${res}' />
+            ${res}
           `,
         },
         {
