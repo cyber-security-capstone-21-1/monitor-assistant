@@ -115,8 +115,9 @@ function Monitor(props) {
   const openDialog = async (item) => {
     let res;
     await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(response => {
-      console.log(response);
-      res = response.body;
+      
+      res = response.data;
+      console.log(typeof(res));
     })
     Swal.mixin({
       cancelButtonColor: "#d33",
