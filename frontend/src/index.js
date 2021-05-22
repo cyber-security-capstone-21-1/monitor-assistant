@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
-
 import Constants from "@/shared/constants";
 
 import axios from 'axios';

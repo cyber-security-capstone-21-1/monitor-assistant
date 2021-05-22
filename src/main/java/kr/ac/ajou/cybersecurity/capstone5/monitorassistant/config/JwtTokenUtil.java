@@ -16,8 +16,13 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = 1L;
-    public static final long JWT_TOKEN_VALIDITY = 30*60*1000;
-    public static final long REFRESH_TOKEN_VALIDITY = 1000*60*60*24;
+    public static final long MINUTE = 1000 * 60;
+    public static final long HOUR = 1000 * 60 * 60;
+    public static final long DAY = 1000 * 60 * 60 * 24;
+//    public static final long JWT_TOKEN_VALIDITY = 30*MINUTE;
+//    public static final long REFRESH_TOKEN_VALIDITY = DAY;
+    public static final long JWT_TOKEN_VALIDITY = 2 * MINUTE;
+    public static final long REFRESH_TOKEN_VALIDITY = 4 * MINUTE;
     @Value("${jwt.secret}")
     private String secret;
 
@@ -43,6 +48,7 @@ public class JwtTokenUtil implements Serializable {
 
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
+        System.out.println("만료일" + expiration);
         return expiration.before(new Date());
     }
 

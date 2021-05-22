@@ -121,8 +121,9 @@ public class UserAuthenticationController {
         String email = jwtTokenUtil.getUsernameFromToken(refresh);
         if(email != null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+            System.out.println("리프레시 여부");
             Boolean isValid = jwtTokenUtil.validateToken(refresh, userDetails);
-            System.out.println(isValid);
+            System.out.println("리프레시 여부" +isValid);
             if(isValid) {
                 final String accessToken = jwtTokenUtil.generateToken(userDetails);
                 TokenEntity tokenEntity = new TokenEntity();

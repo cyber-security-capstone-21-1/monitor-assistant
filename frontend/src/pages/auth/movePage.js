@@ -17,6 +17,8 @@ const MovePage = ({ location, children }) => {
   };
 
   const checkToken = async () => {
+    
+    console.log(history, "에서", location.pathname, "으로 이동에서 체크 토큰 진행");
     AuthenticationService.executeJwtAuthenticationService().then((res) => {
         console.log('유효여부 : ',res.data);
       }).catch((e) => {

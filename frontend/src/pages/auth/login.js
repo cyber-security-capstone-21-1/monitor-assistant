@@ -4,7 +4,6 @@ import AuthenticationService from "@/shared/AuthenticationService";
 
 import axios from "axios";
 import Swal from "sweetalert2";
-import Constants from "@/shared/constants";
 
 export default function Login(context) {
   const [passwdMsg, setPasswdMsg] = useState("");

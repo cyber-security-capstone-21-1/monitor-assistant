@@ -18,8 +18,7 @@ function IntList() {
       didOpen: async () => {
         Swal.showLoading();
         console.log("목록 불러옴");
-        const result = axios
-          .get(`${Constants.SPRING_BACKEND.APIs.INTLIST}`)
+        axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}`)
           .then((result) => {
             setIntList([...result.data.data]);
             Swal.close();
