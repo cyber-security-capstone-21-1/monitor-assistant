@@ -19,10 +19,10 @@ public class JwtTokenUtil implements Serializable {
     public static final long MINUTE = 1000 * 60;
     public static final long HOUR = 1000 * 60 * 60;
     public static final long DAY = 1000 * 60 * 60 * 24;
-//    public static final long JWT_TOKEN_VALIDITY = 30*MINUTE;
-//    public static final long REFRESH_TOKEN_VALIDITY = DAY;
-    public static final long JWT_TOKEN_VALIDITY = 2 * MINUTE;
-    public static final long REFRESH_TOKEN_VALIDITY = 4 * MINUTE;
+    public static final long JWT_TOKEN_VALIDITY = 30*MINUTE;
+    public static final long REFRESH_TOKEN_VALIDITY = DAY;
+//    public static final long JWT_TOKEN_VALIDITY = 2 * MINUTE;
+//    public static final long REFRESH_TOKEN_VALIDITY = 4 * MINUTE;
     @Value("${jwt.secret}")
     private String secret;
 
