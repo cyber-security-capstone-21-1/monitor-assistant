@@ -62,9 +62,10 @@ export default function SignUp() {
               axios
                 .post(`/api/auth/login`, data)
                 .then((response) => {
-                  const { accessToken } = response.data;
+                  const { accessToken,refreshToken } = response.data;
+                  console.log(response);
                   AuthenticationService.registerSuccessfulLoginForJwt(
-                    data.email,
+                    refreshToken,
                     accessToken
                   );
                   setAuthInfo("", "");
