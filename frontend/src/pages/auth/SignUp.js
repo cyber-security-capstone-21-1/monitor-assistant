@@ -57,8 +57,10 @@ export default function SignUp() {
           axios.post(`/api/auth/signup`, data).then((res) => {
               console.log("회원가입 가능 signup 응답값 : ", res);
               axios.post(`/api/auth/login`, data).then((response) => {
-                  const { accessToken,refreshToken } = response.data;
+                  const { accessToken,refreshToken } = response.data.data;
                   console.log(response);
+                  console.log(response.data.data)
+                  console.log(accessToken);
                   AuthenticationService.registerSuccessfulLoginForJwt(
                     refreshToken,
                     accessToken
