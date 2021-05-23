@@ -173,5 +173,5 @@
   "_moduleAliases": {
     "@": "src"
   },
-  "proxy": "http://monitor-assistant.com"
+  "proxy": "https://monitor-assistant.com"
 }

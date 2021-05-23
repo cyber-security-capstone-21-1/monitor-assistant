@@ -49,19 +49,14 @@ export default function SignUp() {
     }
 
     delete data.passwordConfirm;
+
     //회원가입 성공과 동시에 로그인
-    axios.post(`/api/auth/emailvalidity`, data)
-      .then((res) => {
+    axios.post(`/api/auth/emailvalidity`, data).then((res) => {
         if (!res.data) {
-            console.log('로그인 진행')
-          // 회원가입 가능
-          axios
-            .post(`/api/auth/signup`, data)
-            .then((res) => {
+          console.log('로그인 진행')
+          axios.post(`/api/auth/signup`, data).then((res) => {
               console.log("회원가입 가능 signup 응답값 : ", res);
-              axios
-                .post(`/api/auth/login`, data)
-                .then((response) => {
+              axios.post(`/api/auth/login`, data).then((response) => {
                   const { accessToken,refreshToken } = response.data;
                   console.log(response);
                   AuthenticationService.registerSuccessfulLoginForJwt(
@@ -69,8 +64,7 @@ export default function SignUp() {
                     accessToken
                   );
                   setAuthInfo("", "");
-                })
-                .catch((error) => {
+                }).catch((error) => {
                   Swal.fire({
                     title: "로그인 실패",
                     icon: "error",
