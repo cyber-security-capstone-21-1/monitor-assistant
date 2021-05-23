@@ -53,14 +53,10 @@ export default function SignUp() {
     //회원가입 성공과 동시에 로그인
     axios.post(`/api/auth/emailvalidity`, data).then((res) => {
         if (!res.data) {
-          console.log('로그인 진행')
           axios.post(`/api/auth/signup`, data).then((res) => {
               console.log("회원가입 가능 signup 응답값 : ", res);
               axios.post(`/api/auth/login`, data).then((response) => {
                   const { accessToken,refreshToken } = response.data.data;
-                  console.log(response);
-                  console.log(response.data.data)
-                  console.log(accessToken);
                   AuthenticationService.registerSuccessfulLoginForJwt(
                     refreshToken,
                     accessToken
@@ -75,14 +71,12 @@ export default function SignUp() {
                   });
                   console.error(error);
                 });
-            })
-            .catch(console.log);
+            }).catch(console.log);
         } else {
           setEmailMsg("중복 이메일입니다. 다른 이메일로 시도하세요.");
           return;
         }
-      })
-      .catch((error) => {
+      }).catch((error) => {
         Swal.fire({
           title: "회원가입 실패",
           icon: "error",
