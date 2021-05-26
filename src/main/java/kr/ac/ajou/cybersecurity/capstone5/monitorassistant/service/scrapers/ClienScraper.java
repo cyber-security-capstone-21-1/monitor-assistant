@@ -28,6 +28,7 @@ public class ClienScraper implements Scraper {
                             "&sort=recency&p=" + i + "&boardCd=&isBoard=false")
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
+                            .ignoreHttpErrors(true)
                             .execute();
             doc[i] = response.parse();
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
@@ -36,7 +37,6 @@ public class ClienScraper implements Scraper {
                         .author(el.select(".nickname").text())
                         .site("clien")
                         .title(el.select(".subject_fixed").text())
-                      //  .created_at(el.select(".timestamp").text())
                         .url("https://www.clien.net" + el.select(".subject_fixed").attr("href"))
                         .content(el.select(".preview").text())
                         .type(el.select(".shortname.fixed").text())
@@ -47,7 +47,9 @@ public class ClienScraper implements Scraper {
                 if (postEntity.getAuthor().equals("")) {
                     postEntity.setAuthor(el.select(".nickname img").attr("alt"));
                 }
-                Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
+                Document doc2 = Jsoup.connect(postEntity.getUrl())
+                        .ignoreHttpErrors(true)
+                        .get();
                 postEntity.setContent(doc2.select("div.post_article").html());
                 list.add(postEntity);
             }
