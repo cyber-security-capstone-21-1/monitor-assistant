@@ -30,6 +30,7 @@ public class InvenScraper implements Scraper {
                     Jsoup.connect(INVEN_CRAWL_DATA_URL + keyword + "/" + (i + 1)+"?sort=recency")
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
+                            .ignoreHttpErrors(true)
                             .execute();
             doc[i] = response.parse();
 
@@ -40,14 +41,21 @@ public class InvenScraper implements Scraper {
                             .title(el.select("a.name").text())
                             .url(el.select("a.name").attr("href"))
                             .build();
-                    Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                    postEntity.setContent(doc2.select("div#powerbbsContent").html());
-                String time=doc2.select("div.articleDate").text();
-                    postEntity.setAuthor(doc2.select("div.articleWriter").text());
-                if(!time.equals("")) {
-                    ChangeDate fun = new ChangeDate(time,2);
-                    postEntity.setCreated_at(fun.getLocalDateTime());
-                }
+                    Document doc2 = Jsoup.connect(postEntity.getUrl())
+                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                            .referrer("www.google.com")
+                            .ignoreHttpErrors(true)
+                            .get();
+                    if(!doc2.select("fiv.detailBody").text().contains("서비스 이용에 불편을 드려 대단히 죄송합니다.")) {
+                        postEntity.setContent(doc2.select("div#powerbbsContent").html());
+                        String time = doc2.select("div.articleDate").text();
+                        postEntity.setAuthor(doc2.select("div.articleWriter").text());
+                        System.out.println(postEntity.getTitle());
+                        if (!time.equals("")) {
+                            ChangeDate fun = new ChangeDate(time, 2);
+                            postEntity.setCreated_at(fun.getLocalDateTime());
+                        }
+                    }
                     list.add(postEntity);
 
             }
