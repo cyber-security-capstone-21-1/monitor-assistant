@@ -203,11 +203,11 @@ function Monitor(props) {
                 let uid;
                 axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
                     url: item.url,
-                  }).then(({ data: { body: { data }, }, }) => {
+                  }).then(({ data: { body: { data }, }, } = res) => {
                       uid = data.uid;
-                      axios.post(
-                          `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
-                          { url: item.url, uid: data.uid })
+                      console.log(res);
+                      console.log(uid);
+                      axios.post( `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
                         .then(({ data }) => {
                           console.log("스크린샷 : ", data);
                           item.created_at = new Date();
@@ -227,6 +227,7 @@ function Monitor(props) {
                     }
                   ).catch((e) => {
                     success = false;
+                    console.log(e);
                     Swal.close();
                   });
               },

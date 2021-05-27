@@ -5,6 +5,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class MonitorAssistantApplication {
+
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(MonitorAssistantApplication.class)
 				.run(args);
