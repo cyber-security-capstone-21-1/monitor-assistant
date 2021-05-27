@@ -50,7 +50,6 @@ public class InvenScraper implements Scraper {
                         postEntity.setContent(doc2.select("div#powerbbsContent").html());
                         String time = doc2.select("div.articleDate").text();
                         postEntity.setAuthor(doc2.select("div.articleWriter").text());
-                        System.out.println(postEntity.getTitle());
                         if (!time.equals("")) {
                             ChangeDate fun = new ChangeDate(time, 2);
                             postEntity.setCreated_at(fun.getLocalDateTime());
@@ -60,6 +59,7 @@ public class InvenScraper implements Scraper {
 
             }
         }
+        System.out.println("inven size : "+ list.size());
         return list;
     }
 }

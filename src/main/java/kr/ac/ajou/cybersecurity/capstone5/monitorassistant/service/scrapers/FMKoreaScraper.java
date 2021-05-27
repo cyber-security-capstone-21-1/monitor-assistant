@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class FMKoreaScraper implements Scraper {
 
-    private static String FMKOREA_CRAWL_DATA_URL = "https://www.fmkorea.com/index.php?act=IS&mid=home&where=document&is_keyword=";
+    private static String FMKOREA_CRAWL_DATA_URL = "https://www.fmkorea.com/index.php?act=IS&is_keyword=";
 
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
@@ -25,7 +25,7 @@ public class FMKoreaScraper implements Scraper {
 
         for (int i = 0; i < 3; i++) {
             Connection.Response response =
-                    Jsoup.connect(FMKOREA_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
+                    Jsoup.connect(FMKOREA_CRAWL_DATA_URL + keyword + "&mid=home&where=document&page=&page=" + (i + 1))
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
@@ -43,7 +43,9 @@ public class FMKoreaScraper implements Scraper {
                 ChangeDate fun= new ChangeDate(el.select(".time").text(),2);
                 postEntity.setCreated_at(fun.getLocalDateTime());
 
-                Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
+                Document doc2 = Jsoup.connect(postEntity.getUrl())
+                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                        .get();
                 String str = doc2.select(".side.fr").text();
                 String str2 = postEntity.getTitle();
                 postEntity.setView(str.substring(5,str.indexOf("추천")-1));

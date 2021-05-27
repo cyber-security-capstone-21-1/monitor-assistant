@@ -24,6 +24,7 @@ public class IlbeScraper implements Scraper {
 
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException, ParseException {
+        long beforeTime = System.currentTimeMillis();
         List<PostEntity> list = new ArrayList<>();
         Document doc[] = new Document[3];
 
@@ -55,6 +56,9 @@ public class IlbeScraper implements Scraper {
                 list.add(postEntity);
             }
         }
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        System.out.println("일베 걸리는 시간(m) : "+secDiffTime);
         return list;
     }
 }

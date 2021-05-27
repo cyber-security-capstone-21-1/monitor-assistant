@@ -26,7 +26,8 @@ public class BobaedreamScraper implements Scraper {
             Connection.Response response =
                     Jsoup.connect(BOBAEDREAM_CRAWL_DATA_URL)
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
-                            .referrer("www.google.com")
+                            .referrer("https://www.bobaedream.co.kr/search")
+                            .ignoreHttpErrors(true)
                             .method(Connection.Method.POST)
                             .data("colle", "community")
                             .data("searchField", "ALL")
@@ -45,7 +46,11 @@ public class BobaedreamScraper implements Scraper {
                         .url("https://www.bobaedream.co.kr" + el.select("dl > dt > a").attr("href"))
                         .type(el.select("span.first").text())
                         .build();
-                Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
+
+                Document doc2 = Jsoup.connect(postEntity.getUrl())
+                        .ignoreHttpErrors(true)
+                        .get();
+                System.out.println(postEntity.getTitle());
                 String str = doc2.select("span.countGroup").text();
                 String time=str.substring(str.lastIndexOf("|") + 2);
                 StringBuffer str2= new StringBuffer(time);

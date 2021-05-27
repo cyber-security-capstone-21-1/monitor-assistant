@@ -29,6 +29,9 @@ public class TodayhumorScraper implements Scraper {
                             .referrer("www.google.com")
                             .execute();
             doc[i] = response.parse();
+            System.out.println("-----------------------------------------------");
+            System.out.println("오늘의 유머 html 받아오는지??"+doc[i].text());
+            System.out.println("-----------------------------------------------");
             Elements elements = doc[i].select(".table_list tbody tr");
             for (Element el : elements) {
                 if (!el.select(".name").text().equals("")) {
