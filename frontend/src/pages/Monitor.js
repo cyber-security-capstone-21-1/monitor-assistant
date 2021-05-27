@@ -203,6 +203,7 @@ function Monitor(props) {
                 let uid;
                 axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
                     url: item.url,
+                    timeout : 1000*120
                   }).then(({ data: { body: { data }, }, } = res) => {
                       uid = data.uid;
                       console.log(res);
