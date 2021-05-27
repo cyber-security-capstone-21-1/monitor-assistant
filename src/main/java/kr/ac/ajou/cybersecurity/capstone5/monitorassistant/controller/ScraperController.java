@@ -49,27 +49,16 @@ public class ScraperController {
 
         List<PostEntity> posts = null;
         String statusText;
-//        long beforeTime = System.currentTimeMillis();
-//        long afterTime = System.currentTimeMillis();
-//        long secDiffTime = (afterTime - beforeTime)/1000;
-//        System.out.println("클리앙 걸리는 시간 : "+secDiffTime);
+
         ScraperService scraper = new ScraperService();
         if (siteId.equals("CS01")) {
             scraper.setScraperType(new NaverScraper());
         } else if (siteId.equals("CS02")) {
-            long beforeTime = System.currentTimeMillis();
             scraper.setScraperType(new IlbeScraper());
-            long afterTime = System.currentTimeMillis();
-        long secDiffTime = (afterTime - beforeTime)/1000;
-        System.out.println("일베 걸리는 시간 : "+secDiffTime);
         } else if (siteId.equals("CS03")) {
             scraper.setScraperType(new BobaedreamScraper());
         } else if (siteId.equals("CS04")) {
-            long beforeTime = System.currentTimeMillis();
             scraper.setScraperType(new ClienScraper());
-            long afterTime = System.currentTimeMillis();
-            long secDiffTime = (afterTime - beforeTime)/1000;
-            System.out.println("일베 걸리는 시간 : "+secDiffTime);
         } else if (siteId.equals("CS05")) {
             scraper.setScraperType(new DCInsideScraper());
         } else if (siteId.equals("CS06")) {

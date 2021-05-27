@@ -16,6 +16,7 @@ import java.util.List;
 public class NatePannScraper implements Scraper {
 
     private static String NATE_CRAWL_DATA_URL = "https://pann.nate.com/search/talk?q=";
+    long beforeTime = System.currentTimeMillis();
 
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
@@ -49,6 +50,9 @@ public class NatePannScraper implements Scraper {
                 list.add(postEntity);
             }
         }
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        System.out.println("네이트판 걸리는 시간 : "+secDiffTime);
         return list;
     }
 }

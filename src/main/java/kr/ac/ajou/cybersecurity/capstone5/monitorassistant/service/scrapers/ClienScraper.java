@@ -20,6 +20,8 @@ public class ClienScraper implements Scraper {
 
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
+                long beforeTime = System.currentTimeMillis();
+
         List<PostEntity> list = new ArrayList<>();
         Document[] doc = new Document[3];
         for (int i = 0; i < 3; i++) {
@@ -55,7 +57,9 @@ public class ClienScraper implements Scraper {
             }
         }
 
-
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime)/1000;
+        System.out.println("클리앙 걸리는 시간 : "+secDiffTime);
         return list;
     }
 }
