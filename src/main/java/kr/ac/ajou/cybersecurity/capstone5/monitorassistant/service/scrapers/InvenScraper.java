@@ -33,7 +33,7 @@ public class InvenScraper implements Scraper {
                             .ignoreHttpErrors(true)
                             .execute();
             doc[i] = response.parse();
-
+            System.out.println("인벤 : "+ response);
             Elements elements = doc[i].select("div.section_body ul li");
             for (Element el : elements) {
                     PostEntity postEntity = PostEntity.builder()

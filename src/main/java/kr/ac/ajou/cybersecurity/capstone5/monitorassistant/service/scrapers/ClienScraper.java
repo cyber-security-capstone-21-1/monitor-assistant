@@ -23,17 +23,16 @@ public class ClienScraper implements Scraper {
                 long beforeTime = System.currentTimeMillis();
 
         List<PostEntity> list = new ArrayList<>();
-        Document[] doc = new Document[3];
-        for (int i = 0; i < 3; i++) {
+        Document doc;
+
             Connection.Response response =
-                    Jsoup.connect(Clien_CRAWL_DATA_URL + keyword +
-                            "&sort=recency&p=" + i + "&boardCd=&isBoard=false")
+                    Jsoup.connect(Clien_CRAWL_DATA_URL + keyword + "&sort=recency&p=" + 1 + "&boardCd=&isBoard=false")
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .ignoreHttpErrors(true)
                             .execute();
-            doc[i] = response.parse();
-            Elements elements = doc[i].select(".list_item.symph_row.jirum");
+            doc = response.parse();
+            Elements elements = doc.select(".list_item.symph_row.jirum");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
                         .author(el.select(".nickname").text())
@@ -55,7 +54,7 @@ public class ClienScraper implements Scraper {
                 postEntity.setContent(doc2.select("div.post_article").html());
                 list.add(postEntity);
             }
-        }
+
 
         long afterTime = System.currentTimeMillis();
         long secDiffTime = (afterTime - beforeTime)/1000;

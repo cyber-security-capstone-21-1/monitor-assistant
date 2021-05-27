@@ -26,17 +26,15 @@ public class IlbeScraper implements Scraper {
     public List<PostEntity> getPosts(String keyword) throws IOException, ParseException {
 
         List<PostEntity> list = new ArrayList<>();
-        Document doc[] = new Document[3];
-
-        for(int i = 0; i < 3; i++) {
+        Document doc;
             Connection.Response response =
-                    Jsoup.connect(ILBE_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
+                    Jsoup.connect(ILBE_CRAWL_DATA_URL + keyword + "&page=" + (1))
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
-            doc[i] = response.parse();
+            doc = response.parse();
 
-            Elements elements = doc[i].select("div.search-list ul li");
+            Elements elements = doc.select("div.search-list ul li");
             for (Element el : elements) {
 
                 PostEntity postEntity = PostEntity.builder()
@@ -55,7 +53,7 @@ public class IlbeScraper implements Scraper {
 
                 list.add(postEntity);
             }
-        }
+
         return list;
     }
 }
