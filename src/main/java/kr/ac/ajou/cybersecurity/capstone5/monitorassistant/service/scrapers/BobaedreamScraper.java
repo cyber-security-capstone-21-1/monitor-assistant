@@ -11,31 +11,39 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BobaedreamScraper implements Scraper {
 
     private static String BOBAEDREAM_CRAWL_DATA_URL = "https://www.bobaedream.co.kr/search";
+    Map<String, String> data = new HashMap<>();
 
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
         Document[] doc = new Document[3];
+                 data.put("colle", "community");
+                data.put("searchField", "ALL");
+                data.put("sort", "DATE");
+                data.put("startDate", "");
+                data.put("keyword", keyword);
         for(int i = 0; i < 3; i++) {
+            data.put("page", Integer.toString(i + 1));
             Connection.Response response =
                     Jsoup.connect(BOBAEDREAM_CRAWL_DATA_URL)
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("https://www.bobaedream.co.kr/search")
+                            .header("Connection","keep-alive")
+                            .header("Content-Type","application/x-www-form-urlencoded")
+                            .header("Origin","https://www.bobaedream.co.kr")
+                            .header("Host","www.bobaedream.co.kr")
                             .ignoreHttpErrors(true)
                             .method(Connection.Method.POST)
-                            .data("colle", "community")
-                            .data("searchField", "ALL")
-                            .data("page", Integer.toString(i + 1))
-                            .data("sort", "DATE")
-                            .data("startDate", "")
-                            .data("keyword", keyword)
                             .followRedirects(true)
+                            .data(data)
                             .execute();
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
