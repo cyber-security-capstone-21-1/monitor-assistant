@@ -334,7 +334,7 @@ function Monitor(props) {
                     <td>
                       {post.created_at !== ""
                         ? new Date(post.created_at).toLocaleDateString()
-                        : ""}
+                        : "" }
                     </td>
                   </tr>
                 );
