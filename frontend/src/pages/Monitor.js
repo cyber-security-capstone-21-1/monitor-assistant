@@ -207,7 +207,7 @@ function Monitor(props) {
                   Swal.showLoading();
                   let uid;
                   const requestArchive = axios.create();
-                  requestArchive.default.timeout = 1000 * 60 * 2;
+                  requestArchive.defaults.timeout = 1000 * 60 * 2;
                   requestArchive.post(
                       `${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url })
                     .then((res) => {
