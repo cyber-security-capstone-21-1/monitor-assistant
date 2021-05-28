@@ -28,7 +28,7 @@ public class Cook82Scraper implements Scraper {
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
-            System.out.println("82cook: " +response);
+            System.out.println("82cook: " +response.statusCode()+ response.statusMessage());
             doc[i] = response.parse();
             Elements elements = doc[i].select("div#bbs table tbody tr");
             for (Element el : elements) {
