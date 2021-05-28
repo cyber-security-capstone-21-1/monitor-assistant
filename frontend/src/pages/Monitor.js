@@ -113,6 +113,7 @@ function Monitor(props) {
 
   const openDialog = async (item) => {
     let res;
+    let failMessage;
     Swal.showLoading();
     await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`).then(response => {
       res = response.data;
@@ -201,9 +202,8 @@ function Monitor(props) {
               didOpen: async () => {
                 Swal.showLoading();
                 let uid;
-                axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
-                    url: item.url
-                  }).then((res) => {
+                axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url })
+                  .then((res) => {
                       console.log('아카이버 결과', res);
                       axios.post( `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
                         .then(({ data }) => {
@@ -216,15 +216,18 @@ function Monitor(props) {
                               Swal.close();
                             }).catch((e) => {
                               success = false;
+                              failMessage = 'intelligence 저장 실패'
                               Swal.close();
                             });
                         }).catch((e) => {
                           success = false;
+                          failMessage = '스크린샷 실패'
                           Swal.close();
                         });
                     }
                   ).catch((e) => {
                     success = false;
+                    failMessage = '아카이브 실패';
                     console.log(e);
                     Swal.close();
                   });
@@ -250,7 +253,7 @@ function Monitor(props) {
                   Swal.fire({
                     title: "오류 발생!",
                     icon: "error",
-                    html: "알 수 없는 에러가 발생하였습니다. 지속적으로 동일 현상이 발생하면 서버 관리자에게 문의해주세요.",
+                    html: failMessage,
                   });
                 }
               },
