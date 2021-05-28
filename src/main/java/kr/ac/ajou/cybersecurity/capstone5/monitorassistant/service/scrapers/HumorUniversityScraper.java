@@ -29,13 +29,13 @@ public class HumorUniversityScraper implements Scraper {
 
 
         for (int i = 0; i < 3; i++) {
-        doc[i]=Jsoup.connect(HUMORUNIVERSITY_CRAWL_DATA_URL +encodeKeyword+"&search_type=&x=0&y=0&page="+i+1)
+            Connection.Response response =
+            Jsoup.connect(HUMORUNIVERSITY_CRAWL_DATA_URL +encodeKeyword+"&search_type=&x=0&y=0&page="+i+1)
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
-                .get();
-            System.out.println("-----------------------------------------------");
-            System.out.println("웃긴대학 html 받아오는지??"+doc[i].text());
-            System.out.println("-----------------------------------------------");
+                .execute();
 
+            System.out.println("웃긴대학 : " +response);
+            doc[i] = response.parse();
             Elements elements = doc[i].select("div[style=margin:10px 0 0 0px;*margin: 0 0 0 0;] > table");
             for (Element el : elements) {
                 if (!el.select("a[style=text-decoration: underline;]").text().isEmpty()) {

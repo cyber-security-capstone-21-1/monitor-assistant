@@ -45,6 +45,7 @@ public class BobaedreamScraper implements Scraper {
                             .followRedirects(true)
                             .data(data)
                             .execute();
+            System.out.println("보배드림 : " +response);
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
             for (Element el : elements) {
