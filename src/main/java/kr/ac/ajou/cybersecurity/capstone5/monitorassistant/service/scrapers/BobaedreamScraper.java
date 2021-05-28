@@ -24,57 +24,55 @@ public class BobaedreamScraper implements Scraper {
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
-//        Document[] doc = new Document[3];
         Document doc;
-                 data.put("colle", "community");
-                data.put("searchField", "ALL");
-                data.put("sort", "DATE");
-                data.put("startDate", "");
-                data.put("keyword", keyword);
-        //for(int i = 0; i < 1; i++) {
-            data.put("page", Integer.toString( 1));
-            Connection.Response response =
-                    Jsoup.connect(BOBAEDREAM_CRAWL_DATA_URL)
-                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
-                            .referrer("https://www.bobaedream.co.kr/search")
-                            .header("Connection","keep-alive")
-                            .header("Content-Type","application/x-www-form-urlencoded")
-                            .header("Origin","https://www.bobaedream.co.kr")
-                            .header("Host","www.bobaedream.co.kr")
-                            .ignoreHttpErrors(true)
-                            .method(Connection.Method.POST)
-                            .followRedirects(false)
-                            .data(data)
-                            .execute();
-            doc = response.parse();
-            Elements elements = doc.select(".search_Community ul li");
-            for (Element el : elements) {
-                PostEntity postEntity = PostEntity.builder()
-                        .site("보배드림")
-                        .title(el.select("dl dt").text())
-                        .url("https://www.bobaedream.co.kr" + el.select("dl > dt > a").attr("href"))
-                        .type(el.select("span.first").text())
-                        .build();
+        data.put("colle", "community");
+        data.put("searchField", "ALL");
+        data.put("sort", "DATE");
+        data.put("startDate", "");
+        data.put("keyword", keyword);
 
-                Document doc2 = Jsoup.connect(postEntity.getUrl())
+        data.put("page", Integer.toString(1));
+        Connection.Response response =
+                Jsoup.connect(BOBAEDREAM_CRAWL_DATA_URL)
+                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                        .referrer("https://www.bobaedream.co.kr/search")
+                        .header("Connection", "keep-alive")
+                        .header("Content-Type", "application/x-www-form-urlencoded")
+                        .header("Origin", "https://www.bobaedream.co.kr")
+                        .header("Host", "www.bobaedream.co.kr")
                         .ignoreHttpErrors(true)
-                        .get();
-                String str = doc2.select("span.countGroup").text();
-                if(!str.isEmpty()){
-                String time=str.substring(str.lastIndexOf("|") + 2);
-                StringBuffer str2= new StringBuffer(time);
-                str2.delete(11,14);
-                ChangeDate date=new ChangeDate(str2.toString(),6);
+                        .method(Connection.Method.POST)
+                        .followRedirects(false)
+                        .data(data)
+                        .execute();
+        doc = response.parse();
+        Elements elements = doc.select(".search_Community ul li");
+        for (Element el : elements) {
+            PostEntity postEntity = PostEntity.builder()
+                    .site("보배드림")
+                    .title(el.select("dl dt").text())
+                    .url("https://www.bobaedream.co.kr" + el.select("dl > dt > a").attr("href"))
+                    .type(el.select("span.first").text())
+                    .build();
+
+            Document doc2 = Jsoup.connect(postEntity.getUrl())
+                    .ignoreHttpErrors(true)
+                    .get();
+
+            String str = doc2.select("span.countGroup").text();
+            if (!str.isEmpty()) {
+                String time = str.substring(str.lastIndexOf("|") + 2);
+                StringBuffer str2 = new StringBuffer(time);
+                str2.delete(11, 14);
+                ChangeDate date = new ChangeDate(str2.toString(), 6);
                 postEntity.setCreated_at(date.getLocalDateTime());
                 postEntity.setView(str.substring(3, str.indexOf("|") - 1));
-                }
-                postEntity.setAuthor(doc2.select("a.nickname").text());
-
-
-
-                list.add(postEntity);
             }
-        //}
+            postEntity.setAuthor(doc2.select("a.nickname").text());
+
+
+            list.add(postEntity);
+        }
         return list;
     }
 }

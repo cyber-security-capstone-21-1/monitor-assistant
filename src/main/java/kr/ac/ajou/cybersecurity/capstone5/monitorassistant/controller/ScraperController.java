@@ -31,7 +31,6 @@ public class ScraperController {
         sites.add(SiteMetaEntity.builder().code("CS09").name("와이고수").build());
         sites.add(SiteMetaEntity.builder().code("CS10").name("네이트판").build());
         sites.add(SiteMetaEntity.builder().code("CS11").name("루리웹").build());
-        sites.add(SiteMetaEntity.builder().code("CS12").name("에펨코리아").build());
         sites.add(SiteMetaEntity.builder().code("CS13").name("MLB파크").build());
         sites.add(SiteMetaEntity.builder().code("CS14").name("인스티즈").build());
         sites.add(SiteMetaEntity.builder().code("CS15").name("해연갤").build());
@@ -70,9 +69,7 @@ public class ScraperController {
             scraper.setScraperType(new NatePannScraper());
         } else if (siteId.equals("CS11")) {
             scraper.setScraperType(new RuliwebScraper());
-        } else if (siteId.equals("CS12")) {
-            scraper.setScraperType(new FMKoreaScraper());
-        } else if (siteId.equals("CS13")) {
+        }  else if (siteId.equals("CS13")) {
             scraper.setScraperType(new MLBParkScraper());
         } else if (siteId.equals("CS14")) {
             scraper.setScraperType(new InstizScraper());

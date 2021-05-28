@@ -40,7 +40,7 @@ public class DogdripScraper implements Scraper {
                         .build();
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 String str = doc2.select("span.ed.margin-right-small > span.ed.text-xsmall.text-muted").text();
-                ChangeDate date=new ChangeDate(str.substring(0,str.indexOf("  ")),7);
+                ChangeDate date = new ChangeDate(str.substring(0, str.indexOf("  ")), 7);
                 postEntity.setCreated_at(date.getLocalDateTime());
                 postEntity.setView(str.substring(str.indexOf("  ") + 2));
 

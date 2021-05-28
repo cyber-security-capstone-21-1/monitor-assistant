@@ -34,7 +34,7 @@ public class PpomppuScraper implements Scraper {
                     .url("http://www.ppomppu.co.kr/" + el.select("span.title > a").attr("href"))
                     .build();
             String str = el.select(".desc").text();
-            if(!str.isEmpty()) {
+            if (!str.isEmpty()) {
                 postEntity.setType(str.substring(1, str.indexOf("]")));
                 postEntity.setView(str.substring(str.indexOf(":") + 1, str.indexOf(":") + 3));
             }
@@ -42,7 +42,7 @@ public class PpomppuScraper implements Scraper {
             postEntity.setAuthor(doc2.select(".view_name").text());
             /* **** DATE 객체 변환  */
             String str2 = doc2.select(".sub-top-text-box").text();
-            if(!str2.equals("")) {
+            if (!str2.equals("")) {
                 ChangeDate date = new ChangeDate(str2.substring(str2.indexOf("등록일:") + 5, str2.indexOf("조회수:") - 1), 2);
                 postEntity.setCreated_at(date.getLocalDateTime());
             }

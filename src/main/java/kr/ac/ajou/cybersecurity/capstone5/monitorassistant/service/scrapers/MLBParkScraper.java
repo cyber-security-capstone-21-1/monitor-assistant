@@ -20,7 +20,7 @@ public class MLBParkScraper implements Scraper {
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
-        Document doc = Jsoup.connect( MLBPARRK_CRAWL_DATA_URL + keyword)
+        Document doc = Jsoup.connect(MLBPARRK_CRAWL_DATA_URL + keyword)
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                 .referrer("http://mlbpark.donga.com/")
                 .get();
@@ -38,11 +38,11 @@ public class MLBParkScraper implements Scraper {
 
             if (!postEntity.getAuthor().equals("엠팍제휴팀")) {
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                String time=doc2.select("div.text3 > span.val").text();
-                //postEntity.setContent(doc2.select("div#contentDetail").html());
-                if(!time.equals("")){
-               ChangeDate fun= new ChangeDate(time,2);
-               postEntity.setCreated_at(fun.getLocalDateTime());
+                String time = doc2.select("div.text3 > span.val").text();
+
+                if (!time.equals("")) {
+                    ChangeDate fun = new ChangeDate(time, 2);
+                    postEntity.setCreated_at(fun.getLocalDateTime());
                 }
                 list.add(postEntity);
             }
