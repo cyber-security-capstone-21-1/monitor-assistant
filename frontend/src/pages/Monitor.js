@@ -141,7 +141,7 @@ function Monitor(props) {
               html: `
               <img src='data:image/png;base64,${res}' style="width:60em;" />
             `,
-              footer: `<a href=${item.url}>본문으로 이동</a>`,
+              footer: `<span style="cursor: pointer;" onclick="openInNewTab('${item.url}');">본문으로 이동</span>`,
             },
             {
               title: "첩보 제목 입력",
@@ -224,10 +224,7 @@ function Monitor(props) {
                           item.created_at = new Date();
                           item.uid = uid;
                           console.log("intelligence 콜 : ", item);
-                          axios.post(
-                              `${Constants.SPRING_BACKEND.APIs.INTLIST}`,
-                              item)
-                            .then((result) => {
+                          axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`,item).then((result) => {
                               Swal.close();
                             })
                             .catch((e) => {
