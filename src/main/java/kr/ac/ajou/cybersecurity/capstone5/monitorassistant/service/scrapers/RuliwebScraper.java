@@ -22,42 +22,31 @@ public class RuliwebScraper implements Scraper {
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
         Document doc;
-        //for(int i = 0; i < 1; i++) {
-            Connection.Response response =
-                    Jsoup.connect(RULIWEB_CRAWL_DATA_URL + keyword + "&page=" + (1))
-                            .userAgent("Mozilla")
-                            .referrer("www.google.com")
-                            .followRedirects(false)
-                            .execute();
-            doc = response.parse();
-        
-            Elements elements = doc.select("tr.table_body");
-            for (Element el : elements) {
-                if (el.select("td.divsn.text_over").text().equals("")) continue;
-                ChangeDate date = new ChangeDate(el.select("td.time").text(),9);
-                PostEntity postEntity = PostEntity.builder()
-                        .author(el.select(".name").text())
-                        .site("루리웹")
-                        .title(el.select("a.deco").text())
-                        .url(el.select("a.deco").attr("href"))
-                        .author(el.select("td.writer.text_over").text())
-                        .view(el.select("td.hit span").text())
-                        .created_at(date.getLocalDateTime())
-                        .type(el.select("td.divsn.text_over").text())
-                        .build();
+        Connection.Response response =
+                Jsoup.connect(RULIWEB_CRAWL_DATA_URL + keyword + "&page=" + (1))
+                        .userAgent("Mozilla")
+                        .referrer("www.google.com")
+                        .followRedirects(false)
+                        .execute();
+        doc = response.parse();
 
-//                Document doc2 = Jsoup.connect(postEntity.getUrl())
-//                        .followRedirects(false)
-//                        .ignoreHttpErrors(true)
-//                        .get();
-//                System.out.println("루리웹 제목 리스트 : "+ postEntity.getTitle());
-                //String str = doc2.select("span.regdate").text();
-//                if(!str.isEmpty()){
-//                ChangeDate fun= new ChangeDate(doc2.select("span.regdate").text(),5);
-//                postEntity.setCreated_at(fun.getLocalDateTime());}
-                list.add(postEntity);
-            }
-        //}
+        Elements elements = doc.select("tr.table_body");
+        for (Element el : elements) {
+            if (el.select("td.divsn.text_over").text().equals("")) continue;
+            ChangeDate date = new ChangeDate(el.select("td.time").text(), 9);
+            PostEntity postEntity = PostEntity.builder()
+                    .author(el.select(".name").text())
+                    .site("루리웹")
+                    .title(el.select("a.deco").text())
+                    .url(el.select("a.deco").attr("href"))
+                    .author(el.select("td.writer.text_over").text())
+                    .view(el.select("td.hit span").text())
+                    .created_at(date.getLocalDateTime())
+                    .type(el.select("td.divsn.text_over").text())
+                    .build();
+
+            list.add(postEntity);
+        }
         return list;
     }
 }

@@ -31,12 +31,8 @@ public class ClienScraper implements Scraper {
                             .followRedirects(false)
                             .ignoreHttpErrors(true)
                             .execute();
-            System.out.println(response.header("location"));
             doc[i] = response.parse();
-            System.out.println("클리앙 : " +response.statusCode());
-            System.out.println("클리앙 : " +response.headers());
-            System.out.println("클리앙 : " +response.url());
-            System.out.println("클리앙 : " +doc[i].html());
+
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
@@ -49,6 +45,7 @@ public class ClienScraper implements Scraper {
                         .build();
                 ChangeDate fun = new ChangeDate(el.select(".timestamp").text(), 1);
                 postEntity.setCreated_at(fun.getLocalDateTime());
+
                 if (postEntity.getAuthor().equals("")) {
                     postEntity.setAuthor(el.select(".nickname img").attr("alt"));
                 }

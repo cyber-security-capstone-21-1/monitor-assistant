@@ -21,14 +21,15 @@ public class TodayhumorScraper implements Scraper {
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
-        Document[] doc = new Document[3];
-        for(int i = 0; i < 3; i++) {
+        Document[] doc = new Document[2];
+        for (int i = 0; i < 2; i++) {
             Connection.Response response =
                     Jsoup.connect(TodayHumor_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
             doc[i] = response.parse();
+
             Elements elements = doc[i].select(".table_list tbody tr");
             for (Element el : elements) {
                 if (!el.select(".name").text().equals("")) {
@@ -40,7 +41,7 @@ public class TodayhumorScraper implements Scraper {
                             .view(el.select(".hits").text())
                             .type(el.attr("class").substring(13))
                             .build();
-                    ChangeDate fun= new ChangeDate(el.select(".date").text(),3);
+                    ChangeDate fun = new ChangeDate(el.select(".date").text(), 3);
                     postEntity.setCreated_at(fun.getLocalDateTime());
                     list.add(postEntity);
                 }
