@@ -43,7 +43,6 @@ public class HygScraper implements Scraper {
                             .view(el.select("td.readed_count").text())
                             .build();
                     Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                    postEntity.setContent(doc2.select("div.readBody").html());
                 ChangeDate fun= new ChangeDate(doc2.select("div.dayACut.exBg1 > div.date").text(),4);
                 postEntity.setCreated_at(fun.getLocalDateTime());
                     list.add(postEntity);

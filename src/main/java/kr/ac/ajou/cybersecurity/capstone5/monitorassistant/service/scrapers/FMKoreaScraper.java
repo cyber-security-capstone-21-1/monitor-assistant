@@ -38,7 +38,6 @@ public class FMKoreaScraper implements Scraper {
                         .site("에펨코리아")
                         .title(el.select("dt a").text())
                         .url("https://www.fmkorea.com" + el.select("dt a").attr("href"))
-                        .content(el.select("dd").text())
                         .build();
                 ChangeDate fun= new ChangeDate(el.select(".time").text(),2);
                 postEntity.setCreated_at(fun.getLocalDateTime());
@@ -49,7 +48,6 @@ public class FMKoreaScraper implements Scraper {
                 String str = doc2.select(".side.fr").text();
                 String str2 = postEntity.getTitle();
                 postEntity.setView(str.substring(5,str.indexOf("추천")-1));
-                postEntity.setContent(doc2.select("div.rd_body.clear").html());
                 postEntity.setType(str2.substring(1,str2.indexOf("]")));
 
                 list.add(postEntity);

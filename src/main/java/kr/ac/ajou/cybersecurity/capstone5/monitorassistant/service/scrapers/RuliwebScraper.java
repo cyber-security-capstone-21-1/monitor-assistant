@@ -42,9 +42,8 @@ public class RuliwebScraper implements Scraper {
                         .view(el.select("td.hit span").text())
                         .type(el.select("td.divsn.text_over").text())
                         .build();
-
+                System.out.println(postEntity.getTitle());
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                postEntity.setContent(doc2.select("div.view_content").html());
                 ChangeDate fun= new ChangeDate(doc2.select("span.regdate").text(),5);
                 postEntity.setCreated_at(fun.getLocalDateTime());
                 list.add(postEntity);

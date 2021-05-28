@@ -29,9 +29,6 @@ public class TodayhumorScraper implements Scraper {
                             .referrer("www.google.com")
                             .execute();
             doc[i] = response.parse();
-            System.out.println("-----------------------------------------------");
-            System.out.println("오늘의 유머 html 받아오는지??"+doc[i].text());
-            System.out.println("-----------------------------------------------");
             Elements elements = doc[i].select(".table_list tbody tr");
             for (Element el : elements) {
                 if (!el.select(".name").text().equals("")) {
@@ -45,8 +42,6 @@ public class TodayhumorScraper implements Scraper {
                             .build();
                     ChangeDate fun= new ChangeDate(el.select(".date").text(),3);
                     postEntity.setCreated_at(fun.getLocalDateTime());
-                    Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                    postEntity.setContent(doc2.select("div.viewContent").html());
                     list.add(postEntity);
                 }
             }

@@ -39,7 +39,7 @@ public class MLBParkScraper implements Scraper {
             if (!postEntity.getAuthor().equals("엠팍제휴팀")) {
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 String time=doc2.select("div.text3 > span.val").text();
-                postEntity.setContent(doc2.select("div#contentDetail").html());
+                //postEntity.setContent(doc2.select("div#contentDetail").html());
                 if(!time.equals("")){
                ChangeDate fun= new ChangeDate(time,2);
                postEntity.setCreated_at(fun.getLocalDateTime());

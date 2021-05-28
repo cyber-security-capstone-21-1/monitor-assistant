@@ -29,7 +29,7 @@ public class NaverScraper implements Scraper {
                     .title(el.select(".api_txt_lines.total_tit").text())
                     .url(el.select(".api_txt_lines.total_tit").attr("href"))
                     .type(el.select(".sub_txt.sub_name").text())
-                    .content(el.select("div.total_wrap.api_ani_send").html())
+                    //.content(el.select("div.total_wrap.api_ani_send").html())
                     .build();
             list.add(postEntity);
         }

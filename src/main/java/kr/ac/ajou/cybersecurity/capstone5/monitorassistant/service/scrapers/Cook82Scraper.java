@@ -51,8 +51,6 @@ public class Cook82Scraper implements Scraper {
                         postEntity.setCreated_at(date.getLocalDateTime());
                     }
                     /* **** DATE 객체 변환  */
-                    Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                    postEntity.setContent(doc2.select("div#articleBody").html());
                     list.add(postEntity);
                 }
             }

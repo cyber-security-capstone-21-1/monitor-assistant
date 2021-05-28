@@ -45,7 +45,7 @@ public class BobaedreamScraper implements Scraper {
                             .followRedirects(true)
                             .data(data)
                             .execute();
-            System.out.println("보배드림 : " +response.statusCode()+ response.statusMessage());
+            //System.out.println("보배드림 : " +response.statusCode()+ response.statusMessage());
             doc[i] = response.parse();
             Elements elements = doc[i].select(".search_Community ul li");
             for (Element el : elements) {
@@ -59,7 +59,6 @@ public class BobaedreamScraper implements Scraper {
                 Document doc2 = Jsoup.connect(postEntity.getUrl())
                         .ignoreHttpErrors(true)
                         .get();
-                System.out.println(postEntity.getTitle());
                 String str = doc2.select("span.countGroup").text();
                 String time=str.substring(str.lastIndexOf("|") + 2);
                 StringBuffer str2= new StringBuffer(time);

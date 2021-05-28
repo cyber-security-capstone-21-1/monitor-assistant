@@ -34,7 +34,7 @@ public class HumorUniversityScraper implements Scraper {
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                 .execute();
 
-            System.out.println("웃긴대학 : " +response.statusCode()+ response.statusMessage());
+            //System.out.println("웃긴대학 : " +response.statusCode()+ response.statusMessage());
             doc[i] = response.parse();
             Elements elements = doc[i].select("div[style=margin:10px 0 0 0px;*margin: 0 0 0 0;] > table");
             for (Element el : elements) {

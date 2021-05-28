@@ -22,38 +22,33 @@ public class ClienScraper implements Scraper {
     public List<PostEntity> getPosts(String keyword) throws IOException {
 
         List<PostEntity> list = new ArrayList<>();
-        Document doc;
-
+        Document[] doc = new Document[3];
+        for (int i = 0; i < 3; i++) {
             Connection.Response response =
-                    Jsoup.connect(Clien_CRAWL_DATA_URL + keyword + "&sort=recency&p=" + 1 + "&boardCd=&isBoard=false")
+                    Jsoup.connect(Clien_CRAWL_DATA_URL + keyword + "&sort=recency&p=" + (i + 1) + "&boardCd=&isBoard=false")
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .ignoreHttpErrors(true)
                             .execute();
-            doc = response.parse();
-            Elements elements = doc.select(".list_item.symph_row.jirum");
+            doc[i] = response.parse();
+            Elements elements = doc[i].select(".list_item.symph_row.jirum");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
                         .author(el.select(".nickname").text())
                         .site("clien")
                         .title(el.select(".subject_fixed").text())
                         .url("https://www.clien.net" + el.select(".subject_fixed").attr("href"))
-                        .content(el.select(".preview").text())
                         .type(el.select(".shortname.fixed").text())
                         .view(el.select(".hit").text())
                         .build();
-                ChangeDate fun= new ChangeDate(el.select(".timestamp").text(),1);
+                ChangeDate fun = new ChangeDate(el.select(".timestamp").text(), 1);
                 postEntity.setCreated_at(fun.getLocalDateTime());
                 if (postEntity.getAuthor().equals("")) {
                     postEntity.setAuthor(el.select(".nickname img").attr("alt"));
                 }
-                Document doc2 = Jsoup.connect(postEntity.getUrl())
-                        .ignoreHttpErrors(true)
-                        .get();
-                postEntity.setContent(doc2.select("div.post_article").html());
                 list.add(postEntity);
             }
-
+        }
         return list;
     }
 }

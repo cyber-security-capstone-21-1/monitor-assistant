@@ -35,9 +35,6 @@ public class IntelligenceEntity implements Serializable {
     @Column(name = "author", length = 500)
     private String author;
 
-    @Column(name = "content", length = 500)
-    private String content;
-
     @Column(name = "created_at", length = 500)
     private LocalDateTime created_at;
 

@@ -37,7 +37,6 @@ public class NatePannScraper implements Scraper {
                         .site("네이트판")
                         .title(el.select(".subject").text())
                         .url("https://pann.nate.com" + el.select(".subject").attr("href"))
-                        .content(content_all)
                         .view(view.replaceAll("[^0-9]", ""))
                         .type(el.select(".t_talk").text())
                         .build();

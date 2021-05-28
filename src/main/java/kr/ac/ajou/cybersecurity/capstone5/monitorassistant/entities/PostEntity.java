@@ -18,7 +18,6 @@ public class PostEntity {
     private String view;
     private LocalDateTime created_at;
     private String author;
-    private String content;
     private String url;
     private String type;
 }

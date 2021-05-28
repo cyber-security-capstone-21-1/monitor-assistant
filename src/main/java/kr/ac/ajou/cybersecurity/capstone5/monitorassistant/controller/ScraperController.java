@@ -51,9 +51,7 @@ public class ScraperController {
         String statusText;
 
         ScraperService scraper = new ScraperService();
-        if (siteId.equals("CS01")) {
-            scraper.setScraperType(new NaverScraper());
-        } else if (siteId.equals("CS02")) {
+         if (siteId.equals("CS02")) {
             scraper.setScraperType(new IlbeScraper());
         } else if (siteId.equals("CS03")) {
             scraper.setScraperType(new BobaedreamScraper());

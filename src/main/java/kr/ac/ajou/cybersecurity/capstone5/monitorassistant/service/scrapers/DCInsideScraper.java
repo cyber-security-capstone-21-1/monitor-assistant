@@ -43,7 +43,6 @@ public class DCInsideScraper implements Scraper {
 
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 String view = doc2.select("span.gall_count").text();
-                postEntity.setContent(doc2.select(".writing_view_box").html());
                 postEntity.setAuthor(doc2.select(".nickname.in").attr("title"));
                 postEntity.setView(view.replaceAll("[^0-9]", ""));
 

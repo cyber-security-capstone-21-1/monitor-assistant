@@ -38,7 +38,6 @@ public class YgosuScraper implements Scraper {
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
                 String str = doc2.select("div.date").text();
                 String[] str2 = str.split(" /");
-                postEntity.setContent(doc2.select("div.container").html());
                 postEntity.setAuthor(doc2.select("div.nickname > a").text());
                 postEntity.setView(str2[1].substring(7));
                 ChangeDate fun= new ChangeDate(str2[0].substring(7),1);
