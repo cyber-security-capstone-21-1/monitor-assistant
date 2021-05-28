@@ -1,8 +1,11 @@
 package kr.ac.ajou.cybersecurity.capstone5.monitorassistant.service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 
 public class ChangeDate {
@@ -57,6 +60,20 @@ public class ChangeDate {
         else if(type==8){
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
             this.localDateTime = LocalDateTime.parse(str, formatter);
+        }
+        else if(type==9){
+            Date date = new Date();
+            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd");
+            String today = transFormat.format(date);
+            if(str.contains(":")){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.ddHH:mm");
+                this.localDateTime = LocalDateTime.parse(today+str, formatter);
+            }
+            else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+                LocalDate date2=LocalDate.parse(str,formatter);
+                this.localDateTime = date2.atStartOfDay();
+            }
         }
     }
     public LocalDateTime getLocalDateTime() {
