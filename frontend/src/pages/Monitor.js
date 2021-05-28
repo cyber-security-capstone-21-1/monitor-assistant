@@ -18,6 +18,12 @@ function Monitor(props) {
   const [result, setResult] = useState([]);
   const useinput = useRef();
 
+  const _imageEncode = (arrayBuffer) => {
+    let image = btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+    let mimetype = "image/png"
+    return `data:${mimetype};base64,${image}`
+  }
+
   useEffect(() => {
     async function getSiteList() {
       const sites = await axios.get("/api/monitor/");
@@ -115,12 +121,10 @@ function Monitor(props) {
     let res;
     let failMessage;
     Swal.showLoading();
-    // var encUrl = encodeURI(item.url);
-    // console.log(item.url)
-    // console.log(encUrl)
     await axios
       .get(
-        `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`
+        `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encodeURIComponent(item.url)}`,
+        { responseType: "arraybuffer" }
       )
       .then((response) => {
         res = response.data;
@@ -142,7 +146,7 @@ function Monitor(props) {
               title: `<header>${item.title}</header>`,
               width: "65em",
               html: `
-              <img src='data:image/png;base64,${res}' style="width:60em;" />
+              <img src='${_imageEncode(res)}' style="width:60em;" />
             `,
               footer: `<span style="cursor: pointer;" onClick=${()=> window.open(item.url, "_blank")}">본문으로 이동</span>`,
             },
