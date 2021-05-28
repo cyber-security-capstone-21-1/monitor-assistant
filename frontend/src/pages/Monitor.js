@@ -224,12 +224,9 @@ function Monitor(props) {
                           item.created_at = new Date();
                           item.uid = uid;
                           console.log("intelligence 콜 : ", item);
-                          delete item["view"];
-                          axios
-                            .post(
+                          axios.post(
                               `${Constants.SPRING_BACKEND.APIs.INTLIST}`,
-                              item
-                            )
+                              item)
                             .then((result) => {
                               Swal.close();
                             })
