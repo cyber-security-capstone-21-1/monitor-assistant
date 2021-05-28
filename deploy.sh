@@ -26,4 +26,5 @@ echo "Starting $JAR_NAME..."
 
 sudo nohup java -jar $REPOSITORY/$JAR_NAME \
 --spring.config.location="classpath:application.yml,file://$REPOSITORY/aws.yml" \
+-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2 \
 > /dev/null 2> /dev/null < /dev/null &
