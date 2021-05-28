@@ -227,7 +227,7 @@ function Monitor(props) {
                           console.log("스크린샷 : ", data);
                           item.created_at = new Date();
                           item.uid = uid;
-                          print("intelligence 콜 : ", item);
+                          console.log("intelligence 콜 : ", item);
                           delete item["view"];
                           axios
                             .post(
