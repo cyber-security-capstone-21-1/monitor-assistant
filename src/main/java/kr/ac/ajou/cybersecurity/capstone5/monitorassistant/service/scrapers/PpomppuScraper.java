@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class PpomppuScraper implements Scraper {
 
-    private static String PPOMPPU_CRAWL_DATA_URL = "http://www.ppomppu.co.kr/search_bbs.php?page_size=50&bbs_cate=2&order_type=date&search_type=sub_memo&keyword=";
+    private static String PPOMPPU_CRAWL_DATA_URL = "http://www.ppomppu.co.kr/search_bbs.php?page_size=20&bbs_cate=2&order_type=date&search_type=sub_memo&keyword=";
 
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
@@ -40,8 +40,6 @@ public class PpomppuScraper implements Scraper {
             }
             Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
             postEntity.setAuthor(doc2.select(".view_name").text());
-        
-
             /* **** DATE 객체 변환  */
             String str2 = doc2.select(".sub-top-text-box").text();
             if(!str2.equals("")) {

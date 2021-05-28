@@ -21,7 +21,6 @@ public class ScraperController {
     @GetMapping("/")
     public ResponseEntity<? extends BasicResponse> getSiteList() {
         List<SiteMetaEntity> sites = new ArrayList<>();
-        sites.add(SiteMetaEntity.builder().code("CS01").name("네이버").build());
         sites.add(SiteMetaEntity.builder().code("CS02").name("일간베스트").build());
         sites.add(SiteMetaEntity.builder().code("CS03").name("보배드림").build());
         sites.add(SiteMetaEntity.builder().code("CS04").name("클리앙").build());

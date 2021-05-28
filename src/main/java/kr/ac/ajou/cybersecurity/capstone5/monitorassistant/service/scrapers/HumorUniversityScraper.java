@@ -36,10 +36,9 @@ public class HumorUniversityScraper implements Scraper {
                     .execute();
 
             System.out.println("웃긴대학 : " +response.statusCode());
-
-
+            System.out.println("웃긴대학 : " +response.headers());
+            System.out.println("웃긴대학 : " +response.header("location"));
             doc[i] = response.parse();
-            System.out.println("웃긴대학 : " +doc[i].html());
             Elements elements = doc[i].select("div[style=margin:10px 0 0 0px;*margin: 0 0 0 0;] > table");
             for (Element el : elements) {
                 if (!el.select("a[style=text-decoration: underline;]").text().isEmpty()) {

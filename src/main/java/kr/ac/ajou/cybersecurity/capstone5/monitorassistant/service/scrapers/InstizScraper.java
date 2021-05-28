@@ -20,13 +20,13 @@ public class InstizScraper implements Scraper {
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
-        Document[] doc = new Document[3];
-        for (int i = 0; i < 3; i++) {
-            doc[i] = Jsoup.connect( INSTIZ_CRAWL_DATA_URL + (i+1) + "&category=1&k=" + keyword+"&stype=9#greentop")
+        Document doc ;
+
+            doc = Jsoup.connect( INSTIZ_CRAWL_DATA_URL +(1) + "&category=1&k=" + keyword+"&stype=9#greentop")
                     .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                     .referrer("www.google.com")
                     .get();
-            Elements elements = doc[i].select("#mainboard > tbody > tr");
+            Elements elements = doc.select("#mainboard > tbody > tr");
             for (Element el : elements) {
                 if(!el.select("span#subject").text().equals("")) {
                     PostEntity postEntity = PostEntity.builder()
@@ -46,7 +46,7 @@ public class InstizScraper implements Scraper {
                     list.add(postEntity);
                 }
             }
-        }
+
         return list;
     }
 }
