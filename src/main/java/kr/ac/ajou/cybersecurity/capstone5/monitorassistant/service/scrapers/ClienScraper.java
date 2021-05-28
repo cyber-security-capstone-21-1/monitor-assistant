@@ -32,6 +32,9 @@ public class ClienScraper implements Scraper {
                             .ignoreHttpErrors(true)
                             .execute();
             doc[i] = response.parse();
+            System.out.println("클리앙 : " +response.statusCode());
+            System.out.println("클리앙 : " +response.headers());
+            System.out.println("클리앙 : " +response.url());
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
