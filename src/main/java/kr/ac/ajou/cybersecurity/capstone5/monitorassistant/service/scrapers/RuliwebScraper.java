@@ -21,16 +21,16 @@ public class RuliwebScraper implements Scraper {
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
-        Document doc[] = new Document[3];
-        for(int i = 0; i < 3; i++) {
+        Document doc;
+        //for(int i = 0; i < 1; i++) {
             Connection.Response response =
                     Jsoup.connect(RULIWEB_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
                             .execute();
-            doc[i] = response.parse();
+            doc = response.parse();
 
-            Elements elements = doc[i].select("tr.table_body");
+            Elements elements = doc.select("tr.table_body");
             for (Element el : elements) {
                 if (el.select("td.divsn.text_over").text().equals("")) continue;
                 PostEntity postEntity = PostEntity.builder()
@@ -48,7 +48,7 @@ public class RuliwebScraper implements Scraper {
                 postEntity.setCreated_at(fun.getLocalDateTime());
                 list.add(postEntity);
             }
-        }
+        //}
         return list;
     }
 }
