@@ -42,7 +42,7 @@ public class BobaedreamScraper implements Scraper {
                             .header("Host","www.bobaedream.co.kr")
                             .ignoreHttpErrors(true)
                             .method(Connection.Method.POST)
-                            .followRedirects(true)
+                            .followRedirects(false)
                             .data(data)
                             .execute();
             //System.out.println("보배드림 : " +response.statusCode()+ response.statusMessage());

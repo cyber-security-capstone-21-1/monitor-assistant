@@ -28,7 +28,7 @@ public class ClienScraper implements Scraper {
                     Jsoup.connect(Clien_CRAWL_DATA_URL + keyword + "&sort=recency&p=" + (i + 1) + "&boardCd=&isBoard=false")
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
-                            .followRedirects(false)
+                            .followRedirects(true)
                             .ignoreHttpErrors(true)
                             .execute();
             doc[i] = response.parse();
