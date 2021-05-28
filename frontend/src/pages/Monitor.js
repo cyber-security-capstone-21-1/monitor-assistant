@@ -218,6 +218,7 @@ function Monitor(props) {
                         throw new Error("uid is null");
                       }
                       console.log("아카이버 결과", res.data.body);
+                      
                       axios
                         .post(
                           `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
