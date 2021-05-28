@@ -24,14 +24,15 @@ public class BobaedreamScraper implements Scraper {
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
-        Document[] doc = new Document[3];
+//        Document[] doc = new Document[3];
+        Document doc;
                  data.put("colle", "community");
                 data.put("searchField", "ALL");
                 data.put("sort", "DATE");
                 data.put("startDate", "");
                 data.put("keyword", keyword);
-        for(int i = 0; i < 3; i++) {
-            data.put("page", Integer.toString(i + 1));
+        //for(int i = 0; i < 1; i++) {
+            data.put("page", Integer.toString( 1));
             Connection.Response response =
                     Jsoup.connect(BOBAEDREAM_CRAWL_DATA_URL)
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
@@ -45,9 +46,8 @@ public class BobaedreamScraper implements Scraper {
                             .followRedirects(false)
                             .data(data)
                             .execute();
-            //System.out.println("보배드림 : " +response.statusCode()+ response.statusMessage());
-            doc[i] = response.parse();
-            Elements elements = doc[i].select(".search_Community ul li");
+            doc = response.parse();
+            Elements elements = doc.select(".search_Community ul li");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
                         .site("보배드림")
@@ -74,7 +74,7 @@ public class BobaedreamScraper implements Scraper {
 
                 list.add(postEntity);
             }
-        }
+        //}
         return list;
     }
 }
