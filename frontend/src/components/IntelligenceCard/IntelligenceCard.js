@@ -23,7 +23,7 @@ export default function IntelligenceCard ({ item, onRemove }) {
                 .then((result) => {
                     if (result.status === 200) {
                         history.push(`/service/intelligence/${uid}`);
-                        location.reload(true);
+                        window.location.reload(true);
                     }
                 })
                 .catch(console.error)

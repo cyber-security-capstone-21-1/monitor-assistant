@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   Font,
+  Link,
   View,
   Document,
   StyleSheet,
