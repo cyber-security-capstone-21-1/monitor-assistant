@@ -117,7 +117,8 @@ function Monitor(props) {
     Swal.showLoading();
     await axios
       .get(
-        `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encodeURIComponent(item.url)}`
+        `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encodeURIComponent(item.url)}`,
+        { responseType: "arraybuffer" }
       )
       .then((response) => {
         res = response.data;
@@ -139,7 +140,7 @@ function Monitor(props) {
               title: `<header>${item.title}</header>`,
               width: "65em",
               html: `
-              <img src='${Buffer.from(res, 'binary').toString('base64')}' style="width:60em;" />
+              <img src='${Buffer.from(res, 'base64')}' style="width:60em;" />
             `,
               footer: `<span style="cursor: pointer;" onClick=${()=> window.open(item.url, "_blank")}">본문으로 이동</span>`,
             },
