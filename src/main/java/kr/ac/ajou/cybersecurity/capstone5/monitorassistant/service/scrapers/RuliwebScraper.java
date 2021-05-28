@@ -27,6 +27,7 @@ public class RuliwebScraper implements Scraper {
                     Jsoup.connect(RULIWEB_CRAWL_DATA_URL + keyword + "&page=" + (1))
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                             .referrer("www.google.com")
+                            .followRedirects(false)
                             .execute();
             doc = response.parse();
 
@@ -42,8 +43,10 @@ public class RuliwebScraper implements Scraper {
                         .view(el.select("td.hit span").text())
                         .type(el.select("td.divsn.text_over").text())
                         .build();
-                System.out.println(postEntity.getTitle());
-                Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
+                Document doc2 = Jsoup.connect(postEntity.getUrl())
+                        .ignoreHttpErrors(true)
+                        .followRedirects(false)
+                        .get();
                 String str = doc2.select("span.regdate").text();
                 if(!str.isEmpty()){
                 ChangeDate fun= new ChangeDate(doc2.select("span.regdate").text(),5);
