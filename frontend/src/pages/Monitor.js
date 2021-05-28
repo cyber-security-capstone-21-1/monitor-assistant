@@ -139,7 +139,7 @@ function Monitor(props) {
               title: `<header>${item.title}</header>`,
               width: "65em",
               html: `
-              <img src='data:image/png;base64,${res}' style="width:60em;" />
+              <img src='${Buffer.from(res, 'binary').toString('base64')}' style="width:60em;" />
             `,
               footer: `<span style="cursor: pointer;" onClick=${()=> window.open(item.url, "_blank")}">본문으로 이동</span>`,
             },
