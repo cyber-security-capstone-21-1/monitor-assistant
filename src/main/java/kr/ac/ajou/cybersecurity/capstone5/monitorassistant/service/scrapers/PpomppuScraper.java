@@ -34,8 +34,10 @@ public class PpomppuScraper implements Scraper {
                     .url("http://www.ppomppu.co.kr/" + el.select("span.title > a").attr("href"))
                     .build();
             String str = el.select(".desc").text();
-            postEntity.setType(str.substring(1,str.indexOf("]")));
-            postEntity.setView(str.substring(str.indexOf(":") + 1, str.indexOf(":") + 3));
+            if(!str.isEmpty()) {
+                postEntity.setType(str.substring(1, str.indexOf("]")));
+                postEntity.setView(str.substring(str.indexOf(":") + 1, str.indexOf(":") + 3));
+            }
             Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
             postEntity.setAuthor(doc2.select(".view_name").text());
         
