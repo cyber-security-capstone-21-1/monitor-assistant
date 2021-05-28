@@ -141,7 +141,7 @@ function Monitor(props) {
               html: `
               <img src='data:image/png;base64,${res}' style="width:60em;" />
             `,
-              footer: `<span style="cursor: pointer;" onclick="openInNewTab('${item.url}');">본문으로 이동</span>`,
+              footer: `<span style="cursor: pointer;" onClick="${openInNewTab('item.url')}">본문으로 이동</span>`,
             },
             {
               title: "첩보 제목 입력",
