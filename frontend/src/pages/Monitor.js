@@ -121,6 +121,26 @@ function Monitor(props) {
     window.open(url, "_blank")
   }
 
+  const previewDialog = (isCS06, res, title, url) => {
+    if (isCS06) {
+      return {
+        title: `<header>${title}</header>`,
+        width: "65em",
+        html: `<p align=center>이 사이트는 미리보기를 지원하지 않습니다.</p>`,
+        footer: `<span style="cursor: pointer;" onClick=${()=>openUrl(url)}">본문으로 이동하기</span>`,
+      }
+    } else {
+      return {
+        title: `<header>${title}</header>`,
+        width: "65em",
+        html: `
+        <img src='${_imageEncode(res)}' style="width:60em;" />
+      `,
+        footer: `<span style="cursor: pointer;" onClick=${()=>openUrl(url)}">본문으로 이동하기</span>`,
+      }
+    }
+  }
+
   const openDialog = async (item) => {
     let res;
     let failMessage;
@@ -146,14 +166,7 @@ function Monitor(props) {
           showLoaderOnConfirm: true,
         })
           .queue([
-            {
-              title: `<header>${item.title}</header>`,
-              width: "65em",
-              html: `
-              <img src='${_imageEncode(res)}' style="width:60em;" />
-            `,
-              footer: `<span style="cursor: pointer;" onClick=${()=>openUrl(item.url)}">본문으로 이동하기</span>`,
-            },
+            previewDialog(item.url.includes("dogdrip"), res, title, url),
             {
               title: "첩보 제목 입력",
               input: "text",
