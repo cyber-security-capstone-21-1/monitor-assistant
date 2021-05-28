@@ -42,7 +42,6 @@ public class InstizScraper implements Scraper {
                 ChangeDate date =new ChangeDate(time.substring(0,19), 8);
 
                 postEntity.setCreated_at(date.getLocalDateTime());
-                //postEntity.setContent(doc2.select("div#memo_content_1").html());
 
                     list.add(postEntity);
                 }

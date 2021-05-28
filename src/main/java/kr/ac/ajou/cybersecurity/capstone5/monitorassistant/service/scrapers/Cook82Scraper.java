@@ -42,6 +42,7 @@ public class Cook82Scraper implements Scraper {
                             .url("https://www.82cook.com/entiz/" + el.select("td.title a").attr("href"))
                             .type("자유게시판")
                             .build();
+                    System.out.println(postEntity.getTitle());
                     if(!t.isEmpty()){
                         postEntity.setView(t.substring(t.lastIndexOf(" ")+1));
                     }

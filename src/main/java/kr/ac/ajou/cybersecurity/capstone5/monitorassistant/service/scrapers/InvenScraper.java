@@ -47,7 +47,6 @@ public class InvenScraper implements Scraper {
                             .ignoreHttpErrors(true)
                             .get();
                     if(!doc2.select("fiv.detailBody").text().contains("서비스 이용에 불편을 드려 대단히 죄송합니다.")) {
-                        //postEntity.setContent(doc2.select("div#powerbbsContent").html());
                         String time = doc2.select("div.articleDate").text();
                         postEntity.setAuthor(doc2.select("div.articleWriter").text());
                         if (!time.equals("")) {

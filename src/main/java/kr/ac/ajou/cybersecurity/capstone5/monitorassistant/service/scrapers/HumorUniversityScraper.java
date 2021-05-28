@@ -69,7 +69,6 @@ public class HumorUniversityScraper implements Scraper {
                     } else {
                         postEntity.setAuthor(author);
                     }
-                    postEntity.setContent(doc2.select("div#wrap_body").html());
                     list.add(postEntity);
                 }
             }
