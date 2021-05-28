@@ -177,7 +177,7 @@ export default function IntelligenceDocument({ content }) {
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷 주소</Text>
-            <Link style={styles.tableCellBody} wrap={true} src={`/archives/${content.uid}/screenshots/w_1920.png`}>{`/archives/${content.uid}/screenshots/w_1920.png`}</Link>
+            <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`}>{`/archives/${content.uid}/screenshots/w_1920.png`}</Link>
           </View>
           {/* End of Table */}
         </View>
