@@ -26,7 +26,7 @@ public class ClienScraper implements Scraper {
         for (int i = 0; i < 2; i++) {
             Connection.Response response =
                     Jsoup.connect(Clien_CRAWL_DATA_URL + keyword + "&sort=recency&p=" + (i + 1) + "&boardCd=&isBoard=false")
-                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                            .userAgent("Mozilla")
                             .referrer("www.google.com")
                             .followRedirects(false)
                             .ignoreHttpErrors(true)
@@ -35,6 +35,7 @@ public class ClienScraper implements Scraper {
             System.out.println("클리앙 : " +response.statusCode());
             System.out.println("클리앙 : " +response.headers());
             System.out.println("클리앙 : " +response.url());
+            System.out.println("클리앙 : " +doc[i].text());
             Elements elements = doc[i].select(".list_item.symph_row.jirum");
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
