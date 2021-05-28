@@ -115,12 +115,12 @@ function Monitor(props) {
     let res;
     let failMessage;
     Swal.showLoading();
-    console.log(item.url)
-    var encUrl = encodeURI(item.url);
-    console.log(encUrl)
+    // var encUrl = encodeURI(item.url);
+    // console.log(item.url)
+    // console.log(encUrl)
     await axios
       .get(
-        `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encUrl}`
+        `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${item.url}`
       )
       .then((response) => {
         res = response.data;
