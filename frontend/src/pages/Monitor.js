@@ -202,8 +202,7 @@ function Monitor(props) {
                 Swal.showLoading();
                 let uid;
                 axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
-                    url: item.url,
-                    timeout : 1000*120
+                    url: item.url
                   }).then((res) => {
                       console.log('아카이버 결과', res);
                       axios.post( `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
