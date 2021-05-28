@@ -18,6 +18,13 @@ function Monitor(props) {
   const [result, setResult] = useState([]);
   const useinput = useRef();
 
+  const _imageEncode = (arrayBuffer) {
+    let u8 = new Uint8Array(arrayBuffer)
+    let b64encoded = btoa([].reduce.call(new Uint8Array(arrayBuffer),function(p,c){return p+String.fromCharCode(c)},''))
+    let mimetype="image/jpeg"
+    return `data:${mimetype};base64,${b64encoded}`
+  }
+
   useEffect(() => {
     async function getSiteList() {
       const sites = await axios.get("/api/monitor/");
@@ -140,7 +147,7 @@ function Monitor(props) {
               title: `<header>${item.title}</header>`,
               width: "65em",
               html: `
-              <img src='${Buffer.from(res, 'base64')}' style="width:60em;" />
+              <img src='${_imageEncode(res)}' style="width:60em;" />
             `,
               footer: `<span style="cursor: pointer;" onClick=${()=> window.open(item.url, "_blank")}">본문으로 이동</span>`,
             },
