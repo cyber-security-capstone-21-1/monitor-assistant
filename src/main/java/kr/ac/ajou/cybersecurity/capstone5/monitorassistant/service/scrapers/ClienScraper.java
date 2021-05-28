@@ -31,6 +31,7 @@ public class ClienScraper implements Scraper {
                             .followRedirects(false)
                             .ignoreHttpErrors(true)
                             .execute();
+            System.out.println(response.header("location"));
             doc[i] = response.parse();
             System.out.println("클리앙 : " +response.statusCode());
             System.out.println("클리앙 : " +response.headers());
