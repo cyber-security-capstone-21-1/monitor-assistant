@@ -19,10 +19,9 @@ function Monitor(props) {
   const useinput = useRef();
 
   const _imageEncode = (arrayBuffer) => {
-    let u8 = new Uint8Array(arrayBuffer)
-    let b64encoded = btoa([].reduce.call(new Uint8Array(arrayBuffer),function(p,c){return p+String.fromCharCode(c)},''))
-    let mimetype="image/jpeg"
-    return `data:${mimetype};base64,${b64encoded}`
+    let image = btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+    let mimetype = "image/png"
+    return `data:${mimetype};base64,${image}`
   }
 
   useEffect(() => {
