@@ -66,9 +66,10 @@ public class BobaedreamScraper implements Scraper {
                 str2.delete(11,14);
                 ChangeDate date=new ChangeDate(str2.toString(),6);
                 postEntity.setCreated_at(date.getLocalDateTime());
+                postEntity.setView(str.substring(3, str.indexOf("|") - 1));
                 }
                 postEntity.setAuthor(doc2.select("a.nickname").text());
-                postEntity.setView(str.substring(3, str.indexOf("|") - 1));
+
 
 
                 list.add(postEntity);
