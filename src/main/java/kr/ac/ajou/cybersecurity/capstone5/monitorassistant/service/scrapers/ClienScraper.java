@@ -35,7 +35,7 @@ public class ClienScraper implements Scraper {
             for (Element el : elements) {
                 PostEntity postEntity = PostEntity.builder()
                         .author(el.select(".nickname").text())
-                        .site("clien")
+                        .site("클리앙")
                         .title(el.select(".subject_fixed").text())
                         .url("https://www.clien.net" + el.select(".subject_fixed").attr("href"))
                         .type(el.select(".shortname.fixed").text())

@@ -44,8 +44,10 @@ public class RuliwebScraper implements Scraper {
                         .build();
                 System.out.println(postEntity.getTitle());
                 Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
+                String str = doc2.select("span.regdate").text();
+                if(!str.isEmpty()){
                 ChangeDate fun= new ChangeDate(doc2.select("span.regdate").text(),5);
-                postEntity.setCreated_at(fun.getLocalDateTime());
+                postEntity.setCreated_at(fun.getLocalDateTime());}
                 list.add(postEntity);
             }
         //}
