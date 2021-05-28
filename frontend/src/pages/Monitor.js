@@ -111,6 +111,10 @@ function Monitor(props) {
     }
   };
 
+  const openUrl = (url) => {
+    window.open(url, "_blank")
+  }
+
   const openDialog = async (item) => {
     let res;
     let failMessage;
@@ -144,7 +148,7 @@ function Monitor(props) {
               html: `
               <img src='data:image/png;base64,${res}' style="width:60em;" />
             `,
-              footer: `<span style="cursor: pointer;" onClick=${()=> window.open(item.url, "_blank")}">본문으로 이동</span>`,
+              footer: `<span style="cursor: pointer;" onClick=${()=>openUrl(item.url)}">본문으로 이동하기</span>`,
             },
             {
               title: "첩보 제목 입력",
