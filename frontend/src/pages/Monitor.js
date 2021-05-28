@@ -204,10 +204,8 @@ function Monitor(props) {
                 axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, {
                     url: item.url,
                     timeout : 1000*120
-                  }).then(({ data: { body: { data }, }, } = res) => {
-                      uid = data.uid;
-                      console.log(res);
-                      console.log(uid);
+                  }).then((res) => {
+                      console.log('아카이버 결과', res);
                       axios.post( `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
                         .then(({ data }) => {
                           console.log("스크린샷 : ", data);
