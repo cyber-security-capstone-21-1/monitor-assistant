@@ -263,7 +263,7 @@ function Monitor(props) {
           Swal.fire({
             title: "오류 발생!",
             icon: "error",
-            html: "알 수 없는 에러가 발생하였습니다. 지속적으로 동일 현상이 발생하면 서버 관리자에게 문의해주세요.",
+            html: "알 수 없는 에러가 발생하였습니다. 지속적으로 동일 현상이 발생하면 서버 관리자에게 문의해주세요. Swal mixin 실패",
           });
         });
     }).catch(e => {
@@ -271,8 +271,9 @@ function Monitor(props) {
       Swal.fire({
         title: "오류 발생!",
         icon: "error",
-        html: "데이터를 불러올 수 없습니다!",
+        html: "데이터를 불러올 수 없습니다! preview 실패",
       });
+      console.log('preview 실패 : ',e);
     })
   };
 
