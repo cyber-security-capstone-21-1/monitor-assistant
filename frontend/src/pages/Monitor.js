@@ -18,7 +18,7 @@ function Monitor(props) {
   const [result, setResult] = useState([]);
   const useinput = useRef();
 
-  const _imageEncode = (arrayBuffer) {
+  const _imageEncode = (arrayBuffer) => {
     let u8 = new Uint8Array(arrayBuffer)
     let b64encoded = btoa([].reduce.call(new Uint8Array(arrayBuffer),function(p,c){return p+String.fromCharCode(c)},''))
     let mimetype="image/jpeg"
