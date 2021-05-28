@@ -60,14 +60,15 @@ public class BobaedreamScraper implements Scraper {
                         .ignoreHttpErrors(true)
                         .get();
                 String str = doc2.select("span.countGroup").text();
+                if(!str.isEmpty()){
                 String time=str.substring(str.lastIndexOf("|") + 2);
                 StringBuffer str2= new StringBuffer(time);
                 str2.delete(11,14);
                 ChangeDate date=new ChangeDate(str2.toString(),6);
                 postEntity.setCreated_at(date.getLocalDateTime());
+                }
                 postEntity.setAuthor(doc2.select("a.nickname").text());
                 postEntity.setView(str.substring(3, str.indexOf("|") - 1));
-                postEntity.setContent(doc2.select("div.content02").html());
 
 
                 list.add(postEntity);
