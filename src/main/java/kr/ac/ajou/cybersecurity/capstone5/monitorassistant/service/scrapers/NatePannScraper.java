@@ -20,8 +20,8 @@ public class NatePannScraper implements Scraper {
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
         List<PostEntity> list = new ArrayList<>();
-        Document[] doc = new Document[3];
-        for (int i = 0; i < 3; i++) {
+        Document[] doc = new Document[2];
+        for (int i = 0; i < 2; i++) {
             doc[i] = Jsoup.connect(NATE_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
                     .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
                     .referrer("www.google.com")
@@ -30,7 +30,6 @@ public class NatePannScraper implements Scraper {
             Elements elements = doc[i].select(".s_list li");
             for (Element el : elements) {
                 Document doc_detail = Jsoup.connect("https://pann.nate.com" + el.select(".subject").attr("href")).get();
-                String content_all = doc_detail.select("#contentArea").html();
                 String view = doc_detail.select("div.info > span.count").text();
                 PostEntity postEntity = PostEntity.builder()
                         .author(el.select(".writer").text())
@@ -40,7 +39,7 @@ public class NatePannScraper implements Scraper {
                         .view(view.replaceAll("[^0-9]", ""))
                         .type(el.select(".t_talk").text())
                         .build();
-                if(!doc_detail.select("div.info > span.date").text().equals("")) {
+                if (!doc_detail.select("div.info > span.date").text().equals("")) {
                     ChangeDate fun = new ChangeDate(doc_detail.select("div.info > span.date").text(), 4);
                     postEntity.setCreated_at(fun.getLocalDateTime());
                 }

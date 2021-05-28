@@ -21,7 +21,6 @@ public class ScraperController {
     @GetMapping("/")
     public ResponseEntity<? extends BasicResponse> getSiteList() {
         List<SiteMetaEntity> sites = new ArrayList<>();
-        sites.add(SiteMetaEntity.builder().code("CS01").name("네이버").build());
         sites.add(SiteMetaEntity.builder().code("CS02").name("일간베스트").build());
         sites.add(SiteMetaEntity.builder().code("CS03").name("보배드림").build());
         sites.add(SiteMetaEntity.builder().code("CS04").name("클리앙").build());
@@ -32,13 +31,12 @@ public class ScraperController {
         sites.add(SiteMetaEntity.builder().code("CS09").name("와이고수").build());
         sites.add(SiteMetaEntity.builder().code("CS10").name("네이트판").build());
         sites.add(SiteMetaEntity.builder().code("CS11").name("루리웹").build());
-        sites.add(SiteMetaEntity.builder().code("CS12").name("에펨코리아").build());
         sites.add(SiteMetaEntity.builder().code("CS13").name("MLB파크").build());
         sites.add(SiteMetaEntity.builder().code("CS14").name("인스티즈").build());
         sites.add(SiteMetaEntity.builder().code("CS15").name("해연갤").build());
         sites.add(SiteMetaEntity.builder().code("CS16").name("인벤").build());
         sites.add(SiteMetaEntity.builder().code("CS17").name("82cook").build());
-        sites.add(SiteMetaEntity.builder().code("CS18").name("웃긴대학").build());
+
         return ResponseEntity.ok().body(new CommonResponse<List<SiteMetaEntity>>(sites, "ok"));
     }
 
@@ -71,9 +69,7 @@ public class ScraperController {
             scraper.setScraperType(new NatePannScraper());
         } else if (siteId.equals("CS11")) {
             scraper.setScraperType(new RuliwebScraper());
-        } else if (siteId.equals("CS12")) {
-            scraper.setScraperType(new FMKoreaScraper());
-        } else if (siteId.equals("CS13")) {
+        }  else if (siteId.equals("CS13")) {
             scraper.setScraperType(new MLBParkScraper());
         } else if (siteId.equals("CS14")) {
             scraper.setScraperType(new InstizScraper());
@@ -83,8 +79,6 @@ public class ScraperController {
             scraper.setScraperType(new InvenScraper());
         } else if (siteId.equals("CS17")) {
             scraper.setScraperType(new Cook82Scraper());
-        } else if (siteId.equals("CS18")) {
-            scraper.setScraperType(new HumorUniversityScraper());
         }
         else {
             return ResponseEntity.notFound().build();

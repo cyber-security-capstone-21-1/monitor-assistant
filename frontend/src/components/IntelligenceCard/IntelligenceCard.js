@@ -23,10 +23,10 @@ export default function IntelligenceCard ({ item, onRemove }) {
                 .then((result) => {
                     if (result.status === 200) {
                         history.push(`/service/intelligence/${uid}`);
+                        window.location.reload(true);
                     }
                 })
                 .catch(console.error)
-                .finally(Swal.close());
             }
           });
     }

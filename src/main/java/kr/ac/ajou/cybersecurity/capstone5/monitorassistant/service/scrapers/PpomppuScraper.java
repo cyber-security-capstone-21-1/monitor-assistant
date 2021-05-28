@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class PpomppuScraper implements Scraper {
 
-    private static String PPOMPPU_CRAWL_DATA_URL = "http://www.ppomppu.co.kr/search_bbs.php?page_size=50&bbs_cate=2&order_type=date&search_type=sub_memo&keyword=";
+    private static String PPOMPPU_CRAWL_DATA_URL = "http://www.ppomppu.co.kr/search_bbs.php?page_size=20&bbs_cate=2&order_type=date&search_type=sub_memo&keyword=";
 
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException {
@@ -34,17 +34,15 @@ public class PpomppuScraper implements Scraper {
                     .url("http://www.ppomppu.co.kr/" + el.select("span.title > a").attr("href"))
                     .build();
             String str = el.select(".desc").text();
-            if(!str.isEmpty()) {
+            if (!str.isEmpty()) {
                 postEntity.setType(str.substring(1, str.indexOf("]")));
                 postEntity.setView(str.substring(str.indexOf(":") + 1, str.indexOf(":") + 3));
             }
             Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
             postEntity.setAuthor(doc2.select(".view_name").text());
-        
-
             /* **** DATE 객체 변환  */
             String str2 = doc2.select(".sub-top-text-box").text();
-            if(!str2.equals("")) {
+            if (!str2.equals("")) {
                 ChangeDate date = new ChangeDate(str2.substring(str2.indexOf("등록일:") + 5, str2.indexOf("조회수:") - 1), 2);
                 postEntity.setCreated_at(date.getLocalDateTime());
             }

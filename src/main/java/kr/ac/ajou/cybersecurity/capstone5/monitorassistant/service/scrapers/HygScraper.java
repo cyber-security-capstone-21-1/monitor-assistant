@@ -22,9 +22,9 @@ public class HygScraper implements Scraper {
     @Override
     public List<PostEntity> getPosts(String keyword) throws IOException, ParseException {
         List<PostEntity> list = new ArrayList<>();
-        Document doc[] = new Document[3];
+        Document doc[] = new Document[2];
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             Connection.Response response =
                     Jsoup.connect(HYG_CRAWL_DATA_URL + keyword + "&page=" + (i + 1))
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
@@ -33,8 +33,9 @@ public class HygScraper implements Scraper {
             doc[i] = response.parse();
 
             Elements elements = doc[i].select("tr.docList.exBg0");
+
             for (Element el : elements) {
-                if(!el.select("td.title").text().equals("")) {
+                if (!el.select("td.title").text().equals("")) {
                     PostEntity postEntity = PostEntity.builder()
                             .site("해연갤")
                             .title(el.select("td.title").text())
@@ -43,8 +44,8 @@ public class HygScraper implements Scraper {
                             .view(el.select("td.readed_count").text())
                             .build();
                     Document doc2 = Jsoup.connect(postEntity.getUrl()).get();
-                ChangeDate fun= new ChangeDate(doc2.select("div.dayACut.exBg1 > div.date").text(),4);
-                postEntity.setCreated_at(fun.getLocalDateTime());
+                    ChangeDate date = new ChangeDate(doc2.select("div.dayACut.exBg1 > div.date").text(), 4);
+                    postEntity.setCreated_at(date.getLocalDateTime());
                     list.add(postEntity);
                 }
             }
