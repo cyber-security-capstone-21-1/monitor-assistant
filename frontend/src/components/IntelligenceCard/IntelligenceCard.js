@@ -26,7 +26,6 @@ export default function IntelligenceCard ({ item, onRemove }) {
                     }
                 })
                 .catch(console.error)
-                .finally(Swal.close());
             }
           });
     }
