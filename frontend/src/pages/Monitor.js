@@ -166,7 +166,7 @@ function Monitor(props) {
           showLoaderOnConfirm: true,
         })
           .queue([
-            previewDialog(item.url.includes("dogdrip"), res, title, url),
+            previewDialog(item.url.includes("dogdrip"), res, item.title, item.url),
             {
               title: "첩보 제목 입력",
               input: "text",
