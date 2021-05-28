@@ -25,12 +25,12 @@ public class RuliwebScraper implements Scraper {
         //for(int i = 0; i < 1; i++) {
             Connection.Response response =
                     Jsoup.connect(RULIWEB_CRAWL_DATA_URL + keyword + "&page=" + (1))
-                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36")
+                            .userAgent("Mozilla")
                             .referrer("www.google.com")
                             .followRedirects(false)
                             .execute();
             doc = response.parse();
-
+        
             Elements elements = doc.select("tr.table_body");
             for (Element el : elements) {
                 if (el.select("td.divsn.text_over").text().equals("")) continue;
