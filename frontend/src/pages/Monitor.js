@@ -206,11 +206,10 @@ function Monitor(props) {
                 didOpen: async () => {
                   Swal.showLoading();
                   let uid;
-                  axios
-                    .post(
-                      `${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`,
-                      { url: item.url }
-                    )
+                  const requestArchive = axios.create();
+                  requestArchive.defaults.timeout = 1000 * 60 * 2;
+                  requestArchive.post(
+                      `${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url })
                     .then((res) => {
                       const data = res.data.body.data;
                       uid = data.uid;
@@ -218,12 +217,8 @@ function Monitor(props) {
                         throw new Error("uid is null");
                       }
                       console.log("아카이버 결과", res.data.body);
-                      
-                      axios
-                        .post(
-                          `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`,
-                          { url: item.url, uid: data.uid }
-                        )
+
+                      axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
                         .then(({ data }) => {
                           console.log("스크린샷 : ", data);
                           item.created_at = new Date();
