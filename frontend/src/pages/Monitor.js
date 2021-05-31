@@ -123,7 +123,7 @@ function Monitor(props) {
         title: `<header>${title}</header>`,
         width: "65em",
         html: `<p align=center>이 사이트는 미리보기를 지원하지 않습니다.</p>`,
-        footer: `<span style="cursor: pointer;" onClick=${()=>openUrl(url)}">본문으로 이동하기</span>`,
+        footer: `<a href=${url}">본문으로 이동하기</a>`,
       }
     } else {
       return {
@@ -132,7 +132,7 @@ function Monitor(props) {
         html: `
         <img src='${_imageEncode(res)}' style="width:60em;" />
       `,
-        footer: `<span style="cursor: pointer;" onClick={{window.open(${item.url}, "_blank")}}>본문으로 이동하기</span>`,
+        footer: `<a target="_blank" href=${url}>본문으로 이동하기</a>`,
       }
     }
   }
