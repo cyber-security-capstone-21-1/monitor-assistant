@@ -14,8 +14,10 @@ function Viewer({ match: { params: { uid } }}) {
 
   useEffect(() => {
     async function getIntelligence() {
-      const request = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`);
-      setIntelligence(request.data.data);
+      axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`)
+        .then(({ data: { data } }) => {
+          setIntelligence(data);
+        });
     }
     getIntelligence();
   }, []);
