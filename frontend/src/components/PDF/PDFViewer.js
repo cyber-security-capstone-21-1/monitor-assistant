@@ -16,7 +16,6 @@ function Viewer({ match: { params: { uid } }}) {
     async function getIntelligence() {
       axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`)
         .then(({ data: { data } }) => {
-          console.log(data);
           setIntelligence(data);
         });
     }
