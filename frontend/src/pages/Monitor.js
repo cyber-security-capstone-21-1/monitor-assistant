@@ -18,12 +18,6 @@ function Monitor(props) {
   const [result, setResult] = useState([]);
   const useinput = useRef();
 
-  const _imageEncode = (arrayBuffer) => {
-    let image = btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''))
-    let mimetype = "image/png"
-    return `data:${mimetype};base64,${image}`
-  }
-
   useEffect(() => {
     async function getSiteList() {
       const sites = await axios.get("/api/monitor/");
@@ -117,7 +111,7 @@ function Monitor(props) {
     }
   };
 
-  const previewDialog = (isCS06, imageBuffer, title, url) => {
+  const previewDialog = (isCS06, imageSrc, title, url) => {
     if (isCS06) {
       return {
         title: `<header>${title}</header>`,
@@ -130,7 +124,7 @@ function Monitor(props) {
         title: `<header>${title}</header>`,
         width: "65em",
         html: `
-        <img src='${_imageEncode(imageBuffer)}' style="width:60em;" />
+        <img src='${imageSrc}' style="width:60em;" />
       `,footer: `<a target="_blank" href=${url}>본문으로 이동하기</a>`,
       }
     }
@@ -142,7 +136,7 @@ function Monitor(props) {
     Swal.showLoading();
     await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encodeURIComponent(item.url)}`)
       .then(async ({ data: { url } }) => {
-        const image = await axios.get(url, {responseType: 'arraybuffer'}).data;
+        const image = await axios.get(url).data.url;
       
         Swal.close();
         Swal.mixin({
