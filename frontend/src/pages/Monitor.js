@@ -238,10 +238,18 @@ function Monitor(props) {
                       }
                       console.log("아카이버 결과", res.data.body);
 
-                      axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
+                      //axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
+                      axios.get("/api/archive?url=URL&uid=UID")
                         .then(({ data }) => {
                           console.log("스크린샷 : ", data);
-                          item.created_at = new Date();
+                          const curr = new Date();
+                          const utc = 
+                                curr.getTime() + 
+                                (curr.getTimezoneOffset() * 60 * 1000);
+                          const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+                          const kr_curr = 
+                                new Date(utc + (KR_TIME_DIFF));
+                          item.created_at = kr_curr;
                           item.uid = uid;
                           console.log("intelligence 콜 : ", item);
                           axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`,item).then((result) => {
