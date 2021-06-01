@@ -221,8 +221,9 @@ function Monitor(props) {
                 didOpen: async () => {
                   Swal.showLoading();
                   let uid = uuidv4();
-                  const requestArchive = axios.create();
-                  requestArchive.defaults.timeout = 1000 * 60 * 2;
+                  const requestArchive = axios.create({
+                    timeout : 60000
+                  });
                   requestArchive.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}?url=${encodeURIComponent(item.url)}&uid=${uid}`).then((res) => {
                       console.log("[Archive Success] : ", res);
                     }).catch((e) => {
