@@ -13,7 +13,7 @@ import {
 import Logo from "@/assets/images/logo.png";
 import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/assets/fonts/IBMPlexSansKR";
 
-export default function IntelligenceDocument({ content }) {
+export default function IntelligenceDocument({ content, image }) {
 
   Font.register({
     family: "IBMPlexSansKR",
@@ -109,35 +109,14 @@ export default function IntelligenceDocument({ content }) {
             {/* Header */}
             <Text style={styles.tableCellHead}>첩보명</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>학폭 사건의 피해 호소 주장 글로 의심되는 게시물 게재 관련</Text>
-          </View>
-          {/* Row */}
-          <View style={styles.tableRow}>
-            {/* Header */}
-            <Text style={styles.tableCellHead}>수사관</Text>
-            {/* Body */}
-            <Text style={styles.tableCellBody}>전지원 (대원)</Text>
-          </View>
-          {/* Row */}
-          <View style={styles.tableRow}>
-            {/* Header */}
-            <Text style={styles.tableCellHead}>첩보 유형</Text>
-            {/* Body */}
-            <Text style={styles.tableCellBody}>피해 호소 주장</Text>
+            <Text style={styles.tableCellBody}>{content.intelligence_title}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
             <Text style={styles.tableCellHead}>관련 법률</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>정보통신망법 > ...</Text>
-          </View>
-          {/* Row */}
-          <View style={styles.tableRow}>
-            {/* Header */}
-            <Text style={styles.tableCellHead}>게시물명</Text>
-            {/* Body */}
-            <Text style={styles.tableCellBody}>{content.title}</Text>
+            <Text style={styles.tableCellBody}>{content.crime_type}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
@@ -145,6 +124,13 @@ export default function IntelligenceDocument({ content }) {
             <Text style={styles.tableCellHead}>사이트</Text>
             {/* Body */}
             <Text style={styles.tableCellBody}>{content.site}</Text>
+          </View>
+          {/* Row */}
+          <View style={styles.tableRow}>
+            {/* Header */}
+            <Text style={styles.tableCellHead}>게시물명</Text>
+            {/* Body */}
+            <Text style={styles.tableCellBody}>{content.title}</Text>
           </View>
           {/* Row */}
           <View style={styles.tableRow}>
@@ -163,21 +149,23 @@ export default function IntelligenceDocument({ content }) {
           {/* Row */}
           <View style={styles.tableRow}>
             {/* Header */}
+            <Text style={styles.tableCellHead}>첩보 내용</Text>
+            {/* Body */}
+            <Text style={styles.tableCellBody}>{content.action_plan}</Text>
+          </View>
+          <View style={styles.tableRow}>
+            {/* Header */}
             <Text style={styles.tableCellHead}>URL</Text>
             {/* Body */}
             <Text style={styles.tableCellBody}>{content.url}</Text>
           </View>
           {/* Row */}
-          <View style={styles.tableRow}>
-            {/* Header */}
-            <Text style={styles.tableCellHead}>첩보 내용</Text>
-            {/* Body */}
-            <Text style={styles.tableCellBody}>{content.action_plan}</Text>
-          </View>
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷 주소</Text>
-            <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`}>{`/archives/${content.uid}/screenshots/w_1920.png`}</Link>
+            <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`}>
+              <Image src={image} />
+            </Link>
           </View>
           {/* End of Table */}
         </View>
