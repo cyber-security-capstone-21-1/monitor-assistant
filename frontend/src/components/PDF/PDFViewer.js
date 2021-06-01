@@ -10,20 +10,12 @@ import "./PDFViewer.scss";
 
 function Viewer({ match: { params: { uid } }}) {
   const [PDFBinary, setPDFBinary] = useState("");
-  const [base64Image, setBase64Image] = useState("");
   const [Intelligence, setIntelligence] = useState({});
 
   useEffect(() => {
     async function getIntelligence() {
       const request = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`);
       setIntelligence(request.data.data);
-      axios.get(`https://monitor-assistant.com/archives/${request.data.data.uid}/screenshots/w_1920.png`, {
-        responseType: 'arraybuffer'
-      })
-        .then(({ data }) => {
-          setBase64Image(Buffer.from(data, 'base64'));
-          alert(base64Image);
-        });
     }
     getIntelligence();
   }, []);
@@ -37,7 +29,7 @@ function Viewer({ match: { params: { uid } }}) {
         style={{ width: "100%", minHeight: "1000px" }}
       ></iframe>
       <hr />
-      <PDFDownloadLink document={<IntelligenceDocument content={Intelligence} image={base64Image} />} fileName={`intelligence-${uid}.pdf`}>
+      <PDFDownloadLink document={<IntelligenceDocument content={Intelligence} />} fileName={`intelligence-${uid}.pdf`}>
         {
           ({ blob, url, loading, error }) => {
             setPDFBinary(url);
