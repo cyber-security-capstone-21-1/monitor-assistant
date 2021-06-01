@@ -166,6 +166,7 @@ export default function IntelligenceDocument({ content }) {
             <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`}>
               {content.uid}
             </Link>
+            <Image src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`} />
           </View>
           {/* End of Table */}
         </View>
