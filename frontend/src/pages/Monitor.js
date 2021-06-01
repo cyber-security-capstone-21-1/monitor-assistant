@@ -131,7 +131,7 @@ function Monitor(props) {
         width: "65em",
         html: `
         <img src='${_imageEncode(res)}' style="width:60em;" />
-      `,
+      `,dhd
         footer: `<span style="cursor: pointer;" onClick={{window.open(${item.url}, "_blank")}}>본문으로 이동하기</span>`,
       }
     }
