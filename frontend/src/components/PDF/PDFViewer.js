@@ -21,6 +21,7 @@ function Viewer({ match: { params: { uid } }}) {
         responseType: 'arraybuffer'
       });
       setBase64Image(Buffer.from(base64Screenshot.data, 'base64'));
+      console.log(base64Image);
     }
     getIntelligence();
   }, []);
