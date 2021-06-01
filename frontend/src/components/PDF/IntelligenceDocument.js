@@ -162,26 +162,37 @@ export default function IntelligenceDocument({ content }) {
           {/* Row */}
           {/* Screenshot */}
           <View style={styles.tableRow}>
-            <Text style={styles.tableCellHead}>스크린샷 주소</Text>
+            <Text style={styles.tableCellHead}>스크린샷 주소 (1920px)</Text>
             <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`}>
               {`/archives/${content.uid}/screenshots/w_1920.png`}
             </Link>
+          </View>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCellHead}>스크린샷 주소 (1024px)</Text>
             <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1024.png`}>
               {`/archives/${content.uid}/screenshots/w_1024.png`}
             </Link>
+          </View>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCellHead}>스크린샷 주소 (960px)</Text>
             <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_960.png`}>
               {`/archives/${content.uid}/screenshots/w_960.png`}
             </Link>
+          </View>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCellHead}>스크린샷 주소 (800px)</Text>
             <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_800.png`}>
               {`/archives/${content.uid}/screenshots/w_800.png`}
             </Link>
           </View>
-          <View style={styles.tableRow}>
-            <Image src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_800.png`} alt="Screenshot" />
-          </View>
           {/* End of Table */}
         </View>
         {/* End of Content */}
+      </Page>
+      <Page wrap={false} style={styles.pageDefault}>
+        <View style={styles.tableRow}>
+          <Image src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_800.png`} alt="Screenshot" />
+        </View>
       </Page>
     </Document>
   );
