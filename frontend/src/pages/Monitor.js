@@ -141,7 +141,7 @@ function Monitor(props) {
     let failMessage;
     Swal.showLoading();
     await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encodeURIComponent(item.url)}`)
-      .then(({ data: { url } }) => {
+      .then(async ({ data: { url } }) => {
         const image = await axios.get(url, {responseType: 'arraybuffer'}).data;
       
         Swal.close();
