@@ -29,10 +29,7 @@ function Viewer({ match: { params: { uid } }}) {
         style={{ width: "100%", minHeight: "1000px" }}
       ></iframe>
       <hr />
-      <PDFDownloadLink
-        document={<IntelligenceDocument content={Intelligence} />}
-        fileName={`intelligence-${uid}.pdf`}
-      >
+      <PDFDownloadLink document={<IntelligenceDocument content={Intelligence} />} fileName={`intelligence-${uid}.pdf`}>
         {
           ({ blob, url, loading, error }) => {
             setPDFBinary(url);

@@ -123,7 +123,7 @@ function Monitor(props) {
         title: `<header>${title}</header>`,
         width: "65em",
         html: `<p align=center>이 사이트는 미리보기를 지원하지 않습니다.</p>`,
-        footer: `<span style="cursor: pointer;" onClick=${()=>openUrl(url)}">본문으로 이동하기</span>`,
+        footer: `<a href=${url}">본문으로 이동하기</a>`,
       }
     } else {
       return {
@@ -131,8 +131,7 @@ function Monitor(props) {
         width: "65em",
         html: `
         <img src='${_imageEncode(res)}' style="width:60em;" />
-      `,dhd
-        footer: `<span style="cursor: pointer;" onClick={{window.open(${item.url}, "_blank")}}>본문으로 이동하기</span>`,
+      `,footer: `<a target="_blank" href=${url}>본문으로 이동하기</a>`,
       }
     }
   }
@@ -141,11 +140,7 @@ function Monitor(props) {
     let res;
     let failMessage;
     Swal.showLoading();
-    await axios
-      .get(
-        `${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encodeURIComponent(item.url)}`,
-        { responseType: "arraybuffer" }
-      )
+    await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encodeURIComponent(item.url)}`, { responseType: "arraybuffer" })
       .then((response) => {
         res = response.data;
         Swal.close();
@@ -225,46 +220,66 @@ function Monitor(props) {
                 allowOutsideClick: false,
                 didOpen: async () => {
                   Swal.showLoading();
-                  let uid;
+                  let uid = uuidv4();
                   const requestArchive = axios.create();
                   requestArchive.defaults.timeout = 1000 * 60 * 2;
-                  requestArchive.post(
-                      `${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url })
-                    .then((res) => {
-                      const data = res.data.body.data;
-                      uid = data.uid;
-                      if (data === undefined) {
-                        throw new Error("uid is null");
-                      }
-                      console.log("아카이버 결과", res.data.body);
+                  requestArchive.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}?url=${encodeURIComponent(item.url)}&uid=${uid}`).then((res) => {
+                      console.log("[Archive Success] : ", res);
+                    }).catch((e) => {
+                      console.log('[Archive Failed] ',e);
 
-                      axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: data.uid })
-                        .then(({ data }) => {
-                          console.log("스크린샷 : ", data);
-                          item.created_at = new Date();
-                          item.uid = uid;
-                          console.log("intelligence 콜 : ", item);
-                          axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`,item).then((result) => {
-                              Swal.close();
-                            })
-                            .catch((e) => {
-                              success = false;
-                              failMessage = "intelligence 저장 실패";
-                              Swal.close();
-                            });
-                        })
-                        .catch((e) => {
-                          success = false;
-                          failMessage = "스크린샷 실패";
-                          Swal.close();
-                        });
-                    })
-                    .catch((e) => {
-                      success = false;
-                      failMessage = "아카이브 실패";
-                      console.log(e);
-                      Swal.close();
+                      //실패 관련 알림창 띄워주기
+                      const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener("mouseenter", Swal.stopTimer);
+                          toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                      });
+                      Toast.fire({
+                        icon: "error",
+                        title: "아카이버 실패",
+                      });
                     });
+
+                    axios.post(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOOTER}`, { url: item.url, uid: uid })
+                    .then(({ data }) => {
+                      console.log("[ScreenShot Success] : ", data);
+                      
+                    }).catch((e) => {
+                      console.log('[Screenshot Failed] ',e);
+
+                      const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener("mouseenter", Swal.stopTimer);
+                          toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                      });
+                      Toast.fire({
+                        icon: "error",
+                        title: "스크린샷 실패",
+                      });
+                    });
+
+                    item.uid = uid;
+                    console.log("[intelligence call] : ", item);
+                    axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`,item).then((result) => {
+                          console.log(result)
+                          Swal.close();
+                      }).catch((e) => {
+                        success = false;
+                        failMessage = "intelligence 저장 실패";
+                        Swal.close();
+                      });
                 },
                 willClose: () => {
                   if (success) {
