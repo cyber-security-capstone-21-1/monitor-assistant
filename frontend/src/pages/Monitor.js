@@ -136,7 +136,7 @@ function Monitor(props) {
     Swal.showLoading();
     await axios.get(`${Constants.AWS.STAGE}${Constants.AWS.APIs.SCREENSHOTPREVIEW}${encodeURIComponent(item.url)}`)
       .then(async ({ data: { url } }) => {
-        const image = await axios.get(url).data.url;
+        const image = await axios.get(url).data;
       
         Swal.close();
         Swal.mixin({
