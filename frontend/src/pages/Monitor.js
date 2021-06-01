@@ -228,7 +228,7 @@ function Monitor(props) {
                   let uid;
                   const requestArchive = axios.create();
                   requestArchive.defaults.timeout = 1000 * 60 * 2;
-                  requestArchive.get(
+                  requestArchive.post(
                       `${Constants.AWS.STAGE}${Constants.AWS.APIs.ARCHIVER}`, { url: item.url })
                     .then((res) => {
                       const data = res.data.body.data;
