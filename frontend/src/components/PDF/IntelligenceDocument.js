@@ -157,13 +157,14 @@ export default function IntelligenceDocument({ content }) {
             {/* Header */}
             <Text style={styles.tableCellHead}>URL</Text>
             {/* Body */}
-            <Text style={styles.tableCellBody}>{content.url}</Text>
+            <Text style={styles.tableCellBody} wrap={true}>{content.url}</Text>
           </View>
           {/* Row */}
           {/* Screenshot */}
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷 주소</Text>
             <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`}>
+              {content.uid}
             </Link>
           </View>
           {/* End of Table */}
