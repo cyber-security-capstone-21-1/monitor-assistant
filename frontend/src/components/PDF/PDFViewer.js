@@ -17,11 +17,13 @@ function Viewer({ match: { params: { uid } }}) {
     async function getIntelligence() {
       const request = await axios.get(`${Constants.SPRING_BACKEND.APIs.INTLIST}/${uid}`);
       setIntelligence(request.data.data);
-      const base64Screenshot = await axios.get(`https://monitor-assistant.com/archives/${request.data.data.uid}/screenshots/w_1920.png`, {
+      axios.get(`https://monitor-assistant.com/archives/${request.data.data.uid}/screenshots/w_1920.png`, {
         responseType: 'arraybuffer'
-      });
-      setBase64Image(Buffer.from(base64Screenshot.data, 'base64'));
-      console.log(base64Image);
+      })
+        .then(({ data }) => {
+          setBase64Image(Buffer.from(data, 'base64'));
+          alert(base64Image);
+        });
     }
     getIntelligence();
   }, []);
