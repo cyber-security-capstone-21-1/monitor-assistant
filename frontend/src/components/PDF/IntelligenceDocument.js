@@ -13,7 +13,7 @@ import {
 import Logo from "@/assets/images/logo.png";
 import { ExtraLight, Light, RText, Medium, SemiBold, Bold, Regular } from "@/assets/fonts/IBMPlexSansKR";
 
-export default function IntelligenceDocument({ content, image }) {
+export default function IntelligenceDocument({ content }) {
 
   Font.register({
     family: "IBMPlexSansKR",
@@ -164,7 +164,7 @@ export default function IntelligenceDocument({ content, image }) {
           <View style={styles.tableRow}>
             <Text style={styles.tableCellHead}>스크린샷 주소</Text>
             <Link style={styles.tableCellBody} wrap={true} src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`}>
-              <Image src={image} />
+              <Image src={`https://monitor-assistant.com/archives/${content.uid}/screenshots/w_1920.png`} />
             </Link>
           </View>
           {/* End of Table */}
