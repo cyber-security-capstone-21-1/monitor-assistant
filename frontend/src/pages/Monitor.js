@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-<<<<<<< HEAD
-// import moment from "moment-timezone";
-=======
->>>>>>> 31138b4b8c0681e7a88b400c340b31e864d85eed
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
