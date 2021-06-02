@@ -32,29 +32,29 @@
 
 [DevOps]
 
-- RDS (Database)
+- AWS RDS (Database)
 
-- EC2 (with Elastic L7 Load Balancer (ALB))
+- AWS EC2 (with Elastic L7 Load Balancer (ALB))
 
-- Lambda
+- AWS Lambda
 
-- API Gateway
+- AWS API Gateway
 
-- Cloudfront
+- AWS Cloudfront
 
 - ACM (Amazon Certificate Manager)
 
-- Route53
+- AWS Route53
 
 - Github Actions / AWS CodeDeploy (CI/CD)
 
-- S3 (Static Web Hosting + Assets Storage)
+- AWS S3 (Static Web Hosting + Assets Storage)
 
-- Elasticsearch Service (ELK Stack - Analytics)
+- AWS Elasticsearch Service (ELK Stack - Analytics)
 
-- Cloudwatch (Logging)
+- AWS Cloudwatch (Logging)
 
-- IAM (Identity / Access Management)
+- AWS IAM (Identity / Access Management)
 
 
 ### APIs
