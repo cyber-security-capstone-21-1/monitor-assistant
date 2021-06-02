@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import moment from "moment-timezone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import Constants from "@/shared/constants";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import uuidv4 from "@/shared/services/uuid";
-
 
 import "./Monitor.scss";
 
@@ -19,6 +17,11 @@ function Monitor(props) {
   const [siteList, setSiteList] = useState([]);
   const [result, setResult] = useState([]);
   const useinput = useRef();
+
+  Date.prototype.addHours= function(h){
+    this.setHours(this.getHours()+h);
+    return this;
+  }
 
   useEffect(() => {
     async function getSiteList() {
@@ -267,10 +270,8 @@ function Monitor(props) {
                     });
 
                     item.uid = uid;
+                    item.created_at = new Date().addHours(9);
 
-                    let dateFormat = moment().tz("Asia/Seoul").format();
-                    item.created_at = new Date(dateFormat);
-                    
                     console.log("[intelligence call] : ", item);
                     axios.post(`${Constants.SPRING_BACKEND.APIs.INTLIST}`,item).then((result) => {
                           console.log(result)
