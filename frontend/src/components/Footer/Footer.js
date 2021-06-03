@@ -16,7 +16,7 @@ function Footer (props) {
             </p>
             <div className="divider"></div>
             <div className="notice">
-              <span>&copy; 경찰청. 시스템의 외부 유출을 금합니다.</span>
+              <span>해당 사이트는 프로토타입으로, 실제 현장에서 사용되지 않습니다.</span>
             </div>
           </div>
           <div className="pull-right">
