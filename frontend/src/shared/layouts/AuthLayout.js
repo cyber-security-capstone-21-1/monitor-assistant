@@ -35,7 +35,10 @@ export default function AuthLayout({ children }) {
             <form className="form form__auth">
                 { children }
             </form>
-            <footer className="footer footer__auth">&copy; 2021 경찰청. 사이버보안캡스톤디자인 5조.</footer>
+            <footer className="footer footer__auth">
+                <span>&copy; 2021 사이버보안캡스톤디자인 5조.</span><br />
+                <span>이 사이트는 프로토타입으로, 실제 현장에서 사용하지 않습니다.</span>
+            </footer>
         </section>
     );
 }

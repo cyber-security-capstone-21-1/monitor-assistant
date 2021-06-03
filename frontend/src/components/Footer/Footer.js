@@ -7,7 +7,7 @@ function Footer (props) {
       <div className="row">
         <div className="container">
           <div className="pull-left">
-            <div className="symbol"></div>
+            {/* <div className="symbol"></div> */}
           </div>
           <div className="pull-left">
             <p id="footer__title">
